@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Life of our Shoes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Cradle to Grave</p>
+      <h1>The Life <em>of our Shoes</em></h1>
+<div class="hero-img-stack">
+  <img src="grasstest.png" alt="" class="hero-grass" />
+  <img src="shoetest.png" alt="A blue high-top sneaker" class="hero-shoe-img" />
+</div>
+      <p class="hero-sub">From raw material to landfill and everything inbetween </p>
+      <a href="#timeline" class="cta-btn">Begin the Journey ↓</a>
+    </div>
+  </section>
+
+  <!-- TIMELINE NAV -->
+  <nav id="stage-nav">
+    <ul>
+      <li><a href="#materials" class="nav-dot active" data-label="Materials"></a></li>
+      <li><a href="#manufacturing" class="nav-dot" data-label="Manufacturing"></a></li>
+      <li><a href="#transport" class="nav-dot" data-label="Transport"></a></li>
+      <li><a href="#use" class="nav-dot" data-label="Use &amp; Care"></a></li>
+      <li><a href="#end" class="nav-dot" data-label="End of Life"></a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN TIMELINE -->
+  <main id="timeline">
+
+    <!-- STAGE 1: MATERIALS -->
+    <section class="stage" id="materials" data-stage="1">
+      <div class="stage-number">01</div>
+      <div class="stage-content">
+        <span class="stage-tag">Raw Materials</span>
+        <h2>Born from the Earth</h2>
+        <p>A single pair of sneakers can contain over <strong>65 different materials</strong> — rubber from Southeast Asian plantations, synthetic leather derived from crude oil, cotton, polyester, foam, and metal eyelets sourced from multiple continents.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">65+</span>
+            <span class="stat-label">Materials per pair</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">~13kg</span>
+            <span class="stat-label">CO₂ to produce materials</span>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <span>Environmental impact</span>
+          <div class="bar"><div class="fill" style="width: 40%"></div></div>
+        </div>
+      </div>
+      <div class="stage-icon">🌿</div>
+    </section>
+
+    <!-- STAGE 2: MANUFACTURING -->
+    <section class="stage" id="manufacturing" data-stage="2">
+      <div class="stage-number">02</div>
+      <div class="stage-content">
+        <span class="stage-tag">Manufacturing</span>
+        <h2>Assembled by Hand</h2>
+        <p>Most shoes are still assembled by hand in factories across Asia. A single shoe can involve <strong>360+ individual steps</strong>. Factories consume significant energy and produce wastewater from dyeing and chemical treatment processes.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">360+</span>
+            <span class="stat-label">Assembly steps</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">~8kg</span>
+            <span class="stat-label">Additional CO₂</span>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <span>Environmental impact</span>
+          <div class="bar"><div class="fill" style="width: 65%"></div></div>
+        </div>
+      </div>
+      <div class="stage-icon">🏭</div>
+    </section>
+
+    <!-- STAGE 3: TRANSPORT -->
+    <section class="stage" id="transport" data-stage="3">
+      <div class="stage-number">03</div>
+      <div class="stage-content">
+        <span class="stage-tag">Transport &amp; Retail</span>
+        <h2>Crossing the Globe</h2>
+        <p>Shoes travel an average of <strong>15,000 km</strong> by sea freight before reaching a store. Then another leg by truck to warehouses and retail. Packaging adds further material waste, though some brands are moving to recycled materials.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">15,000km</span>
+            <span class="stat-label">Average journey</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">~2kg</span>
+            <span class="stat-label">Transport CO₂</span>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <span>Environmental impact</span>
+          <div class="bar"><div class="fill" style="width: 25%"></div></div>
+        </div>
+      </div>
+      <div class="stage-icon">🚢</div>
+    </section>
+
+    <!-- STAGE 4: USE -->
+    <section class="stage" id="use" data-stage="4">
+      <div class="stage-number">04</div>
+      <div class="stage-content">
+        <span class="stage-tag">Use &amp; Care</span>
+        <h2>On Your Feet</h2>
+        <p>The average shoe is worn for just <strong>1–3 years</strong> before being discarded. Washing trainers in a machine releases microplastics into waterways. Proper care — hand washing, resoling, and repair — can double a shoe's lifespan.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">1–3 yrs</span>
+            <span class="stat-label">Average lifespan</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">~1,900</span>
+            <span class="stat-label">Microplastic fibres per wash</span>
+          </div>
+        </div>
+        <div class="tip-box">
+          💡 <strong>Tip:</strong> Use a laundry bag designed to capture microplastics when washing shoes.
+        </div>
+      </div>
+      <div class="stage-icon">👣</div>
+    </section>
+
+    <!-- STAGE 5: END OF LIFE -->
+    <section class="stage" id="end" data-stage="5">
+      <div class="stage-number">05</div>
+      <div class="stage-content">
+        <span class="stage-tag">End of Life</span>
+        <h2>The Final Step</h2>
+        <p>Around <strong>300 million pairs</strong> of shoes are thrown away each year in the US alone. Most end up in landfill where synthetic materials take up to 1,000 years to decompose. However, recycling programmes and bio-based materials are creating new paths forward.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="stat-num">300M</span>
+            <span class="stat-label">Pairs discarded/year (US)</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">1,000 yrs</span>
+            <span class="stat-label">To decompose in landfill</span>
+          </div>
+        </div>
+        <div class="impact-bar">
+          <span>Environmental impact</span>
+          <div class="bar"><div class="fill" style="width: 90%"></div></div>
+        </div>
+        <div class="tip-box">
+          ♻️ <strong>Better choice:</strong> Donate, repair, or look for brand take-back recycling schemes.
+        </div>
+      </div>
+      <div class="stage-icon">🌍</div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>A project exploring the environmental footprint of footwear.</p>
+    <p class="footer-small">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; Hosted on GitHub Pages</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
