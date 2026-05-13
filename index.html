@@ -234,7 +234,7 @@ body {
 .panel-info-box {
   position: absolute;
   top: 50%;
-  left: 48%;
+  left: 55%;
   transform: translateY(-50%);
   width: min(320px, 30vw);
   background: var(--surface);
@@ -402,11 +402,12 @@ body {
     <div id="journey-sticky">
       <div id="journey-track">
 
-        <!-- PANEL 1: Sourcing — trees.png fills the panel and is clickable -->
+        <!-- PANEL 1: Sourcing — trees.png and tree2.png side by side -->
         <div class="panel" id="panel-0">
-          <a class="panel-img-link" data-modal="sourcing" role="button" tabindex="0" aria-label="Learn about Sourcing" style="justify-content:flex-start;padding-left:6%;">
-            <img src="trees.png" alt="Trees — raw material sourcing" />
-          </a>
+          <div class="panel-img-link" data-modal="sourcing" role="button" tabindex="0" aria-label="Learn about Sourcing" style="justify-content:flex-start; padding-left:0%; gap: 0%;">
+            <img src="trees.png" alt="Trees — raw material sourcing" style="width:42%; max-width:none;" />
+            <img src="tree2.png" alt="Second tree — raw material sourcing" style="width:42%; max-width:none; margin-left:-20%;" />
+          </div>
           <div class="panel-info-box" id="sourcing-info">
             <h3>Sourcing</h3>
             <p>workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function. </p>
@@ -454,25 +455,12 @@ body {
   <script>
 /* =============================================
    PANEL HOTSPOT DATA
-   Add an entry here for each hotspot you place.
-   The key matches the data-modal attribute on the .hotspot div.
-   Also used by the clickable panel image links.
    ============================================= */
 var panelData = {
   sourcing: {
     heading: 'Sourcing',
     body: 'Your research and words here.'
   }
-  /* Example entries — replace with your real content:
-  s1: {
-    heading: 'Cotton farming',
-    body: 'Your research and words here.'
-  },
-  m1: {
-    heading: 'Vulcanisation',
-    body: 'Your research and words here.'
-  }
-  */
 };
 
 /* =============================================
@@ -609,18 +597,14 @@ if (shoeCanvas) {
 
 /* =============================================
    SOURCING INFO BOX — scroll-driven
-   Shows when panel 0 is roughly centred, hides otherwise.
    ============================================= */
 var sourcingInfo = document.getElementById('sourcing-info');
 
 function updateInfoBox(progress) {
   if (!sourcingInfo) return;
-  /* progress 0 = panel 0, 0.25 = panel 1, etc. (5 panels → step 0.25)
-     Show when progress is between 0.08 and 0.18 (mid-panel 0), hide outside */
   var show = progress >= 0.03 && progress <= 0.18;
   sourcingInfo.classList.toggle('visible', show);
 }
-
 
 var journey     = document.getElementById('journey');
 var track       = document.getElementById('journey-track');
