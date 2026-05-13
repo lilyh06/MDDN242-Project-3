@@ -4,174 +4,682 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Life of Our Shoes</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+/* =============================================
+   shoes — style.css
+   ============================================= */
+
+:root {
+  --bg:           #000000;
+  --surface:      #161612;
+  --border:       #271d28;
+  --accent:       #2b3180;
+  --accent2:      #ffbb00;
+  --text:         #8b90d9;
+  --muted:        #5c6096;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono:    'Inter', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─────────────────────────────────────────────
+   HERO — restored to original style
+───────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 4rem 2rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+  text-align: center;
+}
+
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 60%, rgba(200,240,74,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(240,168,60,0.06) 0%, transparent 50%);
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 600px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.2rem;
+  display: block;
+}
+
+#hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.1;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+#hero h1 em { font-style: italic; color: var(--accent); }
+
+.hero-sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 400px;
+  margin-bottom: 2.5rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 0.75rem 1.8rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+.cta-btn:hover { background: var(--accent); color: var(--bg); }
+
+/* hero shoe canvas */
+.hero-img-stack {
+  position: relative;
+  width: min(600px, 90vw);
+  margin: 1rem 0 2rem;
+
+}
+#shoeCanvas {
+  display: block;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 20px 60px rgba(18,79,165,0.12));
+  animation: float 6s ease-in-out infinite;
+}
+.hero-grass {
+  width: 115%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  transform: translateX(12.5%) scale(1.3);
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-18px); }
+}
+
+/* ─────────────────────────────────────────────
+   SHOE PART MODAL
+───────────────────────────────────────────── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 200;
+}
+.part-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 201;
+  width: min(560px, 90vw);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem 2rem;
+}
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none; border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--text); }
+.part-modal h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.part-modal p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+.stage-tag, .panel-tag { display: none !important; }
+.stage-tag-UNUSED, .panel-tag-UNUSED {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  border: 1px solid var(--accent2);
+  padding: 0.2rem 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+/* ─────────────────────────────────────────────
+   HORIZONTAL JOURNEY
+───────────────────────────────────────────── */
+#journey {
+  height: 600vh;
+  position: relative;
+}
+#journey-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+}
+#journey-track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+/* PANELS */
+.panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.panel::after {
+  content: '';
+  position: absolute;
+  top: 10%; right: 0;
+  width: 1px; height: 80%;
+  background: linear-gradient(to bottom, transparent, var(--border) 30%, var(--border) 70%, transparent);
+}
+.panel:nth-child(even) .panel-image { order: 2; }
+.panel:nth-child(even) .panel-text  { order: 1; }
+
+.panel-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--surface);
+}
+.img-placeholder {
+  width: 60%;
+  aspect-ratio: 1;
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem;
+}
+.panel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 2rem;
+}
+
+.panel-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 3.5rem;
+}
+.panel-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 1rem;
+  line-height: 1.15;
+}
+.panel-text p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  max-width: 420px;
+}
+
+.panel-number {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 10vw, 9rem);
+  font-weight: 700;
+  color: var(--border);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* PROGRESS BAR & DOTS */
+#journey-bar {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--border);
+  z-index: 10;
+}
+#journey-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent));
+}
+#journey-dots {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  z-index: 10;
+}
+.jdot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+}
+.jdot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.4);
+}
+#scroll-nudge {
+  position: absolute;
+  bottom: 1.4rem;
+  right: 2rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 1;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+#scroll-nudge.hide { opacity: 0; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+.footer-small { margin-top: 0.5rem; font-size: 0.7rem; opacity: 0.5; }
+
+/* MOBILE */
+@media (max-width: 700px) {
+  #journey { height: auto; }
+  #journey-sticky { position: relative; height: auto; overflow: visible; }
+  #journey-track { flex-direction: column; transform: none !important; }
+  .panel {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh auto;
+    height: auto;
+    min-height: 100vh;
+  }
+  .panel:nth-child(even) .panel-image { order: 0; }
+  .panel:nth-child(even) .panel-text  { order: 0; }
+  .panel::after { display: none; }
+  .panel-text { padding: 2.5rem 1.8rem 4rem; }
+  .panel-number { font-size: 5rem; }
+  #journey-dots, #scroll-nudge { display: none; }
+}
+
+/* shoe click hint */
+.shoe-hint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+}
+  </style>
 </head>
 <body>
 
-  <!-- HERO -->
+  <!-- HERO — original style restored -->
   <section id="hero">
     <div class="hero-inner">
       <p class="eyebrow">Cradle to Grave</p>
       <h1>The Life <em>of Our Shoes</em></h1>
-<div class="hero-img-stack">
-  <img src="grasstest.png" alt="" class="hero-grass" />
-  <img src="shoetest.png" alt="A blue high-top sneaker" class="hero-shoe-img" />
-</div>
-      <p class="hero-sub">From raw material to landfill and everything inbetween </p>
-      <a href="#timeline" class="cta-btn">Begin ↓</a>
+      <div class="hero-img-stack">
+        <canvas id="shoeCanvas"
+                aria-label="Interactive shoe diagram — click each part to learn more"></canvas>
+        <img src="grasstest.png" alt="" class="hero-grass" />
+      </div>
+      <p class="shoe-hint">click the shoe to find out more</p>
+      <p class="hero-sub">From raw material to landfill and everything inbetween</p>
     </div>
   </section>
 
-  <!-- TIMELINE NAV -->
-  <nav id="stage-nav">
-    <ul>
-      <li><a href="#materials" class="nav-dot active" data-label="Materials"></a></li>
-      <li><a href="#manufacturing" class="nav-dot" data-label="Manufacturing"></a></li>
-      <li><a href="#transport" class="nav-dot" data-label="Transport"></a></li>
-      <li><a href="#use" class="nav-dot" data-label="Use &amp; Care"></a></li>
-      <li><a href="#end" class="nav-dot" data-label="End of Life"></a></li>
-    </ul>
-  </nav>
+  <!-- SHOE PART MODAL -->
+  <div id="modalBackdrop" class="modal-backdrop"></div>
+  <div id="partModal" class="part-modal">
+    <button id="modalClose" class="modal-close" aria-label="Close">&#x2715;</button>
+    <span id="modalTag" style="display:none"></span>
+    <h2 id="modalHeading"></h2>
+    <p id="modalBody"></p>
+  </div>
 
-  <!-- MAIN TIMELINE -->
-  <main id="timeline">
+  <!-- HORIZONTAL JOURNEY -->
+  <div id="journey">
+    <div id="journey-sticky">
+      <div id="journey-track">
 
-    <!-- STAGE 1: MATERIALS -->
-    <section class="stage" id="materials" data-stage="1">
-      <div class="stage-number">01</div>
-      <div class="stage-content">
-        <span class="stage-tag">Raw Materials</span>
-        <h2>Born from the Earth</h2>
-        <p>A single pair of sneakers can contain over <strong>65 different materials</strong> — rubber from Southeast Asian plantations, synthetic leather derived from crude oil, cotton, polyester, foam, and metal eyelets sourced from multiple continents.</p>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num">65+</span>
-            <span class="stat-label">Materials per pair</span>
+        <div class="panel">
+          <div class="panel-image">
+            <div class="img-placeholder">Your image here</div>
           </div>
-          <div class="stat">
-            <span class="stat-num">~13kg</span>
-            <span class="stat-label">CO₂ to produce materials</span>
+          <div class="panel-text">
+            <h2>Sourcing</h2>
+            <p>words</p>
           </div>
         </div>
-        <div class="impact-bar">
-          <span>Environmental impact</span>
-          <div class="bar"><div class="fill" style="width: 40%"></div></div>
-        </div>
-      </div>
-      <div class="stage-icon">🌿</div>
-    </section>
 
-    <!-- STAGE 2: MANUFACTURING -->
-    <section class="stage" id="manufacturing" data-stage="2">
-      <div class="stage-number">02</div>
-      <div class="stage-content">
-        <span class="stage-tag">Manufacturing</span>
-        <h2>Assembled by Hand</h2>
-        <p>Most shoes are still assembled by hand in factories across Asia. A single shoe can involve <strong>360+ individual steps</strong>. Factories consume significant energy and produce wastewater from dyeing and chemical treatment processes.</p>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num">360+</span>
-            <span class="stat-label">Assembly steps</span>
+        <div class="panel">
+          <div class="panel-image">
+            <div class="img-placeholder">Your image here</div>
           </div>
-          <div class="stat">
-            <span class="stat-num">~8kg</span>
-            <span class="stat-label">Additional CO₂</span>
+          <div class="panel-text">
+            <h2>Manufacturing</h2>
+            <p>words</p>
           </div>
         </div>
-        <div class="impact-bar">
-          <span>Environmental impact</span>
-          <div class="bar"><div class="fill" style="width: 65%"></div></div>
-        </div>
-      </div>
-      <div class="stage-icon">🏭</div>
-    </section>
 
-    <!-- STAGE 3: TRANSPORT -->
-    <section class="stage" id="transport" data-stage="3">
-      <div class="stage-number">03</div>
-      <div class="stage-content">
-        <span class="stage-tag">Transport &amp; Retail</span>
-        <h2>Crossing the Globe</h2>
-        <p>Shoes travel an average of <strong>15,000 km</strong> by sea freight before reaching a store. Then another leg by truck to warehouses and retail. Packaging adds further material waste, though some brands are moving to recycled materials.</p>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num">15,000km</span>
-            <span class="stat-label">Average journey</span>
+        <div class="panel">
+          <div class="panel-image">
+            <div class="img-placeholder">Your image here</div>
           </div>
-          <div class="stat">
-            <span class="stat-num">~2kg</span>
-            <span class="stat-label">Transport CO₂</span>
+          <div class="panel-text">
+            <h2>Shipping</h2>
+            <p>research</p>
           </div>
         </div>
-        <div class="impact-bar">
-          <span>Environmental impact</span>
-          <div class="bar"><div class="fill" style="width: 25%"></div></div>
-        </div>
-      </div>
-      <div class="stage-icon">🚢</div>
-    </section>
 
-    <!-- STAGE 4: USE -->
-    <section class="stage" id="use" data-stage="4">
-      <div class="stage-number">04</div>
-      <div class="stage-content">
-        <span class="stage-tag">Use &amp; Care</span>
-        <h2>On Your Feet</h2>
-        <p>The average shoe is worn for just <strong>1–3 years</strong> before being discarded. Washing trainers in a machine releases microplastics into waterways. Proper care — hand washing, resoling, and repair — can double a shoe's lifespan.</p>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num">1–3 yrs</span>
-            <span class="stat-label">Average lifespan</span>
+        <div class="panel">
+          <div class="panel-image">
+            <div class="img-placeholder">Your image here</div>
           </div>
-          <div class="stat">
-            <span class="stat-num">~1,900</span>
-            <span class="stat-label">Microplastic fibres per wash</span>
+          <div class="panel-text">
+            <h2>Use</h2>
+            <p> research</p>
           </div>
         </div>
-        <div class="tip-box">
-          💡 <strong>Tip:</strong> Use a laundry bag designed to capture microplastics when washing shoes.
-        </div>
-      </div>
-      <div class="stage-icon">👣</div>
-    </section>
 
-    <!-- STAGE 5: END OF LIFE -->
-    <section class="stage" id="end" data-stage="5">
-      <div class="stage-number">05</div>
-      <div class="stage-content">
-        <span class="stage-tag">End of Life</span>
-        <h2>The Final Step</h2>
-        <p>Around <strong>300 million pairs</strong> of shoes are thrown away each year in the US alone. Most end up in landfill where synthetic materials take up to 1,000 years to decompose. However, recycling programmes and bio-based materials are creating new paths forward.</p>
-        <div class="stat-row">
-          <div class="stat">
-            <span class="stat-num">300M</span>
-            <span class="stat-label">Pairs discarded/year (US)</span>
+        <div class="panel">
+          <div class="panel-image">
+            <div class="img-placeholder">Your image here</div>
           </div>
-          <div class="stat">
-            <span class="stat-num">1,000 yrs</span>
-            <span class="stat-label">To decompose in landfill</span>
+          <div class="panel-text">
+            <h2>Afterlife</h2>
+            <p>words</p>
           </div>
         </div>
-        <div class="impact-bar">
-          <span>Environmental impact</span>
-          <div class="bar"><div class="fill" style="width: 90%"></div></div>
-        </div>
-        <div class="tip-box">
-          ♻️ <strong>Better choice:</strong> Donate, repair, or look for brand take-back recycling schemes.
-        </div>
-      </div>
-      <div class="stage-icon">🌍</div>
-    </section>
 
-  </main>
+      </div><!-- /journey-track -->
+      <div id="journey-bar"><div id="journey-fill"></div></div>
+      <nav id="journey-dots">
+        <button class="jdot active" data-index="0"></button>
+        <button class="jdot" data-index="1"></button>
+        <button class="jdot" data-index="2"></button>
+        <button class="jdot" data-index="3"></button>
+        <button class="jdot" data-index="4"></button>
+      </nav>
+      <p id="scroll-nudge">scroll to continue →</p>
+    </div>
+  </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>A project exploring the environmental footprint of footwear.</p>
     <p class="footer-small">Built with HTML · CSS · JavaScript &nbsp;|&nbsp; Hosted on GitHub Pages</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+/* =============================================
+   SHOE PART MODAL
+   ============================================= */
+var partData = {
+  sole: {
+    tag: 'Outsole',
+    heading: 'The Sole',
+    body: 'words research'
+  },
+  canvas: {
+    heading: 'The Canvas',
+    body: 'words words words'
+  },
+  laces: {
+    tag: 'Laces',
+    heading: 'The Laces/Eyelets',
+    body: 'more words and research and links to alternatives'
+  }
+};
+
+var modal    = document.getElementById('partModal');
+var backdrop = document.getElementById('modalBackdrop');
+var closeBtn = document.getElementById('modalClose');
+
+function openModal(part) {
+  var d = partData[part];
+  if (!d) return;
+  document.getElementById('modalTag').textContent     = d.tag;
+  document.getElementById('modalHeading').textContent = d.heading;
+  document.getElementById('modalBody').textContent    = d.body;
+  modal.style.display    = 'block';
+  backdrop.style.display = 'block';
+}
+function closeModal() {
+  modal.style.display    = 'none';
+  backdrop.style.display = 'none';
+}
+if (closeBtn) closeBtn.addEventListener('click', closeModal);
+if (backdrop) backdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+/* =============================================
+   CANVAS SHOE — loads all three layers,
+   sizes canvas to the image's natural dimensions,
+   hit-tests per pixel for accurate clicks
+   ============================================= */
+var shoeCanvas = document.getElementById('shoeCanvas');
+
+if (shoeCanvas) {
+  var ctx = shoeCanvas.getContext('2d');
+  var W = 0;
+  var H = 0;
+  var loadCount = 0;
+
+  var layers = [
+    { src: 'shoesole.png',   part: 'sole'   },
+    { src: 'shoecanvas.png', part: 'canvas' },
+    { src: 'shoelaces.png',  part: 'laces'  }
+  ];
+
+  function onAllLoaded() {
+    /* draw composited shoe */
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < layers.length; i++) {
+      if (layers[i].img) ctx.drawImage(layers[i].img, 0, 0, W, H);
+    }
+  }
+
+  for (var i = 0; i < layers.length; i++) {
+    (function(layer) {
+      var img = new Image();
+
+      img.onload = function() {
+        layer.img = img;
+
+        /* Set canvas size from first successfully loaded image */
+        if (W === 0 && img.naturalWidth > 0) {
+          W = img.naturalWidth;
+          H = img.naturalHeight;
+          shoeCanvas.width  = W;
+          shoeCanvas.height = H;
+        }
+
+        /* Offscreen canvas for pixel-accurate hit testing */
+        var off    = document.createElement('canvas');
+        off.width  = W || img.naturalWidth;
+        off.height = H || img.naturalHeight;
+        var offCtx = off.getContext('2d');
+        offCtx.drawImage(img, 0, 0, off.width, off.height);
+        layer.offCtx = offCtx;
+
+        loadCount++;
+        if (loadCount === layers.length) onAllLoaded();
+      };
+
+      img.onerror = function() {
+        console.warn('Shoe layer failed to load: ' + layer.src);
+        loadCount++;
+        if (loadCount === layers.length) onAllLoaded();
+      };
+
+      img.src = layer.src;
+    })(layers[i]);
+  }
+
+  function getHit(e) {
+    if (W === 0) return null;
+    var rect   = shoeCanvas.getBoundingClientRect();
+    var scaleX = W / rect.width;
+    var scaleY = H / rect.height;
+    var x = Math.round((e.clientX - rect.left) * scaleX);
+    var y = Math.round((e.clientY - rect.top)  * scaleY);
+    /* Check layers top → bottom, return first non-transparent hit */
+    for (var i = layers.length - 1; i >= 0; i--) {
+      if (!layers[i].offCtx) continue;
+      var px = layers[i].offCtx.getImageData(x, y, 1, 1).data;
+      if (px[3] > 20) return layers[i].part;
+    }
+    return null;
+  }
+
+  shoeCanvas.addEventListener('click', function(e) {
+    var hit = getHit(e);
+    if (hit) openModal(hit);
+  });
+
+  shoeCanvas.addEventListener('mousemove', function(e) {
+    shoeCanvas.style.cursor = getHit(e) ? 'pointer' : 'default';
+  });
+}
+
+/* =============================================
+   HORIZONTAL SCROLL — lerp for fluid motion
+   ============================================= */
+var journey     = document.getElementById('journey');
+var track       = document.getElementById('journey-track');
+var fillEl      = document.getElementById('journey-fill');
+var nudge       = document.getElementById('scroll-nudge');
+var dots        = document.querySelectorAll('.jdot');
+var panels      = document.querySelectorAll('.panel');
+var PANEL_COUNT = panels.length;
+var LERP        = 0.08;
+var currentX    = 0;
+var targetX     = 0;
+var nudgeHidden = false;
+
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+function getProgress() {
+  if (!journey) return 0;
+  var rect     = journey.getBoundingClientRect();
+  var total    = journey.offsetHeight - window.innerHeight;
+  var scrolled = -rect.top;
+  scrolled = Math.max(0, Math.min(total, scrolled));
+  return total > 0 ? scrolled / total : 0;
+}
+
+function tick() {
+  var progress = getProgress();
+  targetX  = progress * (PANEL_COUNT - 1) * window.innerWidth;
+  currentX = lerp(currentX, targetX, LERP);
+  if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
+
+  if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
+  if (fillEl) fillEl.style.width = (progress * 100) + '%';
+
+  var activeIdx = Math.round(progress * (PANEL_COUNT - 1));
+  for (var i = 0; i < dots.length; i++) {
+    dots[i].classList.toggle('active', i === activeIdx);
+  }
+
+  if (!nudgeHidden && progress > 0.01) {
+    nudgeHidden = true;
+    if (nudge) nudge.classList.add('hide');
+  }
+
+  requestAnimationFrame(tick);
+}
+
+if (journey && track) requestAnimationFrame(tick);
+
+/* dot clicks jump to that panel */
+for (var d = 0; d < dots.length; d++) {
+  (function(dot, idx) {
+    dot.addEventListener('click', function() {
+      if (!journey) return;
+      var total      = journey.offsetHeight - window.innerHeight;
+      var journeyTop = journey.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: journeyTop + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
+    });
+  })(dots[d], d);
+}
+  </script>
 </body>
 </html>
