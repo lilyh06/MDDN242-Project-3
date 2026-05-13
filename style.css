@@ -1,12 +1,12 @@
 /* =============================================
-   SOLE STORY — style.css
+   shoes — style.css
    ============================================= */
 
 /* --- Variables & Reset --- */
 :root {
   --bg:        #000000;
   --surface:   #161612;
-  --border:    #2a2a24;
+  --border:    #271d28;
   --accent:    #2b3180;       /* blue */
   --accent2:   #ffbb00;       /* amber */
   --text:      #8b90d9;
@@ -323,7 +323,7 @@ body {
   padding: 0.7rem 1rem;
   font-size: 0.85rem;
   color: var(--muted);
-  background: rgba(200, 240, 74, 0.04);
+  background: rgba(19, 22, 48, 0.04);
 }
 
 .tip-box strong {
