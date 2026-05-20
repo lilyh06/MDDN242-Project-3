@@ -38,7 +38,6 @@ body {
   justify-content: center;
   position: relative;
   padding: 4rem 2rem;
-
   overflow: hidden;
   text-align: center;
 }
@@ -82,19 +81,6 @@ body {
   max-width: 400px;
   margin-bottom: 2.5rem;
 }
-.cta-btn {
-  display: inline-block;
-  padding: 0.75rem 1.8rem;
-  border: 1px solid var(--accent);
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: background 0.2s, color 0.2s;
-}
-.cta-btn:hover { background: var(--accent); color: var(--bg); }
-
 .hero-img-stack {
   position: relative;
   width: min(600px, 90vw);
@@ -113,8 +99,7 @@ body {
 .hero-grass {
   width: 115%;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 0; left: 0;
   z-index: 1;
   transform: translateX(12.5%) scale(1.3);
   transform-origin: bottom center;
@@ -172,11 +157,11 @@ body {
   margin-bottom: 1rem;
   line-height: 1.2;
 }
-.part-modal p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+.part-modal p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-top: 0; }
 
 /* ─── HORIZONTAL JOURNEY ─── */
 #journey {
-  height: 600vh;
+  height: 500vh; /* 4 panels = 5×100vh */
   position: relative;
 }
 #journey-sticky {
@@ -184,7 +169,6 @@ body {
   top: 0;
   height: 100vh;
   overflow: hidden;
-
 }
 #journey-track {
   display: flex;
@@ -192,7 +176,6 @@ body {
   will-change: transform;
 }
 
-/* PANELS — full bleed, images fill the whole panel */
 .panel {
   flex: 0 0 100vw;
   width: 100vw;
@@ -201,18 +184,13 @@ body {
   overflow: hidden;
   cursor: default;
 }
-
-/* Images dropped into a panel should fill it */
 .panel img.panel-bg {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   object-fit: cover;
   display: block;
   position: absolute;
   inset: 0;
 }
-
-/* Clickable panel image — centered, smaller, no hover colour change */
 .panel-img-link {
   display: flex;
   align-items: center;
@@ -233,9 +211,8 @@ body {
 /* ─── SOURCING INFO BOX ─── */
 .panel-info-box {
   position: absolute;
-  top: 50%;
-  left: 55%;
-  transform: translateY(-50%);
+  top: 50%; left: 55%;
+  transform: translateY(-50%) translateX(20px);
   width: min(320px, 30vw);
   background: var(--surface);
   border: 1px solid var(--border);
@@ -244,7 +221,6 @@ body {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
-  transform: translateY(-50%) translateX(20px);
 }
 .panel-info-box.visible {
   opacity: 1;
@@ -258,18 +234,12 @@ body {
   margin-bottom: 0.75rem;
   line-height: 1.2;
 }
-.panel-info-box p {
-  color: var(--muted);
-  font-size: 0.85rem;
-  line-height: 1.7;
-}
+.panel-info-box p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
 
-/* Clickable hotspot areas you can place over images */
 .hotspot {
   position: absolute;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 36px; height: 36px;
   background: rgba(255,187,0,0.15);
   border: 1px solid var(--accent2);
   cursor: pointer;
@@ -279,22 +249,12 @@ body {
   align-items: center;
   justify-content: center;
 }
-.hotspot::after {
-  content: '+';
-  color: var(--accent2);
-  font-size: 1.1rem;
-  line-height: 1;
-}
-.hotspot:hover {
-  background: rgba(255,187,0,0.3);
-  transform: translate(-50%, -50%) scale(1.15);
-}
+.hotspot::after { content: '+'; color: var(--accent2); font-size: 1.1rem; line-height: 1; }
+.hotspot:hover { background: rgba(255,187,0,0.3); transform: translate(-50%, -50%) scale(1.15); }
 
-/* Panel label — sits bottom-left over the image */
 .panel-label {
   position: absolute;
-  bottom: 3rem;
-  left: 2.5rem;
+  bottom: 3rem; left: 2.5rem;
   z-index: 5;
   pointer-events: none;
 }
@@ -306,11 +266,9 @@ body {
   line-height: 1.1;
   text-shadow: 0 2px 20px rgba(0,0,0,0.7);
 }
-
 .panel-number {
   position: absolute;
-  bottom: 1.5rem;
-  right: 2rem;
+  bottom: 1.5rem; right: 2rem;
   font-family: var(--font-display);
   font-size: clamp(5rem, 10vw, 9rem);
   font-weight: 700;
@@ -321,11 +279,9 @@ body {
   z-index: 2;
 }
 
-
 #journey-dots {
   position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
+  bottom: 1.5rem; left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 0.75rem;
@@ -340,15 +296,11 @@ body {
   padding: 0;
   transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
-.jdot.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.4);
-}
+.jdot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
+
 #scroll-nudge {
   position: absolute;
-  bottom: 1.4rem;
-  right: 2rem;
+  bottom: 1.4rem; right: 2rem;
   font-size: 0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -360,14 +312,11 @@ body {
 }
 #scroll-nudge.hide { opacity: 0; }
 
-
-/* MOBILE */
 @media (max-width: 700px) {
   #journey { height: auto; }
   #journey-sticky { position: relative; height: auto; overflow: visible; }
   #journey-track { flex-direction: column; transform: none !important; }
   .panel { height: 100vh; }
-  .panel::after { display: none; }
   #journey-dots, #scroll-nudge { display: none; }
 }
   </style>
@@ -389,7 +338,7 @@ body {
     </div>
   </section>
 
-  <!-- SHARED MODAL (used by both shoe parts and panel hotspots) -->
+  <!-- MODAL -->
   <div id="modalBackdrop" class="modal-backdrop"></div>
   <div id="partModal" class="part-modal">
     <button id="modalClose" class="modal-close" aria-label="Close">&#x2715;</button>
@@ -397,44 +346,36 @@ body {
     <p id="modalBody"></p>
   </div>
 
-  <!-- HORIZONTAL JOURNEY -->
+  <!-- HORIZONTAL JOURNEY — 4 panels -->
   <div id="journey">
     <div id="journey-sticky">
       <div id="journey-track">
 
-        <!-- PANEL 1: Sourcing — trees.png and tree2.png side by side -->
+        <!-- PANEL 1: Making -->
         <div class="panel" id="panel-0">
-          <div class="panel-img-link" data-modal="sourcing" role="button" tabindex="0" aria-label="Learn about Sourcing" style="justify-content:flex-start; padding-left:0%; gap: 0%;">
-            <img src="trees.png" alt="Trees — raw material sourcing" style="width:42%; max-width:none;" />
-            <img src="tree2.png" alt="Second tree — raw material sourcing" style="width:42%; max-width:none; margin-left:-20%;" />
+          <div class="panel-img-link" data-modal="making" role="button" tabindex="0" aria-label="Learn about Making"
+               style="justify-content:flex-start; gap:0%;">
+            <img src="trees.png" alt="Trees" style="width:42%; max-width:none;" />
+            <img src="tree2.png" alt="Tree 2" style="width:42%; max-width:none; margin-left:-20%;" />
           </div>
-          <div class="panel-info-box" id="sourcing-info">
-            <h3>Sourcing</h3>
-            <p>workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function. </p>
+          <div class="panel-info-box" id="making-info">
+            <h3>Making</h3>
+            <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
           </div>
         </div>
 
-        <!-- PANEL 2: Manufacturing -->
+        <!-- PANEL 2: Shipping -->
         <div class="panel" id="panel-1">
-          <!-- <img src="your-image.jpg" alt="Manufacturing" class="panel-bg" /> -->
-          <div class="panel-label"><h2>Manufacturing</h2></div>
-        </div>
-
-        <!-- PANEL 3: Shipping -->
-        <div class="panel" id="panel-2">
-          <!-- <img src="your-image.jpg" alt="Shipping" class="panel-bg" /> -->
           <div class="panel-label"><h2>Shipping</h2></div>
         </div>
 
-        <!-- PANEL 4: Use -->
-        <div class="panel" id="panel-3">
-          <!-- <img src="your-image.jpg" alt="Use" class="panel-bg" /> -->
+        <!-- PANEL 3: Use -->
+        <div class="panel" id="panel-2">
           <div class="panel-label"><h2>Use</h2></div>
         </div>
 
-        <!-- PANEL 5: Afterlife -->
-        <div class="panel" id="panel-4">
-          <!-- <img src="your-image.jpg" alt="Afterlife" class="panel-bg" /> -->
+        <!-- PANEL 4: Afterlife -->
+        <div class="panel" id="panel-3">
           <div class="panel-label"><h2>Afterlife</h2></div>
         </div>
 
@@ -445,35 +386,47 @@ body {
         <button class="jdot" data-index="1"></button>
         <button class="jdot" data-index="2"></button>
         <button class="jdot" data-index="3"></button>
-        <button class="jdot" data-index="4"></button>
       </nav>
       <p id="scroll-nudge">scroll to continue →</p>
     </div>
   </div>
 
-
   <script>
-/* =============================================
-   PANEL HOTSPOT DATA
-   ============================================= */
+/* ── PANEL DATA ── */
 var panelData = {
-  sourcing: {
-    heading: 'Sourcing',
+  making: {
+    heading: 'Making',
     body: 'Your research and words here.'
   }
 };
 
-/* =============================================
-   SHOE PART DATA
-   ============================================= */
+/* ── SHOE PART DATA ── */
 var partData = {
   sole: {
     heading: 'The Sole',
-    body: 'words research'
+    body: `
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Natural Rubber</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.</p>
+
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Vulcanization</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">This additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.</p>
+
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Synthetic Rubber</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans.</p>
+    `
   },
   canvas: {
     heading: 'The Canvas',
-    body: 'words words words'
+    body: `
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Materials</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon.</p>
+
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Water Use</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">Cotton canvas requires up to 125 litres of water per kilogram of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea lost 85% of its volume due to decades of intensive cotton irrigation.</p>
+
+      <strong style="color:var(--text); font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase;">Pesticides & Worker Health</strong>
+      <p style="margin: 0.4rem 0 1.2rem;">Cotton accounts for 6% of the world's pesticide use and 16% of all insecticides, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.</p>
+    `
   },
   laces: {
     heading: 'The Laces/Eyelets',
@@ -481,16 +434,14 @@ var partData = {
   }
 };
 
-/* =============================================
-   MODAL
-   ============================================= */
+/* ── MODAL ── */
 var modal    = document.getElementById('partModal');
 var backdrop = document.getElementById('modalBackdrop');
 var closeBtn = document.getElementById('modalClose');
 
 function openModal(heading, body) {
   document.getElementById('modalHeading').textContent = heading;
-  document.getElementById('modalBody').textContent    = body;
+  document.getElementById('modalBody').innerHTML      = body;
   modal.style.display    = 'block';
   backdrop.style.display = 'block';
 }
@@ -498,46 +449,24 @@ function closeModal() {
   modal.style.display    = 'none';
   backdrop.style.display = 'none';
 }
-if (closeBtn) closeBtn.addEventListener('click', closeModal);
-if (backdrop) backdrop.addEventListener('click', closeModal);
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeModal();
-});
+closeBtn.addEventListener('click', closeModal);
+backdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
 
-/* Wire up panel image links and hotspots (delegated) */
+/* Panel clicks */
 document.getElementById('journey-track').addEventListener('click', function(e) {
-  /* Hotspots */
   var hs = e.target.closest('.hotspot');
-  if (hs) {
-    var key = hs.dataset.modal;
-    var d   = panelData[key];
-    if (d) openModal(d.heading, d.body);
-    return;
-  }
-  /* Clickable panel image links */
+  if (hs) { var d = panelData[hs.dataset.modal]; if (d) openModal(d.heading, d.body); return; }
   var link = e.target.closest('.panel-img-link');
-  if (link) {
-    var key = link.dataset.modal;
-    var d   = panelData[key];
-    if (d) openModal(d.heading, d.body);
-  }
+  if (link) { var d = panelData[link.dataset.modal]; if (d) openModal(d.heading, d.body); }
 });
-
-/* Keyboard support for panel-img-link */
 document.getElementById('journey-track').addEventListener('keydown', function(e) {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   var link = e.target.closest('.panel-img-link');
-  if (link) {
-    e.preventDefault();
-    var key = link.dataset.modal;
-    var d   = panelData[key];
-    if (d) openModal(d.heading, d.body);
-  }
+  if (link) { e.preventDefault(); var d = panelData[link.dataset.modal]; if (d) openModal(d.heading, d.body); }
 });
 
-/* =============================================
-   CANVAS SHOE
-   ============================================= */
+/* ── CANVAS SHOE ── */
 var shoeCanvas = document.getElementById('shoeCanvas');
 if (shoeCanvas) {
   var ctx = shoeCanvas.getContext('2d');
@@ -548,32 +477,28 @@ if (shoeCanvas) {
     { src: 'shoelaces.png',  part: 'laces'  }
   ];
   function onAllLoaded() {
-    ctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < layers.length; i++) {
-      if (layers[i].img) ctx.drawImage(layers[i].img, 0, 0, W, H);
-    }
+    ctx.clearRect(0,0,W,H);
+    layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img,0,0,W,H); });
   }
-  for (var i = 0; i < layers.length; i++) {
-    (function(layer) {
-      var img = new Image();
-      img.onload = function() {
-        layer.img = img;
-        if (W === 0 && img.naturalWidth > 0) {
-          W = img.naturalWidth; H = img.naturalHeight;
-          shoeCanvas.width = W; shoeCanvas.height = H;
-        }
-        var off = document.createElement('canvas');
-        off.width = W || img.naturalWidth; off.height = H || img.naturalHeight;
-        var offCtx = off.getContext('2d');
-        offCtx.drawImage(img, 0, 0, off.width, off.height);
-        layer.offCtx = offCtx;
-        loadCount++;
-        if (loadCount === layers.length) onAllLoaded();
-      };
-      img.onerror = function() { loadCount++; if (loadCount === layers.length) onAllLoaded(); };
-      img.src = layer.src;
-    })(layers[i]);
-  }
+  layers.forEach(function(layer) {
+    var img = new Image();
+    img.onload = function() {
+      layer.img = img;
+      if (W === 0 && img.naturalWidth > 0) {
+        W = img.naturalWidth; H = img.naturalHeight;
+        shoeCanvas.width = W; shoeCanvas.height = H;
+      }
+      var off = document.createElement('canvas');
+      off.width = W || img.naturalWidth; off.height = H || img.naturalHeight;
+      var oc = off.getContext('2d');
+      oc.drawImage(img,0,0,off.width,off.height);
+      layer.offCtx = oc;
+      loadCount++;
+      if (loadCount === layers.length) onAllLoaded();
+    };
+    img.onerror = function() { loadCount++; if (loadCount === layers.length) onAllLoaded(); };
+    img.src = layer.src;
+  });
   function getHit(e) {
     if (W === 0) return null;
     var rect = shoeCanvas.getBoundingClientRect();
@@ -581,8 +506,7 @@ if (shoeCanvas) {
     var y = Math.round((e.clientY - rect.top)  * (H / rect.height));
     for (var i = layers.length - 1; i >= 0; i--) {
       if (!layers[i].offCtx) continue;
-      var px = layers[i].offCtx.getImageData(x, y, 1, 1).data;
-      if (px[3] > 20) return layers[i].part;
+      if (layers[i].offCtx.getImageData(x,y,1,1).data[3] > 20) return layers[i].part;
     }
     return null;
   }
@@ -595,62 +519,50 @@ if (shoeCanvas) {
   });
 }
 
-/* =============================================
-   SOURCING INFO BOX — scroll-driven
-   ============================================= */
-var sourcingInfo = document.getElementById('sourcing-info');
-
-function updateInfoBox(progress) {
-  if (!sourcingInfo) return;
-  var show = progress >= 0.03 && progress <= 0.18;
-  sourcingInfo.classList.toggle('visible', show);
+/* ── MAKING INFO BOX ── */
+var makingInfo = document.getElementById('making-info');
+function updateInfoBox(p) {
+  if (makingInfo) makingInfo.classList.toggle('visible', p >= 0.03 && p <= 0.22);
 }
 
+/* ── HORIZONTAL SCROLL — 4 panels ── */
 var journey     = document.getElementById('journey');
 var track       = document.getElementById('journey-track');
 var nudge       = document.getElementById('scroll-nudge');
-var dots        = document.querySelectorAll('.jdot');
-var PANEL_COUNT = 5;
+var jdots       = document.querySelectorAll('.jdot');
+var PANEL_COUNT = 4;
 var LERP        = 0.08;
 var currentX    = 0, targetX = 0, nudgeHidden = false;
 
-function lerp(a, b, t) { return a + (b - a) * t; }
+function lerp(a,b,t) { return a+(b-a)*t; }
 function getProgress() {
   if (!journey) return 0;
-  var rect     = journey.getBoundingClientRect();
-  var total    = journey.offsetHeight - window.innerHeight;
-  var scrolled = Math.max(0, Math.min(total, -rect.top));
-  return total > 0 ? scrolled / total : 0;
+  var rect = journey.getBoundingClientRect();
+  var total = journey.offsetHeight - window.innerHeight;
+  return total > 0 ? Math.max(0, Math.min(total, -rect.top)) / total : 0;
 }
 function tick() {
-  var progress = getProgress();
-  targetX  = progress * (PANEL_COUNT - 1) * window.innerWidth;
+  var p = getProgress();
+  targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
   currentX = lerp(currentX, targetX, LERP);
   if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
   if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
-  var activeIdx = Math.round(progress * (PANEL_COUNT - 1));
-  for (var i = 0; i < dots.length; i++) {
-    dots[i].classList.toggle('active', i === activeIdx);
-  }
-  if (!nudgeHidden && progress > 0.01) {
-    nudgeHidden = true;
-    if (nudge) nudge.classList.add('hide');
-  }
-  updateInfoBox(progress);
+  var ai = Math.round(p * (PANEL_COUNT - 1));
+  jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
+  if (!nudgeHidden && p > 0.01) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
+  updateInfoBox(p);
   requestAnimationFrame(tick);
 }
 if (journey && track) requestAnimationFrame(tick);
 
-for (var d = 0; d < dots.length; d++) {
-  (function(dot, idx) {
-    dot.addEventListener('click', function() {
-      if (!journey) return;
-      var total      = journey.offsetHeight - window.innerHeight;
-      var journeyTop = journey.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: journeyTop + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
-    });
-  })(dots[d], d);
-}
+jdots.forEach(function(dot, idx) {
+  dot.addEventListener('click', function() {
+    if (!journey) return;
+    var total = journey.offsetHeight - window.innerHeight;
+    var top   = journey.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
+  });
+});
   </script>
 </body>
 </html>
