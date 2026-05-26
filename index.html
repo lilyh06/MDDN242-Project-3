@@ -235,16 +235,195 @@ body {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 3vw, 1.6rem);
   font-weight: 700;
-  color: var(--text);
+  color: #8b90d9;
   line-height: 1.2;
 }
 .card-body {
-  color: var(--muted);
+  color: #fef3e2;
   font-size: 0.88rem;
   line-height: 1.78;
 }
 
-/* ─── HORIZONTAL JOURNEY ─── */
+/* ─── ARAL SEA POLAROID ─── */
+#aralPolaroid {
+  display: none;
+  position: fixed;
+  bottom: 6vh;
+  right: 3vw;
+  z-index: 202;
+  background: #f5f0e8;
+  padding: 10px 10px 34px;
+  box-shadow: 4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
+  transform: rotate(4deg);
+  width: clamp(160px, 22vw, 240px);
+  animation: polaroidDrop 0.45s cubic-bezier(0.22,1,0.36,1) both;
+  pointer-events: auto;
+}
+@keyframes polaroidDrop {
+  0%   { opacity: 0; transform: rotate(10deg) translateY(-30px) scale(0.88); }
+  100% { opacity: 1; transform: rotate(4deg)  translateY(0)     scale(1); }
+}
+#aralPolaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+#aralPolaroid a {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #6b6560;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.4;
+  word-break: break-all;
+}
+#aralPolaroid a:hover { text-decoration: underline; }
+
+/* ─── RUBBER TREE FARM POLAROID ─── */
+#rubberPolaroid {
+  display: none;
+  position: fixed;
+  bottom: 6vh;
+  left: 3vw;
+  z-index: 202;
+  background: #f5f0e8;
+  padding: 10px 10px 34px;
+  box-shadow: -4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
+  transform: rotate(-3.5deg);
+  width: clamp(160px, 22vw, 240px);
+  animation: polaroidDropLeft 0.45s cubic-bezier(0.22,1,0.36,1) both;
+  pointer-events: auto;
+}
+@keyframes polaroidDropLeft {
+  0%   { opacity: 0; transform: rotate(-8deg) translateY(-30px) scale(0.88); }
+  100% { opacity: 1; transform: rotate(-3.5deg) translateY(0)   scale(1); }
+}
+#rubberPolaroid img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+#rubberPolaroid a {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  color: #6b6560;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.4;
+  word-break: break-all;
+}
+#rubberPolaroid a:hover { text-decoration: underline; }
+
+/* ─── RECLAIMED RUBBER WEB ─── */
+#reclaimedWeb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+#reclaimedWeb.active {
+  display: block;
+  pointer-events: auto;
+}
+#reclaimedWeb svg {
+  width: 100%;
+  height: 100%;
+}
+/* close btn for the web */
+#reclaimedWebClose {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 301;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: none;
+  transition: color 0.2s;
+}
+#reclaimedWebClose.active { display: block; }
+#reclaimedWebClose:hover { color: var(--text); }
+
+#continueWeb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+#continueWeb.active {
+  display: block;
+  pointer-events: auto;
+}
+#continueWeb svg { width: 100%; height: 100%; }
+#continueWebClose {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 301;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: none;
+  transition: color 0.2s;
+}
+#continueWebClose.active { display: block; }
+#continueWebClose:hover { color: var(--text); }
+
+/* SVG node styles */
+.web-node-center rect {
+  fill: #2a2a26;
+  stroke: var(--text);
+  stroke-width: 1.5;
+}
+.web-node-center text {
+  fill: var(--text);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+.web-node rect {
+  fill: #1e1e1a;
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+.web-node text {
+  fill: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+}
+.web-line {
+  stroke: var(--muted);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  transition: stroke-dashoffset 0.6s ease;
+}
+.web-line.drawn { stroke-dashoffset: 0; }
+.web-node {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.web-node.visible { opacity: 1; }
+.web-node-center {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.web-node-center.visible { opacity: 1; }
 #journey { height: 500vh; position: relative; }
 #journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 #journey-track { display: flex; height: 100%; will-change: transform; }
@@ -273,7 +452,7 @@ body {
   padding: 2rem 1.75rem; z-index: 6; pointer-events: none;
   opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.panel-info-box.visible { opacity: 1; transform: translateY(-50%) translateX(0); }
+.panel-info-box.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
 .panel-info-box h3 {
   font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
   color: var(--text); margin-bottom: 0.75rem; line-height: 1.2;
@@ -336,6 +515,17 @@ body {
     <div class="card-stack-wrap" id="cardStackWrap"></div>
   </div>
 
+  <!-- Aral Sea polaroid — shown only on the Water Use card -->
+  <div id="aralPolaroid">
+    <img src="aral.jpg" alt="Aral Sea then and now" />
+    <a href="https://en.wikipedia.org/wiki/Aral_Sea" target="_blank" rel="noopener">wikipedia.org/wiki/Aral_Sea</a>
+  </div>
+
+  <!-- Rubber tree farm polaroid — shown only on the Natural Rubber card -->
+  <div id="rubberPolaroid">
+    <img src="rubbertreefarm.jpg" alt="Rubber tree farm" />
+  </div>
+
   <div id="journey">
     <div id="journey-sticky">
       <div id="journey-track">
@@ -349,8 +539,9 @@ body {
           <div class="panel-info-box" id="making-info">
             <h3>Making</h3>
             <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
+            <p id="continueTrigger" style="margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; cursor: pointer; pointer-events: auto;">Continue</p>
             <p style="margin-top: 1.2rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); opacity: 0.6;">Skip this step</p>
-            <p style="margin-top: 0.3rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3;">Buy reclaimed or recycled rubber</p>
+            <p id="reclaimedTrigger" style="margin-top: 0.3rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; cursor: pointer; pointer-events: auto;">Buy reclaimed or recycled rubber</p>
           </div>
         </div>
 
@@ -390,8 +581,8 @@ var partData = {
   canvas: {
     cards: [
       { heading: 'Materials',                body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
-      { heading: 'Water Use',                body: 'Cotton canvas requires up to 125 litres of water per kilogram of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea lost 85% of its volume due to decades of intensive cotton irrigation.' },
-      { heading: 'Pesticides & Worker Health', body: "Cotton accounts for 6% of the world's pesticide use and 16% of all insecticides, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against." }
+      { heading: 'Water Use',                body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
+      { heading: 'Pesticides & Worker Health', body: "Cotton accounts for <span style=\"font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;\">6% of the world's pesticide use</span> and <span style=\"font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;\">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against." }
     ]
   },
   laces: {
@@ -407,20 +598,53 @@ var modal     = document.getElementById('partModal');
 var backdrop  = document.getElementById('modalBackdrop');
 var closeBtn  = document.getElementById('modalClose');
 var stackWrap = document.getElementById('cardStackWrap');
+var polaroid  = document.getElementById('aralPolaroid');
+var rubberPolaroid = document.getElementById('rubberPolaroid');
 
-var allCards   = [];
-var totalCards = 0;
-var dismissed  = 0;
-var busy       = false;
+var allCards      = [];
+var totalCards    = 0;
+var dismissed     = 0;
+var busy          = false;
+var currentPartKey = '';  /* track which part is open */
+
+/* Which part + card index triggers each polaroid */
+var POLAROID_PART  = 'canvas';
+var POLAROID_INDEX = 1; /* 0=Materials, 1=Water Use, 2=Pesticides */
+
+var RUBBER_POLAROID_PART  = 'sole';
+var RUBBER_POLAROID_INDEX = 0; /* 0=Natural Rubber */
 
 function depthClass(pos) {
   return DEPTH[Math.min(pos, DEPTH.length - 1)];
 }
 
-function buildStack(data) {
+function showPolaroid(el) {
+  el.style.display = 'block';
+  el.style.animation = 'none';
+  el.offsetHeight; /* reflow to restart animation */
+  el.style.animation = '';
+}
+
+function updatePolaroid() {
+  /* Aral Sea */
+  if ((currentPartKey === POLAROID_PART) && (dismissed === POLAROID_INDEX)) {
+    showPolaroid(polaroid);
+  } else {
+    polaroid.style.display = 'none';
+  }
+  /* Rubber tree farm */
+  if ((currentPartKey === RUBBER_POLAROID_PART) && (dismissed === RUBBER_POLAROID_INDEX)) {
+    showPolaroid(rubberPolaroid);
+  } else {
+    rubberPolaroid.style.display = 'none';
+  }
+}
+
+function buildStack(data, partKey) {
   allCards   = [];
   dismissed  = 0;
   busy       = false;
+  currentPartKey = partKey || '';
   totalCards = data.cards.length;
   stackWrap.innerHTML = '';
   stackWrap.style.height = ''; /* reset while measuring */
@@ -451,6 +675,8 @@ function buildStack(data) {
   allCards.forEach(function(el) {
     el.style.cssText = 'position:absolute;top:0;left:0;width:100%;';
   });
+
+  updatePolaroid();
 }
 
 function advance() {
@@ -470,6 +696,7 @@ function advance() {
         el.classList.add(depthClass(i));
       });
       busy = false;
+      updatePolaroid();
     }, 400);
     return;
   }
@@ -495,11 +722,12 @@ function advance() {
     front.classList.add('fc-hidden');
     dismissed++;
     busy = false;
+    updatePolaroid();
   }, 390);
 }
 
-function openModal(data) {
-  buildStack(data);
+function openModal(data, partKey) {
+  buildStack(data, partKey);
   modal.style.display    = 'block';
   backdrop.style.display = 'block';
   modal.focus();
@@ -507,6 +735,8 @@ function openModal(data) {
 function closeModal() {
   modal.style.display    = 'none';
   backdrop.style.display = 'none';
+  polaroid.style.display = 'none';
+  rubberPolaroid.style.display = 'none';
 }
 
 closeBtn.addEventListener('click', closeModal);
@@ -519,14 +749,14 @@ document.addEventListener('keydown', function(e) {
 
 document.getElementById('journey-track').addEventListener('click', function(e) {
   var hs = e.target.closest('.hotspot');
-  if (hs && panelData[hs.dataset.modal]) { openModal(panelData[hs.dataset.modal]); return; }
+  if (hs && panelData[hs.dataset.modal]) { openModal(panelData[hs.dataset.modal], hs.dataset.modal); return; }
   var link = e.target.closest('.panel-img-link');
-  if (link && panelData[link.dataset.modal]) openModal(panelData[link.dataset.modal]);
+  if (link && panelData[link.dataset.modal]) openModal(panelData[link.dataset.modal], link.dataset.modal);
 });
 document.getElementById('journey-track').addEventListener('keydown', function(e) {
   if (e.key !== 'Enter' && e.key !== ' ') return;
   var link = e.target.closest('.panel-img-link');
-  if (link && panelData[link.dataset.modal]) { e.preventDefault(); openModal(panelData[link.dataset.modal]); }
+  if (link && panelData[link.dataset.modal]) { e.preventDefault(); openModal(panelData[link.dataset.modal], link.dataset.modal); }
 });
 
 /* ── canvas shoe ── */
@@ -573,7 +803,7 @@ if (shoeCanvas) {
   }
   shoeCanvas.addEventListener('click', function(e) {
     var hit = getHit(e);
-    if (hit && partData[hit]) openModal(partData[hit]);
+    if (hit && partData[hit]) openModal(partData[hit], hit);
   });
   shoeCanvas.addEventListener('mousemove', function(e) {
     shoeCanvas.style.cursor = getHit(e) ? 'pointer' : 'default';
@@ -623,6 +853,280 @@ jdots.forEach(function(dot,idx){
     window.scrollTo({top:top+(idx/(PANEL_COUNT-1))*total,behavior:'smooth'});
   });
 });
+
+/* ── RECLAIMED RUBBER MIND-MAP WEB ── */
+var reclaimedTrigger  = document.getElementById('reclaimedTrigger');
+var reclaimedWeb      = document.getElementById('reclaimedWeb');
+var reclaimedSvg      = document.getElementById('reclaimedSvg');
+var reclaimedWebClose = document.getElementById('reclaimedWebClose');
+
+var WEB_NODES = [
+  { label: ['Recycled rubber', 'tyres & offcuts'],      angle: -140, dist: 220 },
+  { label: ['Bio-based', 'synthesised rubber'],          angle:   40, dist: 220 },
+];
+
+var SVG_NS = 'http://www.w3.org/2000/svg';
+
+function makeSvgEl(tag, attrs) {
+  var el = document.createElementNS(SVG_NS, tag);
+  Object.keys(attrs).forEach(function(k) { el.setAttribute(k, attrs[k]); });
+  return el;
+}
+
+function buildWeb() {
+  reclaimedSvg.innerHTML = '';
+
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var cx = vw * 0.90;
+  var cy = vh * 0.5;
+
+  /* ── Central diamond node ── */
+  var centerG = document.createElementNS(SVG_NS, 'g');
+  centerG.classList.add('web-node-center');
+  centerG.setAttribute('transform', 'translate(' + cx + ',' + cy + ')');
+
+  var diamond = makeSvgEl('rect', {
+    x: -72, y: -36, width: 144, height: 72,
+    rx: 2,
+    transform: 'rotate(45, 0, 0) scale(0.72)'
+  });
+  /* use a rotated square for diamond feel */
+  var diamondPoly = makeSvgEl('polygon', {
+    points: '0,-42 62,0 0,42 -62,0',
+    fill: '#2a2a26', stroke: '#8b90d9', 'stroke-width': '1.5'
+  });
+  var centerText1 = makeSvgEl('text', { x: 0, y: -7, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
+  centerText1.textContent = 'Buy reclaimed';
+  var centerText2 = makeSvgEl('text', { x: 0, y: 10, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
+  centerText2.textContent = 'or recycled';
+
+  centerG.appendChild(diamondPoly);
+  centerG.appendChild(centerText1);
+  centerG.appendChild(centerText2);
+  reclaimedSvg.appendChild(centerG);
+
+  var lines = [];
+  var nodes = [];
+
+  WEB_NODES.forEach(function(node, i) {
+    var rad = node.angle * Math.PI / 180;
+    var nx  = cx + Math.cos(rad) * node.dist;
+    var ny  = cy + Math.sin(rad) * node.dist;
+
+    /* curved line from center to node */
+    var cpx = cx + Math.cos(rad) * node.dist * 0.5 + Math.sin(rad) * 40;
+    var cpy = cy + Math.sin(rad) * node.dist * 0.5 - Math.cos(rad) * 40;
+    var path = makeSvgEl('path', {
+      d: 'M ' + cx + ' ' + cy + ' Q ' + cpx + ' ' + cpy + ' ' + nx + ' ' + ny,
+      'class': 'web-line',
+      'stroke-dasharray': 400,
+      'stroke-dashoffset': 400
+    });
+    reclaimedSvg.appendChild(path);
+    lines.push(path);
+
+    /* node box */
+    var nodeG = document.createElementNS(SVG_NS, 'g');
+    nodeG.classList.add('web-node');
+    nodeG.setAttribute('transform', 'translate(' + nx + ',' + ny + ')');
+
+    var bw = 130, bh = node.label.length > 1 ? 38 : 26;
+    var bg = makeSvgEl('rect', {
+      x: -bw/2, y: -bh/2, width: bw, height: bh,
+      rx: 2, fill: '#1e1e1a', stroke: '#3a3a36', 'stroke-width': '1'
+    });
+    nodeG.appendChild(bg);
+
+    node.label.forEach(function(line, li) {
+      var offset = node.label.length > 1 ? (li === 0 ? -9 : 9) : 4;
+      var t = makeSvgEl('text', {
+        x: 0, y: offset,
+        'text-anchor': 'middle',
+        fill: '#5c6096',
+        'font-family': 'Inter, sans-serif',
+        'font-size': '10.5'
+      });
+      t.textContent = line;
+      nodeG.appendChild(t);
+    });
+
+    reclaimedSvg.appendChild(nodeG);
+    nodes.push(nodeG);
+  });
+
+  /* Animate in sequence */
+  requestAnimationFrame(function() {
+    centerG.classList.add('visible');
+    lines.forEach(function(line, i) {
+      setTimeout(function() {
+        line.classList.add('drawn');
+        setTimeout(function() {
+          nodes[i].classList.add('visible');
+        }, 350);
+      }, 150 + i * 130);
+    });
+  });
+}
+
+function openWeb() {
+  reclaimedWeb.classList.add('active');
+  reclaimedWebClose.classList.add('active');
+  buildWeb();
+}
+function closeWeb() {
+  reclaimedWeb.classList.remove('active');
+  reclaimedWebClose.classList.remove('active');
+  reclaimedSvg.innerHTML = '';
+}
+
+if (reclaimedTrigger) {
+  reclaimedTrigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    openWeb();
+  });
+}
+if (reclaimedWebClose) {
+  reclaimedWebClose.addEventListener('click', closeWeb);
+}
+/* click backdrop of web to close */
+if (reclaimedWeb) {
+  reclaimedWeb.addEventListener('click', function(e) {
+    if (e.target === reclaimedWeb || e.target === reclaimedSvg) closeWeb();
+  });
+}
+
+/* Stop the info box from passing clicks through to the panel-img-link beneath */
+var makingInfoBox = document.getElementById('making-info');
+if (makingInfoBox) {
+  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && reclaimedWeb.classList.contains('active')) closeWeb();
+});
+
+/* ── CONTINUE MIND-MAP WEB ── */
+var continueTrigger  = document.getElementById('continueTrigger');
+var continueWeb      = document.getElementById('continueWeb');
+var continueSvg      = document.getElementById('continueSvg');
+var continueWebClose = document.getElementById('continueWebClose');
+
+var CONTINUE_NODES = [
+  { label: ['Placeholder strand'], angle: -90, dist: 200 }
+];
+
+function buildContinueWeb() {
+  continueSvg.innerHTML = '';
+
+  var vw = window.innerWidth;
+  var vh = window.innerHeight;
+  var cx = vw * 0.80;
+  var cy = vh * 0.5;
+
+  /* Central diamond */
+  var centerG = document.createElementNS(SVG_NS, 'g');
+  centerG.classList.add('web-node-center');
+  centerG.setAttribute('transform', 'translate(' + cx + ',' + cy + ')');
+
+  var diamondPoly = makeSvgEl('polygon', {
+    points: '0,-42 62,0 0,42 -62,0',
+    fill: '#2a2a26', stroke: '#8b90d9', 'stroke-width': '1.5'
+  });
+  var ct1 = makeSvgEl('text', { x: 0, y: -7, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
+  ct1.textContent = 'Continue';
+  centerG.appendChild(diamondPoly);
+  centerG.appendChild(ct1);
+  continueSvg.appendChild(centerG);
+
+  var lines = [];
+  var nodes = [];
+
+  CONTINUE_NODES.forEach(function(node) {
+    var rad = node.angle * Math.PI / 180;
+    var nx  = cx + Math.cos(rad) * node.dist;
+    var ny  = cy + Math.sin(rad) * node.dist;
+    var cpx = cx + Math.cos(rad) * node.dist * 0.5 + Math.sin(rad) * 40;
+    var cpy = cy + Math.sin(rad) * node.dist * 0.5 - Math.cos(rad) * 40;
+
+    var path = makeSvgEl('path', {
+      d: 'M ' + cx + ' ' + cy + ' Q ' + cpx + ' ' + cpy + ' ' + nx + ' ' + ny,
+      'class': 'web-line',
+      'stroke-dasharray': 400,
+      'stroke-dashoffset': 400
+    });
+    continueSvg.appendChild(path);
+    lines.push(path);
+
+    var nodeG = document.createElementNS(SVG_NS, 'g');
+    nodeG.classList.add('web-node');
+    nodeG.setAttribute('transform', 'translate(' + nx + ',' + ny + ')');
+
+    var bw = 130, bh = node.label.length > 1 ? 38 : 26;
+    var bg = makeSvgEl('rect', { x: -bw/2, y: -bh/2, width: bw, height: bh, rx: 2, fill: '#1e1e1a', stroke: '#3a3a36', 'stroke-width': '1' });
+    nodeG.appendChild(bg);
+
+    node.label.forEach(function(line, li) {
+      var offset = node.label.length > 1 ? (li === 0 ? -9 : 9) : 4;
+      var t = makeSvgEl('text', { x: 0, y: offset, 'text-anchor': 'middle', fill: '#5c6096', 'font-family': 'Inter, sans-serif', 'font-size': '10.5' });
+      t.textContent = line;
+      nodeG.appendChild(t);
+    });
+
+    continueSvg.appendChild(nodeG);
+    nodes.push(nodeG);
+  });
+
+  requestAnimationFrame(function() {
+    centerG.classList.add('visible');
+    lines.forEach(function(line, i) {
+      setTimeout(function() {
+        line.classList.add('drawn');
+        setTimeout(function() { nodes[i].classList.add('visible'); }, 350);
+      }, 150 + i * 130);
+    });
+  });
+}
+
+function openContinueWeb() {
+  continueWeb.classList.add('active');
+  continueWebClose.classList.add('active');
+  buildContinueWeb();
+}
+function closeContinueWeb() {
+  continueWeb.classList.remove('active');
+  continueWebClose.classList.remove('active');
+  continueSvg.innerHTML = '';
+}
+
+if (continueTrigger) {
+  continueTrigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    openContinueWeb();
+  });
+}
+if (continueWebClose) {
+  continueWebClose.addEventListener('click', closeContinueWeb);
+}
+if (continueWeb) {
+  continueWeb.addEventListener('click', function(e) {
+    if (e.target === continueWeb || e.target === continueSvg) closeContinueWeb();
+  });
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && continueWeb.classList.contains('active')) closeContinueWeb();
+});
   </script>
+  <!-- Mind-map web overlay — reclaimed (outside scroll so it's never clipped) -->
+  <div id="reclaimedWeb">
+    <svg id="reclaimedSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <button id="reclaimedWebClose" aria-label="Close web">&#x2715;</button>
+
+  <!-- Mind-map web overlay — continue -->
+  <div id="continueWeb">
+    <svg id="continueSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <button id="continueWebClose" aria-label="Close web">&#x2715;</button>
+
 </body>
 </html>
