@@ -30,7 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── HERO ─── */
 #hero {
   min-height: 100vh;
   display: flex;
@@ -90,6 +89,7 @@ body {
   display: block;
   width: 90%;
   height: auto;
+  min-height: 200px;
   margin: 0 auto;
   position: relative;
   z-index: 2;
@@ -119,7 +119,6 @@ body {
   opacity: 0.7;
 }
 
-/* ─── MODAL BACKDROP ─── */
 .modal-backdrop {
   display: none;
   position: fixed;
@@ -129,7 +128,6 @@ body {
   backdrop-filter: blur(4px);
 }
 
-/* ─── CARD MODAL ─── */
 .part-modal {
   display: none;
   position: fixed;
@@ -139,7 +137,6 @@ body {
   z-index: 201;
   width: min(520px, 92vw);
   background: transparent;
-  /* overflow visible so rotated behind-cards peek out */
   overflow: visible;
 }
 
@@ -157,20 +154,13 @@ body {
 }
 .modal-close:hover { color: var(--text); }
 
-/* ─── STACK WRAPPER ───────────────────────────────
-   Height is set in JS to the tallest card so it
-   never collapses. All cards are absolute inside.
-   A right margin leaves room for the peeking cards.
-────────────────────────────────────────────────── */
 .card-stack-wrap {
   position: relative;
   cursor: pointer;
   user-select: none;
-  margin-right: 48px; /* room for rotated cards */
-  /* height injected by JS */
+  margin-right: 48px;
 }
 
-/* Every card is absolutely positioned inside the wrapper */
 .flashcard {
   position: absolute;
   top: 0; left: 0;
@@ -188,7 +178,6 @@ body {
   will-change: transform, opacity;
 }
 
-/* depth positions — all via transform only, no layout shifts */
 .flashcard.fc-front {
   z-index: 10;
   transform: translate(0, 0) rotate(0deg);
@@ -219,10 +208,9 @@ body {
   pointer-events: none;
 }
 
-/* fly-out sweeps up and to the right */
 @keyframes flyOut {
-  0%   { transform: translate(0, 0)           rotate(0deg);  opacity: 1; }
-  100% { transform: translate(115%, -35px)    rotate(13deg); opacity: 0; }
+  0%   { transform: translate(0, 0)        rotate(0deg);  opacity: 1; }
+  100% { transform: translate(115%, -35px) rotate(13deg); opacity: 0; }
 }
 .flashcard.flying-out {
   animation: flyOut 0.38s cubic-bezier(0.22,1,0.36,1) forwards;
@@ -230,7 +218,6 @@ body {
   z-index: 20;
 }
 
-/* card content */
 .card-heading {
   font-family: var(--font-display);
   font-size: clamp(1.2rem, 3vw, 1.6rem);
@@ -244,7 +231,6 @@ body {
   line-height: 1.78;
 }
 
-/* ─── ARAL SEA POLAROID ─── */
 #aralPolaroid {
   display: none;
   position: fixed;
@@ -263,32 +249,18 @@ body {
   0%   { opacity: 0; transform: rotate(10deg) translateY(-30px) scale(0.88); }
   100% { opacity: 1; transform: rotate(4deg)  translateY(0)     scale(1); }
 }
-#aralPolaroid img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-}
+#aralPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 #aralPolaroid a {
-  display: block;
-  margin-top: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  color: #6b6560;
-  text-decoration: none;
-  text-align: center;
-  line-height: 1.4;
-  word-break: break-all;
+  display: block; margin-top: 6px;
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.08em;
+  color: #6b6560; text-decoration: none; text-align: center; line-height: 1.4; word-break: break-all;
 }
 #aralPolaroid a:hover { text-decoration: underline; }
 
-/* ─── RUBBER TREE FARM POLAROID ─── */
 #rubberPolaroid {
   display: none;
   position: fixed;
-  bottom: 6vh;
-  left: 3vw;
+  bottom: 6vh; left: 3vw;
   z-index: 202;
   background: #f5f0e8;
   padding: 10px 10px 34px;
@@ -299,131 +271,11 @@ body {
   pointer-events: auto;
 }
 @keyframes polaroidDropLeft {
-  0%   { opacity: 0; transform: rotate(-8deg) translateY(-30px) scale(0.88); }
-  100% { opacity: 1; transform: rotate(-3.5deg) translateY(0)   scale(1); }
+  0%   { opacity: 0; transform: rotate(-8deg)   translateY(-30px) scale(0.88); }
+  100% { opacity: 1; transform: rotate(-3.5deg) translateY(0)     scale(1); }
 }
-#rubberPolaroid img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-}
-#rubberPolaroid a {
-  display: block;
-  margin-top: 6px;
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  color: #6b6560;
-  text-decoration: none;
-  text-align: center;
-  line-height: 1.4;
-  word-break: break-all;
-}
-#rubberPolaroid a:hover { text-decoration: underline; }
+#rubberPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
-/* ─── RECLAIMED RUBBER WEB ─── */
-#reclaimedWeb {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  pointer-events: none;
-}
-#reclaimedWeb.active {
-  display: block;
-  pointer-events: auto;
-}
-#reclaimedWeb svg {
-  width: 100%;
-  height: 100%;
-}
-/* close btn for the web */
-#reclaimedWebClose {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 301;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: none;
-  transition: color 0.2s;
-}
-#reclaimedWebClose.active { display: block; }
-#reclaimedWebClose:hover { color: var(--text); }
-
-#continueWeb {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 300;
-  pointer-events: none;
-}
-#continueWeb.active {
-  display: block;
-  pointer-events: auto;
-}
-#continueWeb svg { width: 100%; height: 100%; }
-#continueWebClose {
-  position: fixed;
-  top: 1.5rem;
-  right: 1.5rem;
-  z-index: 301;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1.1rem;
-  cursor: pointer;
-  display: none;
-  transition: color 0.2s;
-}
-#continueWebClose.active { display: block; }
-#continueWebClose:hover { color: var(--text); }
-
-/* SVG node styles */
-.web-node-center rect {
-  fill: #2a2a26;
-  stroke: var(--text);
-  stroke-width: 1.5;
-}
-.web-node-center text {
-  fill: var(--text);
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 13px;
-  font-weight: 700;
-}
-.web-node rect {
-  fill: #1e1e1a;
-  stroke: var(--muted);
-  stroke-width: 1;
-}
-.web-node text {
-  fill: var(--muted);
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-}
-.web-line {
-  stroke: var(--muted);
-  stroke-width: 1;
-  fill: none;
-  stroke-dasharray: 300;
-  stroke-dashoffset: 300;
-  transition: stroke-dashoffset 0.6s ease;
-}
-.web-line.drawn { stroke-dashoffset: 0; }
-.web-node {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-.web-node.visible { opacity: 1; }
-.web-node-center {
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-.web-node-center.visible { opacity: 1; }
 #journey { height: 500vh; position: relative; }
 #journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 #journey-track { display: flex; height: 100%; will-change: transform; }
@@ -432,32 +284,29 @@ body {
   flex: 0 0 100vw; width: 100vw; height: 100vh;
   position: relative; overflow: hidden; cursor: default;
 }
-.panel img.panel-bg {
-  width: 100%; height: 100%; object-fit: cover;
-  display: block; position: absolute; inset: 0;
-}
-.panel-img-link {
-  display: flex; align-items: center; justify-content: center;
-  position: absolute; inset: 0; cursor: pointer; z-index: 2;
-}
-.panel-img-link img {
-  width: 55%; max-width: 520px; height: auto; object-fit: contain; display: block;
-}
 
 .panel-info-box {
-  position: absolute; top: 50%; left: 55%;
-  transform: translateY(-50%) translateX(20px);
+  position: absolute; top: 50%; left: 5%;
+  transform: translateY(-50%) translateX(-20px);
   width: min(320px, 30vw);
   background: var(--surface); border: 1px solid var(--border);
   padding: 2rem 1.75rem; z-index: 6; pointer-events: none;
   opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .panel-info-box.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+#making-info { left: 52vw; right: auto; }
+#making-info:not(.visible) { transform: translateY(-50%) translateX(20px); }
 .panel-info-box h3 {
   font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
-  color: var(--text); margin-bottom: 0.75rem; line-height: 1.2;
+  color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2;
 }
-.panel-info-box p { color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+.panel-info-box p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
+#continueTrigger, #reclaimedTrigger {
+  transition: color 0.2s ease;
+}
+#continueTrigger:hover, #reclaimedTrigger:hover {
+  color: #ffffff !important;
+}
 
 .panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
 .panel-label h2 {
@@ -515,13 +364,11 @@ body {
     <div class="card-stack-wrap" id="cardStackWrap"></div>
   </div>
 
-  <!-- Aral Sea polaroid — shown only on the Water Use card -->
   <div id="aralPolaroid">
     <img src="aral.jpg" alt="Aral Sea then and now" />
     <a href="https://en.wikipedia.org/wiki/Aral_Sea" target="_blank" rel="noopener">wikipedia.org/wiki/Aral_Sea</a>
   </div>
 
-  <!-- Rubber tree farm polaroid — shown only on the Natural Rubber card -->
   <div id="rubberPolaroid">
     <img src="rubbertreefarm.jpg" alt="Rubber tree farm" />
   </div>
@@ -531,17 +378,18 @@ body {
       <div id="journey-track">
 
         <div class="panel" id="panel-0">
-          <div class="panel-img-link" data-modal="making" role="button" tabindex="0" aria-label="Learn about Making"
-               style="justify-content:flex-start; gap:0%;">
-            <img src="trees.png" alt="Trees" style="width:42%; max-width:none;" />
-            <img src="tree2.png" alt="Tree 2" style="width:42%; max-width:none; margin-left:-20%;" />
-          </div>
-          <div class="panel-info-box" id="making-info">
+          <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
+               style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
+          <img id="makeshipImg" src="makeship.png" alt="Making and shipping"
+               style="position:absolute;bottom:28%;right:-5%;height:80%;width:55%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+          <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
+               style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+          <div class="panel-info-box" id="making-info" style="left:52vw;right:auto;transform:translateY(-50%) translateX(20px);">
             <h3>Making</h3>
             <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
-            <p id="continueTrigger" style="margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; cursor: pointer; pointer-events: auto;">Continue</p>
-            <p style="margin-top: 1.2rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); opacity: 0.6;">Skip this step</p>
-            <p id="reclaimedTrigger" style="margin-top: 0.3rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; cursor: pointer; pointer-events: auto;">Buy reclaimed or recycled rubber</p>
+            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue</p>
+            <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">skip this step</p>
+            <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber</p>
           </div>
         </div>
 
@@ -562,27 +410,19 @@ body {
   </div>
 
   <script>
-var panelData = {
-  making: {
-    cards: [
-      { heading: 'Making', body: 'Your research and words here.' }
-    ]
-  }
-};
-
 var partData = {
   sole: {
     cards: [
-      { heading: 'Natural Rubber',  body: 'Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.' },
-      { heading: 'Vulcanization',   body: 'These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.' },
+      { heading: 'Natural Rubber',   body: 'Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.' },
+      { heading: 'Vulcanization',    body: 'These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.' },
       { heading: 'Synthetic Rubber', body: 'Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans.' }
     ]
   },
   canvas: {
     cards: [
-      { heading: 'Materials',                body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
-      { heading: 'Water Use',                body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
-      { heading: 'Pesticides & Worker Health', body: "Cotton accounts for <span style=\"font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;\">6% of the world's pesticide use</span> and <span style=\"font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;\">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against." }
+      { heading: 'Materials',                  body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
+      { heading: 'Water Use',                  body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
+      { heading: 'Pesticides & Worker Health', body: 'Cotton accounts for <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">6% of the world\'s pesticide use</span> and <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.' }
     ]
   },
   laces: {
@@ -594,95 +434,60 @@ var partData = {
 
 var DEPTH = ['fc-front','fc-behind-1','fc-behind-2','fc-behind-3','fc-hidden'];
 
-var modal     = document.getElementById('partModal');
-var backdrop  = document.getElementById('modalBackdrop');
-var closeBtn  = document.getElementById('modalClose');
-var stackWrap = document.getElementById('cardStackWrap');
-var polaroid  = document.getElementById('aralPolaroid');
+var modal          = document.getElementById('partModal');
+var backdrop       = document.getElementById('modalBackdrop');
+var closeBtn       = document.getElementById('modalClose');
+var stackWrap      = document.getElementById('cardStackWrap');
+var polaroid       = document.getElementById('aralPolaroid');
 var rubberPolaroid = document.getElementById('rubberPolaroid');
 
-var allCards      = [];
-var totalCards    = 0;
-var dismissed     = 0;
-var busy          = false;
-var currentPartKey = '';  /* track which part is open */
+var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = '';
 
-/* Which part + card index triggers each polaroid */
-var POLAROID_PART  = 'canvas';
-var POLAROID_INDEX = 1; /* 0=Materials, 1=Water Use, 2=Pesticides */
+var POLAROID_PART  = 'canvas', POLAROID_INDEX = 1;
+var RUBBER_POLAROID_PART = 'sole', RUBBER_POLAROID_INDEX = 0;
 
-var RUBBER_POLAROID_PART  = 'sole';
-var RUBBER_POLAROID_INDEX = 0; /* 0=Natural Rubber */
-
-function depthClass(pos) {
-  return DEPTH[Math.min(pos, DEPTH.length - 1)];
-}
+function depthClass(pos) { return DEPTH[Math.min(pos, DEPTH.length - 1)]; }
 
 function showPolaroid(el) {
   el.style.display = 'block';
   el.style.animation = 'none';
-  el.offsetHeight; /* reflow to restart animation */
+  el.offsetHeight;
   el.style.animation = '';
 }
 
 function updatePolaroid() {
-  /* Aral Sea */
-  if ((currentPartKey === POLAROID_PART) && (dismissed === POLAROID_INDEX)) {
-    showPolaroid(polaroid);
-  } else {
-    polaroid.style.display = 'none';
-  }
-  /* Rubber tree farm */
-  if ((currentPartKey === RUBBER_POLAROID_PART) && (dismissed === RUBBER_POLAROID_INDEX)) {
-    showPolaroid(rubberPolaroid);
-  } else {
-    rubberPolaroid.style.display = 'none';
-  }
+  if (currentPartKey === POLAROID_PART && dismissed === POLAROID_INDEX) showPolaroid(polaroid);
+  else polaroid.style.display = 'none';
+  if (currentPartKey === RUBBER_POLAROID_PART && dismissed === RUBBER_POLAROID_INDEX) showPolaroid(rubberPolaroid);
+  else rubberPolaroid.style.display = 'none';
 }
 
 function buildStack(data, partKey) {
-  allCards   = [];
-  dismissed  = 0;
-  busy       = false;
+  allCards = []; dismissed = 0; busy = false;
   currentPartKey = partKey || '';
   totalCards = data.cards.length;
   stackWrap.innerHTML = '';
-  stackWrap.style.height = ''; /* reset while measuring */
+  stackWrap.style.height = '';
 
-  /* Create all cards, all absolute, initially invisible for measuring */
   data.cards.forEach(function(card, i) {
     var el = document.createElement('div');
     el.className = 'flashcard ' + depthClass(i);
-    /* temporarily visible and unstyled so we can measure natural height */
     el.style.cssText = 'position:absolute;top:0;left:0;width:100%;visibility:hidden;';
-    el.innerHTML =
-      '<div class="card-heading">' + card.heading + '</div>' +
-      '<div class="card-body">'    + card.body    + '</div>';
+    el.innerHTML = '<div class="card-heading">' + card.heading + '</div><div class="card-body">' + card.body + '</div>';
     el.addEventListener('click', advance);
     stackWrap.appendChild(el);
     allCards.push(el);
   });
 
-  /* Measure tallest card, set wrapper height to that — wrapper never changes size again */
   var tallest = 0;
-  allCards.forEach(function(el) {
-    var h = el.offsetHeight;
-    if (h > tallest) tallest = h;
-  });
+  allCards.forEach(function(el) { var h = el.offsetHeight; if (h > tallest) tallest = h; });
   stackWrap.style.height = tallest + 'px';
-
-  /* Now reveal cards properly */
-  allCards.forEach(function(el) {
-    el.style.cssText = 'position:absolute;top:0;left:0;width:100%;';
-  });
-
+  allCards.forEach(function(el) { el.style.cssText = 'position:absolute;top:0;left:0;width:100%;'; });
   updatePolaroid();
 }
 
 function advance() {
   if (busy) return;
-
-  /* last card — loop back to first */
   if (dismissed === totalCards - 1) {
     busy = true;
     var front = allCards[dismissed];
@@ -695,45 +500,35 @@ function advance() {
         DEPTH.forEach(function(c) { el.classList.remove(c); });
         el.classList.add(depthClass(i));
       });
-      busy = false;
-      updatePolaroid();
+      busy = false; updatePolaroid();
     }, 400);
     return;
   }
-
-  /* normal advance */
   busy = true;
   var front = allCards[dismissed];
   front.classList.remove('fc-front');
   front.classList.add('flying-out');
-
-  /* shift behind cards immediately */
   var pos = 0;
   for (var i = dismissed + 1; i < totalCards; i++) {
     DEPTH.forEach(function(c) { allCards[i].classList.remove(c); });
-    allCards[i].classList.add(depthClass(pos));
-    pos++;
+    allCards[i].classList.add(depthClass(pos++));
   }
-
   setTimeout(function() {
-    /* tuck the dismissed card silently to the back */
     front.classList.remove('flying-out');
     DEPTH.forEach(function(c) { front.classList.remove(c); });
     front.classList.add('fc-hidden');
-    dismissed++;
-    busy = false;
-    updatePolaroid();
+    dismissed++; busy = false; updatePolaroid();
   }, 390);
 }
 
 function openModal(data, partKey) {
   buildStack(data, partKey);
-  modal.style.display    = 'block';
+  modal.style.display = 'block';
   backdrop.style.display = 'block';
   modal.focus();
 }
 function closeModal() {
-  modal.style.display    = 'none';
+  modal.style.display = 'none';
   backdrop.style.display = 'none';
   polaroid.style.display = 'none';
   rubberPolaroid.style.display = 'none';
@@ -747,19 +542,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
 
-document.getElementById('journey-track').addEventListener('click', function(e) {
-  var hs = e.target.closest('.hotspot');
-  if (hs && panelData[hs.dataset.modal]) { openModal(panelData[hs.dataset.modal], hs.dataset.modal); return; }
-  var link = e.target.closest('.panel-img-link');
-  if (link && panelData[link.dataset.modal]) openModal(panelData[link.dataset.modal], link.dataset.modal);
-});
-document.getElementById('journey-track').addEventListener('keydown', function(e) {
-  if (e.key !== 'Enter' && e.key !== ' ') return;
-  var link = e.target.closest('.panel-img-link');
-  if (link && panelData[link.dataset.modal]) { e.preventDefault(); openModal(panelData[link.dataset.modal], link.dataset.modal); }
-});
-
-/* ── canvas shoe ── */
+/* ── canvas shoe — fixed layer rendering ── */
 var shoeCanvas = document.getElementById('shoeCanvas');
 if (shoeCanvas) {
   var ctx = shoeCanvas.getContext('2d');
@@ -769,27 +552,42 @@ if (shoeCanvas) {
     { src: 'shoecanvas.png', part: 'canvas' },
     { src: 'shoelaces.png',  part: 'laces'  }
   ];
-  function onAllLoaded() {
-    ctx.clearRect(0,0,W,H);
-    layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img,0,0,W,H); });
+
+  function redraw() {
+    ctx.clearRect(0, 0, W, H);
+    layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img, 0, 0, W, H); });
   }
+
   layers.forEach(function(layer) {
     var img = new Image();
     img.onload = function() {
       layer.img = img;
+      /* Set canvas size from the first image that loads successfully */
       if (W === 0 && img.naturalWidth > 0) {
-        W = img.naturalWidth; H = img.naturalHeight;
-        shoeCanvas.width = W; shoeCanvas.height = H;
+        W = img.naturalWidth;
+        H = img.naturalHeight;
+        shoeCanvas.width  = W;
+        shoeCanvas.height = H;
       }
+      /* Build offscreen canvas using the now-known W/H */
       var off = document.createElement('canvas');
-      off.width = W || img.naturalWidth; off.height = H || img.naturalHeight;
-      var oc = off.getContext('2d'); oc.drawImage(img,0,0,off.width,off.height);
-      layer.offCtx = oc; loadCount++;
-      if (loadCount === layers.length) onAllLoaded();
+      off.width  = W;
+      off.height = H;
+      var oc = off.getContext('2d');
+      oc.drawImage(img, 0, 0, W, H);
+      layer.offCtx = oc;
+      loadCount++;
+      /* Redraw every time a layer finishes — all loaded layers appear immediately */
+      redraw();
     };
-    img.onerror = function() { loadCount++; if (loadCount === layers.length) onAllLoaded(); };
+    img.onerror = function() {
+      loadCount++;
+      /* Still redraw so other layers aren't blocked */
+      redraw();
+    };
     img.src = layer.src;
   });
+
   function getHit(e) {
     if (W === 0) return null;
     var rect = shoeCanvas.getBoundingClientRect();
@@ -797,10 +595,11 @@ if (shoeCanvas) {
     var y = Math.round((e.clientY - rect.top)  * (H / rect.height));
     for (var i = layers.length - 1; i >= 0; i--) {
       if (!layers[i].offCtx) continue;
-      if (layers[i].offCtx.getImageData(x,y,1,1).data[3] > 20) return layers[i].part;
+      if (layers[i].offCtx.getImageData(x, y, 1, 1).data[3] > 20) return layers[i].part;
     }
     return null;
   }
+
   shoeCanvas.addEventListener('click', function(e) {
     var hit = getHit(e);
     if (hit && partData[hit]) openModal(partData[hit], hit);
@@ -810,10 +609,38 @@ if (shoeCanvas) {
   });
 }
 
-/* ── making info box ── */
-var makingInfo = document.getElementById('making-info');
+/* ── making info box & scene images ── */
+var makingInfo     = document.getElementById('making-info');
+var makeshipImg    = document.getElementById('makeshipImg');
+var boatImg        = document.getElementById('boatImg');
+var makingChoice   = null;
+
+function resetMakingScene() {
+  makingChoice = null;
+  if (makeshipImg) makeshipImg.style.opacity = '0';
+  if (boatImg)     boatImg.style.opacity     = '0';
+}
+
+function showMakingScene(choice) {
+  makingChoice = choice;
+  if (makingInfo) makingInfo.classList.remove('visible');
+  if (choice === 'continue') {
+    if (makeshipImg) makeshipImg.style.opacity = '1';
+    if (boatImg)     boatImg.style.opacity     = '0';
+  } else if (choice === 'reclaimed') {
+    if (boatImg)     boatImg.style.opacity     = '1';
+    if (makeshipImg) makeshipImg.style.opacity  = '0';
+  }
+}
+
+var RESET_THRESHOLD = 0.01;
+
 function updateInfoBox(p) {
-  if (makingInfo) makingInfo.classList.toggle('visible', p >= 0.03 && p <= 0.22);
+  if (makingChoice === null && makingInfo) {
+    makingInfo.classList.toggle('visible', p >= 0.01 && p <= 0.28);
+  } else if (makingChoice !== null && makingInfo) {
+    makingInfo.classList.remove('visible');
+  }
 }
 
 /* ── horizontal scroll ── */
@@ -824,309 +651,105 @@ var jdots   = document.querySelectorAll('.jdot');
 var PANEL_COUNT = 4, LERP = 0.08;
 var currentX = 0, targetX = 0, nudgeHidden = false;
 
-function lerp(a,b,t) { return a+(b-a)*t; }
+function lerp(a, b, t) { return a + (b - a) * t; }
 function getProgress() {
   if (!journey) return 0;
-  var rect = journey.getBoundingClientRect();
+  var rect  = journey.getBoundingClientRect();
   var total = journey.offsetHeight - window.innerHeight;
-  return total > 0 ? Math.max(0,Math.min(total,-rect.top))/total : 0;
+  return total > 0 ? Math.max(0, Math.min(total, -rect.top)) / total : 0;
 }
+
+var LOCK_P = 0.28;
+
+function getLockedScrollTop() {
+  var top   = journey.getBoundingClientRect().top + window.scrollY;
+  var total = journey.offsetHeight - window.innerHeight;
+  return top + LOCK_P * total;
+}
+
+function isInsideJourney() {
+  var rect = journey.getBoundingClientRect();
+  return rect.top <= 0 && rect.bottom >= window.innerHeight;
+}
+
+function enforceScrollLock() {
+  if (makingChoice !== null) return;
+  if (!isInsideJourney()) return;
+  var limit = getLockedScrollTop();
+  if (window.scrollY > limit) window.scrollTo({ top: limit, behavior: 'instant' });
+}
+
+window.addEventListener('wheel', function(e) {
+  if (makingChoice !== null) return;
+  if (!isInsideJourney()) return;
+  var limit = getLockedScrollTop();
+  if (e.deltaY > 0 && window.scrollY >= limit - 2) {
+    e.preventDefault();
+    window.scrollTo({ top: limit, behavior: 'instant' });
+  }
+}, { passive: false });
+
+var touchStartY = 0;
+window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
+window.addEventListener('touchmove', function(e) {
+  if (makingChoice !== null) return;
+  if (!isInsideJourney()) return;
+  var limit = getLockedScrollTop();
+  var dy = touchStartY - e.touches[0].clientY;
+  if (dy > 0 && window.scrollY >= limit - 2) {
+    e.preventDefault();
+    window.scrollTo({ top: limit, behavior: 'instant' });
+  }
+}, { passive: false });
+
 function tick() {
-  var p = getProgress();
-  targetX  = p*(PANEL_COUNT-1)*window.innerWidth;
-  currentX = lerp(currentX,targetX,LERP);
-  if (Math.abs(currentX-targetX)<0.3) currentX=targetX;
-  if (track) track.style.transform='translateX(-'+currentX+'px)';
-  var ai=Math.round(p*(PANEL_COUNT-1));
-  jdots.forEach(function(d,i){ d.classList.toggle('active',i===ai); });
-  if (!nudgeHidden&&p>0.01){nudgeHidden=true;if(nudge)nudge.classList.add('hide');}
-  updateInfoBox(p);
+  var rawP = getProgress();
+  if (makingChoice === null) enforceScrollLock();
+  if (rawP < RESET_THRESHOLD && makingChoice !== null) resetMakingScene();
+  var p = (makingChoice === null) ? Math.min(rawP, LOCK_P) : rawP;
+  targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
+  currentX = lerp(currentX, targetX, LERP);
+  if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
+  if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
+  var ai = Math.round(p * (PANEL_COUNT - 1));
+  jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
+  if (!nudgeHidden && p > 0.01) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
+  updateInfoBox(rawP);
   requestAnimationFrame(tick);
 }
-if (journey&&track) requestAnimationFrame(tick);
+if (journey && track) requestAnimationFrame(tick);
 
-jdots.forEach(function(dot,idx){
-  dot.addEventListener('click',function(){
+jdots.forEach(function(dot, idx) {
+  dot.addEventListener('click', function() {
     if (!journey) return;
-    var total=journey.offsetHeight-window.innerHeight;
-    var top=journey.getBoundingClientRect().top+window.scrollY;
-    window.scrollTo({top:top+(idx/(PANEL_COUNT-1))*total,behavior:'smooth'});
+    if (makingChoice === null && idx > 0) return;
+    var total = journey.offsetHeight - window.innerHeight;
+    var top   = journey.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
   });
 });
 
-/* ── RECLAIMED RUBBER MIND-MAP WEB ── */
-var reclaimedTrigger  = document.getElementById('reclaimedTrigger');
-var reclaimedWeb      = document.getElementById('reclaimedWeb');
-var reclaimedSvg      = document.getElementById('reclaimedSvg');
-var reclaimedWebClose = document.getElementById('reclaimedWebClose');
-
-var WEB_NODES = [
-  { label: ['Recycled rubber', 'tyres & offcuts'],      angle: -140, dist: 220 },
-  { label: ['Bio-based', 'synthesised rubber'],          angle:   40, dist: 220 },
-];
-
-var SVG_NS = 'http://www.w3.org/2000/svg';
-
-function makeSvgEl(tag, attrs) {
-  var el = document.createElementNS(SVG_NS, tag);
-  Object.keys(attrs).forEach(function(k) { el.setAttribute(k, attrs[k]); });
-  return el;
-}
-
-function buildWeb() {
-  reclaimedSvg.innerHTML = '';
-
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var cx = vw * 0.90;
-  var cy = vh * 0.5;
-
-  /* ── Central diamond node ── */
-  var centerG = document.createElementNS(SVG_NS, 'g');
-  centerG.classList.add('web-node-center');
-  centerG.setAttribute('transform', 'translate(' + cx + ',' + cy + ')');
-
-  var diamond = makeSvgEl('rect', {
-    x: -72, y: -36, width: 144, height: 72,
-    rx: 2,
-    transform: 'rotate(45, 0, 0) scale(0.72)'
-  });
-  /* use a rotated square for diamond feel */
-  var diamondPoly = makeSvgEl('polygon', {
-    points: '0,-42 62,0 0,42 -62,0',
-    fill: '#2a2a26', stroke: '#8b90d9', 'stroke-width': '1.5'
-  });
-  var centerText1 = makeSvgEl('text', { x: 0, y: -7, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
-  centerText1.textContent = 'Buy reclaimed';
-  var centerText2 = makeSvgEl('text', { x: 0, y: 10, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
-  centerText2.textContent = 'or recycled';
-
-  centerG.appendChild(diamondPoly);
-  centerG.appendChild(centerText1);
-  centerG.appendChild(centerText2);
-  reclaimedSvg.appendChild(centerG);
-
-  var lines = [];
-  var nodes = [];
-
-  WEB_NODES.forEach(function(node, i) {
-    var rad = node.angle * Math.PI / 180;
-    var nx  = cx + Math.cos(rad) * node.dist;
-    var ny  = cy + Math.sin(rad) * node.dist;
-
-    /* curved line from center to node */
-    var cpx = cx + Math.cos(rad) * node.dist * 0.5 + Math.sin(rad) * 40;
-    var cpy = cy + Math.sin(rad) * node.dist * 0.5 - Math.cos(rad) * 40;
-    var path = makeSvgEl('path', {
-      d: 'M ' + cx + ' ' + cy + ' Q ' + cpx + ' ' + cpy + ' ' + nx + ' ' + ny,
-      'class': 'web-line',
-      'stroke-dasharray': 400,
-      'stroke-dashoffset': 400
-    });
-    reclaimedSvg.appendChild(path);
-    lines.push(path);
-
-    /* node box */
-    var nodeG = document.createElementNS(SVG_NS, 'g');
-    nodeG.classList.add('web-node');
-    nodeG.setAttribute('transform', 'translate(' + nx + ',' + ny + ')');
-
-    var bw = 130, bh = node.label.length > 1 ? 38 : 26;
-    var bg = makeSvgEl('rect', {
-      x: -bw/2, y: -bh/2, width: bw, height: bh,
-      rx: 2, fill: '#1e1e1a', stroke: '#3a3a36', 'stroke-width': '1'
-    });
-    nodeG.appendChild(bg);
-
-    node.label.forEach(function(line, li) {
-      var offset = node.label.length > 1 ? (li === 0 ? -9 : 9) : 4;
-      var t = makeSvgEl('text', {
-        x: 0, y: offset,
-        'text-anchor': 'middle',
-        fill: '#5c6096',
-        'font-family': 'Inter, sans-serif',
-        'font-size': '10.5'
-      });
-      t.textContent = line;
-      nodeG.appendChild(t);
-    });
-
-    reclaimedSvg.appendChild(nodeG);
-    nodes.push(nodeG);
-  });
-
-  /* Animate in sequence */
-  requestAnimationFrame(function() {
-    centerG.classList.add('visible');
-    lines.forEach(function(line, i) {
-      setTimeout(function() {
-        line.classList.add('drawn');
-        setTimeout(function() {
-          nodes[i].classList.add('visible');
-        }, 350);
-      }, 150 + i * 130);
-    });
-  });
-}
-
-function openWeb() {
-  reclaimedWeb.classList.add('active');
-  reclaimedWebClose.classList.add('active');
-  buildWeb();
-}
-function closeWeb() {
-  reclaimedWeb.classList.remove('active');
-  reclaimedWebClose.classList.remove('active');
-  reclaimedSvg.innerHTML = '';
-}
+/* ── trigger buttons (no mind-map webs) ── */
+var reclaimedTrigger = document.getElementById('reclaimedTrigger');
+var continueTrigger  = document.getElementById('continueTrigger');
+var makingInfoBox    = document.getElementById('making-info');
 
 if (reclaimedTrigger) {
   reclaimedTrigger.addEventListener('click', function(e) {
     e.stopPropagation();
-    openWeb();
+    showMakingScene('reclaimed');
   });
 }
-if (reclaimedWebClose) {
-  reclaimedWebClose.addEventListener('click', closeWeb);
-}
-/* click backdrop of web to close */
-if (reclaimedWeb) {
-  reclaimedWeb.addEventListener('click', function(e) {
-    if (e.target === reclaimedWeb || e.target === reclaimedSvg) closeWeb();
-  });
-}
-
-/* Stop the info box from passing clicks through to the panel-img-link beneath */
-var makingInfoBox = document.getElementById('making-info');
-if (makingInfoBox) {
-  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && reclaimedWeb.classList.contains('active')) closeWeb();
-});
-
-/* ── CONTINUE MIND-MAP WEB ── */
-var continueTrigger  = document.getElementById('continueTrigger');
-var continueWeb      = document.getElementById('continueWeb');
-var continueSvg      = document.getElementById('continueSvg');
-var continueWebClose = document.getElementById('continueWebClose');
-
-var CONTINUE_NODES = [
-  { label: ['Placeholder strand'], angle: -90, dist: 200 }
-];
-
-function buildContinueWeb() {
-  continueSvg.innerHTML = '';
-
-  var vw = window.innerWidth;
-  var vh = window.innerHeight;
-  var cx = vw * 0.80;
-  var cy = vh * 0.5;
-
-  /* Central diamond */
-  var centerG = document.createElementNS(SVG_NS, 'g');
-  centerG.classList.add('web-node-center');
-  centerG.setAttribute('transform', 'translate(' + cx + ',' + cy + ')');
-
-  var diamondPoly = makeSvgEl('polygon', {
-    points: '0,-42 62,0 0,42 -62,0',
-    fill: '#2a2a26', stroke: '#8b90d9', 'stroke-width': '1.5'
-  });
-  var ct1 = makeSvgEl('text', { x: 0, y: -7, 'text-anchor': 'middle', fill: '#8b90d9', 'font-family': 'Playfair Display, Georgia, serif', 'font-size': '12', 'font-weight': '700' });
-  ct1.textContent = 'Continue';
-  centerG.appendChild(diamondPoly);
-  centerG.appendChild(ct1);
-  continueSvg.appendChild(centerG);
-
-  var lines = [];
-  var nodes = [];
-
-  CONTINUE_NODES.forEach(function(node) {
-    var rad = node.angle * Math.PI / 180;
-    var nx  = cx + Math.cos(rad) * node.dist;
-    var ny  = cy + Math.sin(rad) * node.dist;
-    var cpx = cx + Math.cos(rad) * node.dist * 0.5 + Math.sin(rad) * 40;
-    var cpy = cy + Math.sin(rad) * node.dist * 0.5 - Math.cos(rad) * 40;
-
-    var path = makeSvgEl('path', {
-      d: 'M ' + cx + ' ' + cy + ' Q ' + cpx + ' ' + cpy + ' ' + nx + ' ' + ny,
-      'class': 'web-line',
-      'stroke-dasharray': 400,
-      'stroke-dashoffset': 400
-    });
-    continueSvg.appendChild(path);
-    lines.push(path);
-
-    var nodeG = document.createElementNS(SVG_NS, 'g');
-    nodeG.classList.add('web-node');
-    nodeG.setAttribute('transform', 'translate(' + nx + ',' + ny + ')');
-
-    var bw = 130, bh = node.label.length > 1 ? 38 : 26;
-    var bg = makeSvgEl('rect', { x: -bw/2, y: -bh/2, width: bw, height: bh, rx: 2, fill: '#1e1e1a', stroke: '#3a3a36', 'stroke-width': '1' });
-    nodeG.appendChild(bg);
-
-    node.label.forEach(function(line, li) {
-      var offset = node.label.length > 1 ? (li === 0 ? -9 : 9) : 4;
-      var t = makeSvgEl('text', { x: 0, y: offset, 'text-anchor': 'middle', fill: '#5c6096', 'font-family': 'Inter, sans-serif', 'font-size': '10.5' });
-      t.textContent = line;
-      nodeG.appendChild(t);
-    });
-
-    continueSvg.appendChild(nodeG);
-    nodes.push(nodeG);
-  });
-
-  requestAnimationFrame(function() {
-    centerG.classList.add('visible');
-    lines.forEach(function(line, i) {
-      setTimeout(function() {
-        line.classList.add('drawn');
-        setTimeout(function() { nodes[i].classList.add('visible'); }, 350);
-      }, 150 + i * 130);
-    });
-  });
-}
-
-function openContinueWeb() {
-  continueWeb.classList.add('active');
-  continueWebClose.classList.add('active');
-  buildContinueWeb();
-}
-function closeContinueWeb() {
-  continueWeb.classList.remove('active');
-  continueWebClose.classList.remove('active');
-  continueSvg.innerHTML = '';
-}
-
 if (continueTrigger) {
   continueTrigger.addEventListener('click', function(e) {
     e.stopPropagation();
-    openContinueWeb();
+    showMakingScene('continue');
   });
 }
-if (continueWebClose) {
-  continueWebClose.addEventListener('click', closeContinueWeb);
+if (makingInfoBox) {
+  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
 }
-if (continueWeb) {
-  continueWeb.addEventListener('click', function(e) {
-    if (e.target === continueWeb || e.target === continueSvg) closeContinueWeb();
-  });
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape' && continueWeb.classList.contains('active')) closeContinueWeb();
-});
   </script>
-  <!-- Mind-map web overlay — reclaimed (outside scroll so it's never clipped) -->
-  <div id="reclaimedWeb">
-    <svg id="reclaimedSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-  </div>
-  <button id="reclaimedWebClose" aria-label="Close web">&#x2715;</button>
-
-  <!-- Mind-map web overlay — continue -->
-  <div id="continueWeb">
-    <svg id="continueSvg" xmlns="http://www.w3.org/2000/svg"></svg>
-  </div>
-  <button id="continueWebClose" aria-label="Close web">&#x2715;</button>
 
 </body>
 </html>

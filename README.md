@@ -26,3 +26,5 @@ Which reminded me of flash cards/que cards which would be a fun and more human w
 
 **Images**
 Images included are either creative commons liscensed images or images with link reference, used to further illustrate a point of give context to current or future information
+_____
+better to use1:33 AMGood idea — lock the scroll at panel-0 until the user makes a choice, then unlock it.
