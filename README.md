@@ -38,5 +38,5 @@ I made this as the information surrounding shoes, how they come to be and where 
 
 The choices add agency to the information the user is reading, adding weight and showing how many steps it takes just to get to the 'use' portion.
 
-[Research](docs/HagenLily_dsdn221_p1_research.pdf)
-[Poster](docs/HagenLily_dsdn221_p1_poster.pdf)
+[Research](HagenLily_dsdn221_p1_research.pdf)
+[Poster](HagenLily_dsdn221_p1_poster.pdf)
