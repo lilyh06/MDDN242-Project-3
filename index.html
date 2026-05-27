@@ -324,9 +324,7 @@ body {
   transition: color 0.2s;
   letter-spacing: 0.05em;
 }
-#backBtn:hover {
-  color: #ffffff;
-}
+#backBtn:hover { color: #ffffff; }
 
 .panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
 .panel-label h2 {
@@ -403,13 +401,13 @@ body {
           <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
                style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
           <img id="makeshipImg" src="makeship.png" alt="Making and shipping"
-               style="position:absolute;bottom:37%;right:-15.5%;height:100%;width:63%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+               style="position:absolute;bottom:37%;right:-15%;height:99%;width:63%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
           <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
                style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
           <div class="panel-info-box" id="making-info" style="left:52vw;right:auto;transform:translateY(-50%) translateX(20px);">
             <h3>Making</h3>
             <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
-            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue </p>
+            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue</p>
             <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">or skip this step</p>
             <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber</p>
           </div>
@@ -464,8 +462,7 @@ var polaroid       = document.getElementById('aralPolaroid');
 var rubberPolaroid = document.getElementById('rubberPolaroid');
 
 var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = '';
-
-var POLAROID_PART  = 'canvas', POLAROID_INDEX = 1;
+var POLAROID_PART = 'canvas', POLAROID_INDEX = 1;
 var RUBBER_POLAROID_PART = 'sole', RUBBER_POLAROID_INDEX = 0;
 
 function depthClass(pos) { return DEPTH[Math.min(pos, DEPTH.length - 1)]; }
@@ -490,7 +487,6 @@ function buildStack(data, partKey) {
   totalCards = data.cards.length;
   stackWrap.innerHTML = '';
   stackWrap.style.height = '';
-
   data.cards.forEach(function(card, i) {
     var el = document.createElement('div');
     el.className = 'flashcard ' + depthClass(i);
@@ -500,7 +496,6 @@ function buildStack(data, partKey) {
     stackWrap.appendChild(el);
     allCards.push(el);
   });
-
   var tallest = 0;
   allCards.forEach(function(el) { var h = el.offsetHeight; if (h > tallest) tallest = h; });
   stackWrap.style.height = tallest + 'px';
@@ -564,7 +559,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeModal();
 });
 
-/* ── canvas shoe — fixed layer rendering ── */
+/* ── canvas shoe ── */
 var shoeCanvas = document.getElementById('shoeCanvas');
 if (shoeCanvas) {
   var ctx = shoeCanvas.getContext('2d');
@@ -574,42 +569,29 @@ if (shoeCanvas) {
     { src: 'shoecanvas.png', part: 'canvas' },
     { src: 'shoelaces.png',  part: 'laces'  }
   ];
-
   function redraw() {
     ctx.clearRect(0, 0, W, H);
     layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img, 0, 0, W, H); });
   }
-
   layers.forEach(function(layer) {
     var img = new Image();
     img.onload = function() {
       layer.img = img;
-      /* Set canvas size from the first image that loads successfully */
       if (W === 0 && img.naturalWidth > 0) {
-        W = img.naturalWidth;
-        H = img.naturalHeight;
-        shoeCanvas.width  = W;
-        shoeCanvas.height = H;
+        W = img.naturalWidth; H = img.naturalHeight;
+        shoeCanvas.width = W; shoeCanvas.height = H;
       }
-      /* Build offscreen canvas using the now-known W/H */
       var off = document.createElement('canvas');
-      off.width  = W;
-      off.height = H;
+      off.width = W; off.height = H;
       var oc = off.getContext('2d');
       oc.drawImage(img, 0, 0, W, H);
       layer.offCtx = oc;
       loadCount++;
-      /* Redraw every time a layer finishes — all loaded layers appear immediately */
       redraw();
     };
-    img.onerror = function() {
-      loadCount++;
-      /* Still redraw so other layers aren't blocked */
-      redraw();
-    };
+    img.onerror = function() { loadCount++; redraw(); };
     img.src = layer.src;
   });
-
   function getHit(e) {
     if (W === 0) return null;
     var rect = shoeCanvas.getBoundingClientRect();
@@ -621,7 +603,6 @@ if (shoeCanvas) {
     }
     return null;
   }
-
   shoeCanvas.addEventListener('click', function(e) {
     var hit = getHit(e);
     if (hit && partData[hit]) openModal(partData[hit], hit);
@@ -632,11 +613,11 @@ if (shoeCanvas) {
 }
 
 /* ── making info box & scene images ── */
-var makingInfo     = document.getElementById('making-info');
-var makeshipImg    = document.getElementById('makeshipImg');
-var boatImg        = document.getElementById('boatImg');
-var backBtn        = document.getElementById('backBtn');
-var makingChoice   = null;
+var makingInfo   = document.getElementById('making-info');
+var makeshipImg  = document.getElementById('makeshipImg');
+var boatImg      = document.getElementById('boatImg');
+var backBtn      = document.getElementById('backBtn');
+var makingChoice = null;
 
 function resetMakingScene() {
   makingChoice = null;
@@ -659,30 +640,27 @@ function showMakingScene(choice) {
 }
 
 if (backBtn) {
-  backBtn.addEventListener('click', function() {
-    resetMakingScene();
-  });
+  backBtn.addEventListener('click', function() { resetMakingScene(); });
 }
 
-var RESET_THRESHOLD = 0.01;
-
-function updateInfoBox(p) {
-  if (makingChoice === null && makingInfo) {
-    makingInfo.classList.toggle('visible', p >= 0.01 && p <= 0.28);
-  } else if (makingChoice !== null && makingInfo) {
-    makingInfo.classList.remove('visible');
-  }
-}
-
-/* ── horizontal scroll ── */
-var journey = document.getElementById('journey');
-var track   = document.getElementById('journey-track');
-var nudge   = document.getElementById('scroll-nudge');
-var jdots   = document.querySelectorAll('.jdot');
+/* ── scroll logic ── */
+var journey    = document.getElementById('journey');
+var track      = document.getElementById('journey-track');
+var nudge      = document.getElementById('scroll-nudge');
+var jdots      = document.querySelectorAll('.jdot');
 var PANEL_COUNT = 4, LERP = 0.08;
 var currentX = 0, targetX = 0, nudgeHidden = false;
 
+/*
+  LOCK_P = 0:
+  The lock snaps to the very start of the journey scroll (scrollY = journeyTop).
+  This keeps panel-0 fully in view — rubber trees on the left, making box on the right —
+  and holds there until the user makes a choice.
+*/
+var LOCK_P = 0;
+
 function lerp(a, b, t) { return a + (b - a) * t; }
+
 function getProgress() {
   if (!journey) return 0;
   var rect  = journey.getBoundingClientRect();
@@ -690,12 +668,9 @@ function getProgress() {
   return total > 0 ? Math.max(0, Math.min(total, -rect.top)) / total : 0;
 }
 
-var LOCK_P = 0.28;
-
 function getLockedScrollTop() {
-  var top   = journey.getBoundingClientRect().top + window.scrollY;
-  var total = journey.offsetHeight - window.innerHeight;
-  return top + LOCK_P * total;
+  /* LOCK_P = 0 means the very top of the journey section */
+  return journey.getBoundingClientRect().top + window.scrollY;
 }
 
 function isInsideJourney() {
@@ -707,44 +682,61 @@ function enforceScrollLock() {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
   var limit = getLockedScrollTop();
-  if (window.scrollY > limit) window.scrollTo({ top: limit, behavior: 'instant' });
+  /* Snap to lock point — prevents any forward scrolling */
+  if (window.scrollY > limit) {
+    window.scrollTo({ top: limit, behavior: 'instant' });
+  }
 }
 
+/* Block forward wheel scroll while inside journey and no choice made */
 window.addEventListener('wheel', function(e) {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  if (e.deltaY > 0 && window.scrollY >= limit - 2) {
+  if (e.deltaY > 0) {
     e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
+    window.scrollTo({ top: getLockedScrollTop(), behavior: 'instant' });
   }
 }, { passive: false });
 
+/* Block forward touch scroll while inside journey and no choice made */
 var touchStartY = 0;
 window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
 window.addEventListener('touchmove', function(e) {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
   var dy = touchStartY - e.touches[0].clientY;
-  if (dy > 0 && window.scrollY >= limit - 2) {
+  if (dy > 0) {
     e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
+    window.scrollTo({ top: getLockedScrollTop(), behavior: 'instant' });
   }
 }, { passive: false });
+
+function updateInfoBox(p) {
+  if (makingChoice === null && makingInfo) {
+    /* Show the box as soon as the journey section is sticky */
+    makingInfo.classList.toggle('visible', isInsideJourney());
+  } else if (makingChoice !== null && makingInfo) {
+    makingInfo.classList.remove('visible');
+  }
+}
+
+var RESET_THRESHOLD = 0.001;
 
 function tick() {
   var rawP = getProgress();
   if (makingChoice === null) enforceScrollLock();
-  if (rawP < RESET_THRESHOLD && makingChoice !== null) resetMakingScene();
-  var p = (makingChoice === null) ? Math.min(rawP, LOCK_P) : rawP;
+  if (!isInsideJourney() && makingChoice !== null) resetMakingScene();
+
+  /* While locked, keep horizontal track at 0 (panel-0 fully visible) */
+  var p = (makingChoice === null) ? 0 : rawP;
   targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
   currentX = lerp(currentX, targetX, LERP);
   if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
   if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
+
   var ai = Math.round(p * (PANEL_COUNT - 1));
   jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
-  if (!nudgeHidden && p > 0.01) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
+  if (!nudgeHidden && rawP > 0.001) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
   updateInfoBox(rawP);
   requestAnimationFrame(tick);
 }
@@ -760,1577 +752,6 @@ jdots.forEach(function(dot, idx) {
   });
 });
 
-/* ── trigger buttons (no mind-map webs) ── */
-var reclaimedTrigger = document.getElementById('reclaimedTrigger');
-var continueTrigger  = document.getElementById('continueTrigger');
-var makingInfoBox    = document.getElementById('making-info');
-
-if (reclaimedTrigger) {
-  reclaimedTrigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showMakingScene('reclaimed');
-  });
-}
-if (continueTrigger) {
-  continueTrigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showMakingScene('continue');
-  });
-}
-if (makingInfoBox) {
-  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
-}
-  </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Life of Our Shoes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-:root {
-  --bg:           #000000;
-  --surface:      #161612;
-  --border:       #271d28;
-  --accent:       #2b3180;
-  --accent2:      #ffbb00;
-  --text:         #8b90d9;
-  --muted:        #5c6096;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-mono:    'Inter', sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 4rem 2rem;
-  overflow: hidden;
-  text-align: center;
-}
-#hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 60%, rgba(200,240,74,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(240,168,60,0.06) 0%, transparent 50%);
-}
-.hero-inner {
-  position: relative;
-  max-width: 600px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
-  display: block;
-}
-#hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  line-height: 1.1;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 1.5rem;
-}
-#hero h1 em { font-style: italic; color: var(--accent); }
-.hero-sub {
-  color: var(--accent);
-  font-size: 0.95rem;
-  max-width: 400px;
-  margin-bottom: 2.5rem;
-}
-.hero-img-stack {
-  position: relative;
-  width: min(600px, 90vw);
-  margin: 1rem 0 2rem;
-}
-#shoeCanvas {
-  display: block;
-  width: 90%;
-  height: auto;
-  min-height: 200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 20px 60px rgba(18,79,165,0.12));
-  animation: float 6s ease-in-out infinite;
-}
-.hero-grass {
-  width: 115%;
-  position: absolute;
-  bottom: 0; left: 0;
-  z-index: 1;
-  transform: translateX(12.5%) scale(1.3);
-  transform-origin: bottom center;
-  pointer-events: none;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-18px); }
-}
-.shoe-hint {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-top: -0.5rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.7;
-}
-
-.modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.82);
-  z-index: 200;
-  backdrop-filter: blur(4px);
-}
-
-.part-modal {
-  display: none;
-  position: fixed;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 201;
-  width: min(520px, 92vw);
-  background: transparent;
-  overflow: visible;
-}
-
-.modal-close {
-  position: absolute;
-  top: -2rem;
-  right: 0;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.2s;
-  z-index: 10;
-}
-.modal-close:hover { color: var(--text); }
-
-.card-stack-wrap {
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  margin-right: 48px;
-}
-
-.flashcard {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  padding: 2rem 2.2rem 2rem;
-  background: var(--surface);
-  border: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transform-origin: top left;
-  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1),
-              opacity   0.38s ease,
-              box-shadow 0.38s ease;
-  will-change: transform, opacity;
-}
-
-.flashcard.fc-front {
-  z-index: 10;
-  transform: translate(0, 0) rotate(0deg);
-  opacity: 1;
-  box-shadow: 0 14px 50px rgba(0,0,0,0.65);
-}
-.flashcard.fc-behind-1 {
-  z-index: 9;
-  transform: translate(14px, 8px) rotate(1.6deg);
-  opacity: 0.75;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-}
-.flashcard.fc-behind-2 {
-  z-index: 8;
-  transform: translate(26px, 15px) rotate(3deg);
-  opacity: 0.5;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.3);
-}
-.flashcard.fc-behind-3 {
-  z-index: 7;
-  transform: translate(36px, 20px) rotate(4.2deg);
-  opacity: 0.3;
-}
-.flashcard.fc-hidden {
-  z-index: 6;
-  transform: translate(44px, 26px) rotate(5.5deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-@keyframes flyOut {
-  0%   { transform: translate(0, 0)        rotate(0deg);  opacity: 1; }
-  100% { transform: translate(115%, -35px) rotate(13deg); opacity: 0; }
-}
-.flashcard.flying-out {
-  animation: flyOut 0.38s cubic-bezier(0.22,1,0.36,1) forwards;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.card-heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  font-weight: 700;
-  color: #8b90d9;
-  line-height: 1.2;
-}
-.card-body {
-  color: #fef3e2;
-  font-size: 0.88rem;
-  line-height: 1.78;
-}
-
-#aralPolaroid {
-  display: none;
-  position: fixed;
-  bottom: 6vh;
-  right: 3vw;
-  z-index: 202;
-  background: #f5f0e8;
-  padding: 10px 10px 34px;
-  box-shadow: 4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
-  transform: rotate(4deg);
-  width: clamp(160px, 22vw, 240px);
-  animation: polaroidDrop 0.45s cubic-bezier(0.22,1,0.36,1) both;
-  pointer-events: auto;
-}
-@keyframes polaroidDrop {
-  0%   { opacity: 0; transform: rotate(10deg) translateY(-30px) scale(0.88); }
-  100% { opacity: 1; transform: rotate(4deg)  translateY(0)     scale(1); }
-}
-#aralPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-#aralPolaroid a {
-  display: block; margin-top: 6px;
-  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.08em;
-  color: #6b6560; text-decoration: none; text-align: center; line-height: 1.4; word-break: break-all;
-}
-#aralPolaroid a:hover { text-decoration: underline; }
-
-#rubberPolaroid {
-  display: none;
-  position: fixed;
-  bottom: 6vh; left: 3vw;
-  z-index: 202;
-  background: #f5f0e8;
-  padding: 10px 10px 34px;
-  box-shadow: -4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
-  transform: rotate(-3.5deg);
-  width: clamp(160px, 22vw, 240px);
-  animation: polaroidDropLeft 0.45s cubic-bezier(0.22,1,0.36,1) both;
-  pointer-events: auto;
-}
-@keyframes polaroidDropLeft {
-  0%   { opacity: 0; transform: rotate(-8deg)   translateY(-30px) scale(0.88); }
-  100% { opacity: 1; transform: rotate(-3.5deg) translateY(0)     scale(1); }
-}
-#rubberPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-
-#journey { height: 500vh; position: relative; }
-#journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-#journey-track { display: flex; height: 100%; will-change: transform; }
-
-.panel {
-  flex: 0 0 100vw; width: 100vw; height: 100vh;
-  position: relative; overflow: visible; cursor: default;
-}
-
-.panel-info-box {
-  position: absolute; top: 50%; left: 5%;
-  transform: translateY(-50%) translateX(-20px);
-  width: min(320px, 30vw);
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 2rem 1.75rem; z-index: 6; pointer-events: none;
-  opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.panel-info-box.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
-#making-info { left: 52vw; right: auto; }
-#making-info:not(.visible) { transform: translateY(-50%) translateX(20px); }
-.panel-info-box h3 {
-  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
-  color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2;
-}
-.panel-info-box p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
-#continueTrigger, #reclaimedTrigger {
-  transition: color 0.2s ease;
-}
-#continueTrigger:hover, #reclaimedTrigger:hover {
-  color: #ffffff !important;
-}
-
-#backBtn {
-  display: none;
-  position: fixed;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  z-index: 50;
-  background: none;
-  border: none;
-  color: #fcf1ca;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.2s;
-  letter-spacing: 0.05em;
-}
-#backBtn:hover {
-  color: #ffffff;
-}
-
-.panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
-.panel-label h2 {
-  font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  font-weight: 700; color: #fff; line-height: 1.1; text-shadow: 0 2px 20px rgba(0,0,0,0.7);
-}
-
-#journey-dots {
-  position: absolute; bottom: 1.5rem; left: 50%;
-  transform: translateX(-50%); display: flex; gap: 0.75rem; z-index: 10;
-}
-.jdot {
-  width: 8px; height: 8px; border-radius: 50%;
-  border: 1px solid var(--muted); background: transparent;
-  cursor: pointer; padding: 0;
-  transition: background 0.3s, border-color 0.3s, transform 0.3s;
-}
-.jdot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
-
-#scroll-nudge {
-  position: absolute; bottom: 1.4rem; right: 2rem;
-  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--muted); opacity: 1; transition: opacity 0.6s;
-  pointer-events: none; z-index: 10;
-}
-#scroll-nudge.hide { opacity: 0; }
-
-@media (max-width: 700px) {
-  #journey { height: auto; }
-  #journey-sticky { position: relative; height: auto; overflow: visible; }
-  #journey-track { flex-direction: column; transform: none !important; }
-  .panel { height: 100vh; }
-  #journey-dots, #scroll-nudge { display: none; }
-}
-  </style>
-</head>
-<body>
-
-  <section id="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Cradle to Grave</p>
-      <h1>The Life of Our Shoes</h1>
-      <div class="hero-img-stack">
-        <canvas id="shoeCanvas" aria-label="Interactive shoe diagram — click each part to learn more"></canvas>
-        <img src="grasstest.png" alt="" class="hero-grass" />
-      </div>
-      <p class="shoe-hint">click the shoe to find out more</p>
-      <p class="hero-sub">From raw material to landfill and everything inbetween</p>
-    </div>
-  </section>
-
-  <div id="modalBackdrop" class="modal-backdrop"></div>
-  <div id="partModal" class="part-modal" tabindex="-1">
-    <button id="modalClose" class="modal-close" aria-label="Close">&#x2715;</button>
-    <div class="card-stack-wrap" id="cardStackWrap"></div>
-  </div>
-
-  <div id="aralPolaroid">
-    <img src="aral.jpg" alt="Aral Sea then and now" />
-    <a href="https://en.wikipedia.org/wiki/Aral_Sea" target="_blank" rel="noopener">wikipedia.org/wiki/Aral_Sea</a>
-  </div>
-
-  <div id="rubberPolaroid">
-    <img src="rubbertreefarm.jpg" alt="Rubber tree farm" />
-  </div>
-
-  <button id="backBtn">← Back</button>
-
-  <div id="journey">
-    <div id="journey-sticky">
-      <div id="journey-track">
-
-        <div class="panel" id="panel-0">
-          <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
-               style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
-          <img id="makeshipImg" src="makeship.png" alt="Making and shipping"
-               style="position:absolute;bottom:37%;right:-5%;height:92%;width:63%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
-          <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
-               style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
-          <div class="panel-info-box" id="making-info" style="left:52vw;right:auto;transform:translateY(-50%) translateX(20px);">
-            <h3>Making</h3>
-            <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
-            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue →</p>
-            <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">or skip this step</p>
-            <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber →</p>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-1"><div class="panel-label"><h2>Shipping</h2></div></div>
-        <div class="panel" id="panel-2"><div class="panel-label"><h2>Use</h2></div></div>
-        <div class="panel" id="panel-3"><div class="panel-label"><h2>Afterlife</h2></div></div>
-
-      </div>
-
-      <nav id="journey-dots">
-        <button class="jdot active" data-index="0"></button>
-        <button class="jdot" data-index="1"></button>
-        <button class="jdot" data-index="2"></button>
-        <button class="jdot" data-index="3"></button>
-      </nav>
-      <p id="scroll-nudge">scroll to continue →</p>
-    </div>
-  </div>
-
-  <script>
-var partData = {
-  sole: {
-    cards: [
-      { heading: 'Natural Rubber',   body: 'Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.' },
-      { heading: 'Vulcanization',    body: 'These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.' },
-      { heading: 'Synthetic Rubber', body: 'Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans.' }
-    ]
-  },
-  canvas: {
-    cards: [
-      { heading: 'Materials',                  body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
-      { heading: 'Water Use',                  body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
-      { heading: 'Pesticides & Worker Health', body: 'Cotton accounts for <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">6% of the world\'s pesticide use</span> and <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.' }
-    ]
-  },
-  laces: {
-    cards: [
-      { heading: 'Laces & Eyelets', body: 'More words and research and links to alternatives.' }
-    ]
-  }
-};
-
-var DEPTH = ['fc-front','fc-behind-1','fc-behind-2','fc-behind-3','fc-hidden'];
-
-var modal          = document.getElementById('partModal');
-var backdrop       = document.getElementById('modalBackdrop');
-var closeBtn       = document.getElementById('modalClose');
-var stackWrap      = document.getElementById('cardStackWrap');
-var polaroid       = document.getElementById('aralPolaroid');
-var rubberPolaroid = document.getElementById('rubberPolaroid');
-
-var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = '';
-
-var POLAROID_PART  = 'canvas', POLAROID_INDEX = 1;
-var RUBBER_POLAROID_PART = 'sole', RUBBER_POLAROID_INDEX = 0;
-
-function depthClass(pos) { return DEPTH[Math.min(pos, DEPTH.length - 1)]; }
-
-function showPolaroid(el) {
-  el.style.display = 'block';
-  el.style.animation = 'none';
-  el.offsetHeight;
-  el.style.animation = '';
-}
-
-function updatePolaroid() {
-  if (currentPartKey === POLAROID_PART && dismissed === POLAROID_INDEX) showPolaroid(polaroid);
-  else polaroid.style.display = 'none';
-  if (currentPartKey === RUBBER_POLAROID_PART && dismissed === RUBBER_POLAROID_INDEX) showPolaroid(rubberPolaroid);
-  else rubberPolaroid.style.display = 'none';
-}
-
-function buildStack(data, partKey) {
-  allCards = []; dismissed = 0; busy = false;
-  currentPartKey = partKey || '';
-  totalCards = data.cards.length;
-  stackWrap.innerHTML = '';
-  stackWrap.style.height = '';
-
-  data.cards.forEach(function(card, i) {
-    var el = document.createElement('div');
-    el.className = 'flashcard ' + depthClass(i);
-    el.style.cssText = 'position:absolute;top:0;left:0;width:100%;visibility:hidden;';
-    el.innerHTML = '<div class="card-heading">' + card.heading + '</div><div class="card-body">' + card.body + '</div>';
-    el.addEventListener('click', advance);
-    stackWrap.appendChild(el);
-    allCards.push(el);
-  });
-
-  var tallest = 0;
-  allCards.forEach(function(el) { var h = el.offsetHeight; if (h > tallest) tallest = h; });
-  stackWrap.style.height = tallest + 'px';
-  allCards.forEach(function(el) { el.style.cssText = 'position:absolute;top:0;left:0;width:100%;'; });
-  updatePolaroid();
-}
-
-function advance() {
-  if (busy) return;
-  if (dismissed === totalCards - 1) {
-    busy = true;
-    var front = allCards[dismissed];
-    front.classList.remove('fc-front');
-    front.classList.add('flying-out');
-    setTimeout(function() {
-      dismissed = 0;
-      allCards.forEach(function(el, i) {
-        el.classList.remove('flying-out');
-        DEPTH.forEach(function(c) { el.classList.remove(c); });
-        el.classList.add(depthClass(i));
-      });
-      busy = false; updatePolaroid();
-    }, 400);
-    return;
-  }
-  busy = true;
-  var front = allCards[dismissed];
-  front.classList.remove('fc-front');
-  front.classList.add('flying-out');
-  var pos = 0;
-  for (var i = dismissed + 1; i < totalCards; i++) {
-    DEPTH.forEach(function(c) { allCards[i].classList.remove(c); });
-    allCards[i].classList.add(depthClass(pos++));
-  }
-  setTimeout(function() {
-    front.classList.remove('flying-out');
-    DEPTH.forEach(function(c) { front.classList.remove(c); });
-    front.classList.add('fc-hidden');
-    dismissed++; busy = false; updatePolaroid();
-  }, 390);
-}
-
-function openModal(data, partKey) {
-  buildStack(data, partKey);
-  modal.style.display = 'block';
-  backdrop.style.display = 'block';
-  modal.focus();
-}
-function closeModal() {
-  modal.style.display = 'none';
-  backdrop.style.display = 'none';
-  polaroid.style.display = 'none';
-  rubberPolaroid.style.display = 'none';
-}
-
-closeBtn.addEventListener('click', closeModal);
-backdrop.addEventListener('click', closeModal);
-document.addEventListener('keydown', function(e) {
-  if (modal.style.display !== 'block') return;
-  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advance(); }
-  if (e.key === 'Escape') closeModal();
-});
-
-/* ── canvas shoe — fixed layer rendering ── */
-var shoeCanvas = document.getElementById('shoeCanvas');
-if (shoeCanvas) {
-  var ctx = shoeCanvas.getContext('2d');
-  var W = 0, H = 0, loadCount = 0;
-  var layers = [
-    { src: 'shoesole.png',   part: 'sole'   },
-    { src: 'shoecanvas.png', part: 'canvas' },
-    { src: 'shoelaces.png',  part: 'laces'  }
-  ];
-
-  function redraw() {
-    ctx.clearRect(0, 0, W, H);
-    layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img, 0, 0, W, H); });
-  }
-
-  layers.forEach(function(layer) {
-    var img = new Image();
-    img.onload = function() {
-      layer.img = img;
-      /* Set canvas size from the first image that loads successfully */
-      if (W === 0 && img.naturalWidth > 0) {
-        W = img.naturalWidth;
-        H = img.naturalHeight;
-        shoeCanvas.width  = W;
-        shoeCanvas.height = H;
-      }
-      /* Build offscreen canvas using the now-known W/H */
-      var off = document.createElement('canvas');
-      off.width  = W;
-      off.height = H;
-      var oc = off.getContext('2d');
-      oc.drawImage(img, 0, 0, W, H);
-      layer.offCtx = oc;
-      loadCount++;
-      /* Redraw every time a layer finishes — all loaded layers appear immediately */
-      redraw();
-    };
-    img.onerror = function() {
-      loadCount++;
-      /* Still redraw so other layers aren't blocked */
-      redraw();
-    };
-    img.src = layer.src;
-  });
-
-  function getHit(e) {
-    if (W === 0) return null;
-    var rect = shoeCanvas.getBoundingClientRect();
-    var x = Math.round((e.clientX - rect.left) * (W / rect.width));
-    var y = Math.round((e.clientY - rect.top)  * (H / rect.height));
-    for (var i = layers.length - 1; i >= 0; i--) {
-      if (!layers[i].offCtx) continue;
-      if (layers[i].offCtx.getImageData(x, y, 1, 1).data[3] > 20) return layers[i].part;
-    }
-    return null;
-  }
-
-  shoeCanvas.addEventListener('click', function(e) {
-    var hit = getHit(e);
-    if (hit && partData[hit]) openModal(partData[hit], hit);
-  });
-  shoeCanvas.addEventListener('mousemove', function(e) {
-    shoeCanvas.style.cursor = getHit(e) ? 'pointer' : 'default';
-  });
-}
-
-/* ── making info box & scene images ── */
-var makingInfo     = document.getElementById('making-info');
-var makeshipImg    = document.getElementById('makeshipImg');
-var boatImg        = document.getElementById('boatImg');
-var backBtn        = document.getElementById('backBtn');
-var makingChoice   = null;
-
-function resetMakingScene() {
-  makingChoice = null;
-  if (makeshipImg) makeshipImg.style.opacity = '0';
-  if (boatImg)     boatImg.style.opacity     = '0';
-  if (backBtn)     backBtn.style.display     = 'none';
-}
-
-function showMakingScene(choice) {
-  makingChoice = choice;
-  if (makingInfo) makingInfo.classList.remove('visible');
-  if (backBtn)    backBtn.style.display = 'block';
-  if (choice === 'continue') {
-    if (makeshipImg) makeshipImg.style.opacity = '1';
-    if (boatImg)     boatImg.style.opacity     = '0';
-  } else if (choice === 'reclaimed') {
-    if (boatImg)     boatImg.style.opacity     = '1';
-    if (makeshipImg) makeshipImg.style.opacity  = '0';
-  }
-}
-
-if (backBtn) {
-  backBtn.addEventListener('click', function() {
-    resetMakingScene();
-  });
-}
-
-var RESET_THRESHOLD = 0.01;
-
-function updateInfoBox(p) {
-  if (makingChoice === null && makingInfo) {
-    makingInfo.classList.toggle('visible', p >= 0.01 && p <= 0.28);
-  } else if (makingChoice !== null && makingInfo) {
-    makingInfo.classList.remove('visible');
-  }
-}
-
-/* ── horizontal scroll ── */
-var journey = document.getElementById('journey');
-var track   = document.getElementById('journey-track');
-var nudge   = document.getElementById('scroll-nudge');
-var jdots   = document.querySelectorAll('.jdot');
-var PANEL_COUNT = 4, LERP = 0.08;
-var currentX = 0, targetX = 0, nudgeHidden = false;
-
-function lerp(a, b, t) { return a + (b - a) * t; }
-function getProgress() {
-  if (!journey) return 0;
-  var rect  = journey.getBoundingClientRect();
-  var total = journey.offsetHeight - window.innerHeight;
-  return total > 0 ? Math.max(0, Math.min(total, -rect.top)) / total : 0;
-}
-
-var LOCK_P = 0.28;
-
-function getLockedScrollTop() {
-  var top   = journey.getBoundingClientRect().top + window.scrollY;
-  var total = journey.offsetHeight - window.innerHeight;
-  return top + LOCK_P * total;
-}
-
-function isInsideJourney() {
-  var rect = journey.getBoundingClientRect();
-  return rect.top <= 0 && rect.bottom >= window.innerHeight;
-}
-
-function enforceScrollLock() {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  if (window.scrollY > limit) window.scrollTo({ top: limit, behavior: 'instant' });
-}
-
-window.addEventListener('wheel', function(e) {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  if (e.deltaY > 0 && window.scrollY >= limit - 2) {
-    e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
-  }
-}, { passive: false });
-
-var touchStartY = 0;
-window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
-window.addEventListener('touchmove', function(e) {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  var dy = touchStartY - e.touches[0].clientY;
-  if (dy > 0 && window.scrollY >= limit - 2) {
-    e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
-  }
-}, { passive: false });
-
-function tick() {
-  var rawP = getProgress();
-  if (makingChoice === null) enforceScrollLock();
-  if (rawP < RESET_THRESHOLD && makingChoice !== null) resetMakingScene();
-  var p = (makingChoice === null) ? Math.min(rawP, LOCK_P) : rawP;
-  targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
-  currentX = lerp(currentX, targetX, LERP);
-  if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
-  if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
-  var ai = Math.round(p * (PANEL_COUNT - 1));
-  jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
-  if (!nudgeHidden && p > 0.01) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
-  updateInfoBox(rawP);
-  requestAnimationFrame(tick);
-}
-if (journey && track) requestAnimationFrame(tick);
-
-jdots.forEach(function(dot, idx) {
-  dot.addEventListener('click', function() {
-    if (!journey) return;
-    if (makingChoice === null && idx > 0) return;
-    var total = journey.offsetHeight - window.innerHeight;
-    var top   = journey.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
-  });
-});
-
-/* ── trigger buttons (no mind-map webs) ── */
-var reclaimedTrigger = document.getElementById('reclaimedTrigger');
-var continueTrigger  = document.getElementById('continueTrigger');
-var makingInfoBox    = document.getElementById('making-info');
-
-if (reclaimedTrigger) {
-  reclaimedTrigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showMakingScene('reclaimed');
-  });
-}
-if (continueTrigger) {
-  continueTrigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showMakingScene('continue');
-  });
-}
-if (makingInfoBox) {
-  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
-}
-  </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Life of Our Shoes</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-:root {
-  --bg:           #000000;
-  --surface:      #161612;
-  --border:       #271d28;
-  --accent:       #2b3180;
-  --accent2:      #ffbb00;
-  --text:         #8b90d9;
-  --muted:        #5c6096;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-mono:    'Inter', sans-serif;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-mono);
-  font-size: 15px;
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-#hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 4rem 2rem;
-  overflow: hidden;
-  text-align: center;
-}
-#hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 60%, rgba(200,240,74,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 30%, rgba(240,168,60,0.06) 0%, transparent 50%);
-}
-.hero-inner {
-  position: relative;
-  max-width: 600px;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.2rem;
-  display: block;
-}
-#hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 3vw, 2.2rem);
-  line-height: 1.1;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 1.5rem;
-}
-#hero h1 em { font-style: italic; color: var(--accent); }
-.hero-sub {
-  color: var(--accent);
-  font-size: 0.95rem;
-  max-width: 400px;
-  margin-bottom: 2.5rem;
-}
-.hero-img-stack {
-  position: relative;
-  width: min(600px, 90vw);
-  margin: 1rem 0 2rem;
-}
-#shoeCanvas {
-  display: block;
-  width: 90%;
-  height: auto;
-  min-height: 200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-  filter: drop-shadow(0 20px 60px rgba(18,79,165,0.12));
-  animation: float 6s ease-in-out infinite;
-}
-.hero-grass {
-  width: 115%;
-  position: absolute;
-  bottom: 0; left: 0;
-  z-index: 1;
-  transform: translateX(12.5%) scale(1.3);
-  transform-origin: bottom center;
-  pointer-events: none;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-18px); }
-}
-.shoe-hint {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-top: -0.5rem;
-  margin-bottom: 1.5rem;
-  opacity: 0.7;
-}
-
-.modal-backdrop {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.82);
-  z-index: 200;
-  backdrop-filter: blur(4px);
-}
-
-.part-modal {
-  display: none;
-  position: fixed;
-  top: 38%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 201;
-  width: min(520px, 92vw);
-  background: transparent;
-  overflow: visible;
-}
-
-.modal-close {
-  position: absolute;
-  top: -2rem;
-  right: 0;
-  background: none;
-  border: none;
-  color: var(--muted);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: color 0.2s;
-  z-index: 10;
-}
-.modal-close:hover { color: var(--text); }
-
-.card-stack-wrap {
-  position: relative;
-  cursor: pointer;
-  user-select: none;
-  margin-right: 48px;
-}
-
-.flashcard {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  padding: 2rem 2.2rem 2rem;
-  background: var(--surface);
-  border: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transform-origin: top left;
-  transition: transform 0.38s cubic-bezier(0.22,1,0.36,1),
-              opacity   0.38s ease,
-              box-shadow 0.38s ease;
-  will-change: transform, opacity;
-}
-
-.flashcard.fc-front {
-  z-index: 10;
-  transform: translate(0, 0) rotate(0deg);
-  opacity: 1;
-  box-shadow: 0 14px 50px rgba(0,0,0,0.65);
-}
-.flashcard.fc-behind-1 {
-  z-index: 9;
-  transform: translate(14px, 8px) rotate(1.6deg);
-  opacity: 0.75;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
-}
-.flashcard.fc-behind-2 {
-  z-index: 8;
-  transform: translate(26px, 15px) rotate(3deg);
-  opacity: 0.5;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.3);
-}
-.flashcard.fc-behind-3 {
-  z-index: 7;
-  transform: translate(36px, 20px) rotate(4.2deg);
-  opacity: 0.3;
-}
-.flashcard.fc-hidden {
-  z-index: 6;
-  transform: translate(44px, 26px) rotate(5.5deg);
-  opacity: 0;
-  pointer-events: none;
-}
-
-@keyframes flyOut {
-  0%   { transform: translate(0, 0)        rotate(0deg);  opacity: 1; }
-  100% { transform: translate(115%, -35px) rotate(13deg); opacity: 0; }
-}
-.flashcard.flying-out {
-  animation: flyOut 0.38s cubic-bezier(0.22,1,0.36,1) forwards;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.card-heading {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3vw, 1.6rem);
-  font-weight: 700;
-  color: #8b90d9;
-  line-height: 1.2;
-}
-.card-body {
-  color: #fef3e2;
-  font-size: 0.88rem;
-  line-height: 1.78;
-}
-
-#aralPolaroid {
-  display: none;
-  position: fixed;
-  bottom: 6vh;
-  right: 3vw;
-  z-index: 202;
-  background: #f5f0e8;
-  padding: 10px 10px 34px;
-  box-shadow: 4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
-  transform: rotate(4deg);
-  width: clamp(160px, 22vw, 240px);
-  animation: polaroidDrop 0.45s cubic-bezier(0.22,1,0.36,1) both;
-  pointer-events: auto;
-}
-@keyframes polaroidDrop {
-  0%   { opacity: 0; transform: rotate(10deg) translateY(-30px) scale(0.88); }
-  100% { opacity: 1; transform: rotate(4deg)  translateY(0)     scale(1); }
-}
-#aralPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-#aralPolaroid a {
-  display: block; margin-top: 6px;
-  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.08em;
-  color: #6b6560; text-decoration: none; text-align: center; line-height: 1.4; word-break: break-all;
-}
-#aralPolaroid a:hover { text-decoration: underline; }
-
-#rubberPolaroid {
-  display: none;
-  position: fixed;
-  bottom: 6vh; left: 3vw;
-  z-index: 202;
-  background: #f5f0e8;
-  padding: 10px 10px 34px;
-  box-shadow: -4px 6px 28px rgba(0,0,0,0.55), 0 2px 6px rgba(0,0,0,0.3);
-  transform: rotate(-3.5deg);
-  width: clamp(160px, 22vw, 240px);
-  animation: polaroidDropLeft 0.45s cubic-bezier(0.22,1,0.36,1) both;
-  pointer-events: auto;
-}
-@keyframes polaroidDropLeft {
-  0%   { opacity: 0; transform: rotate(-8deg)   translateY(-30px) scale(0.88); }
-  100% { opacity: 1; transform: rotate(-3.5deg) translateY(0)     scale(1); }
-}
-#rubberPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
-
-#journey { height: 500vh; position: relative; }
-#journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-#journey-track { display: flex; height: 100%; will-change: transform; }
-
-.panel {
-  flex: 0 0 100vw; width: 100vw; height: 100vh;
-  position: relative; overflow: visible; cursor: default;
-}
-
-.panel-info-box {
-  position: absolute; top: 50%; left: 5%;
-  transform: translateY(-50%) translateX(-20px);
-  width: min(320px, 30vw);
-  background: var(--surface); border: 1px solid var(--border);
-  padding: 2rem 1.75rem; z-index: 6; pointer-events: none;
-  opacity: 0; transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.panel-info-box.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
-#making-info { left: 52vw; right: auto; }
-#making-info:not(.visible) { transform: translateY(-50%) translateX(20px); }
-.panel-info-box h3 {
-  font-family: var(--font-display); font-size: 1.2rem; font-weight: 700;
-  color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2;
-}
-.panel-info-box p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
-#continueTrigger, #reclaimedTrigger {
-  transition: color 0.2s ease;
-}
-#continueTrigger:hover, #reclaimedTrigger:hover {
-  color: #ffffff !important;
-}
-
-#backBtn {
-  display: none;
-  position: fixed;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  z-index: 50;
-  background: none;
-  border: none;
-  color: #fcf1ca;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.2s;
-  letter-spacing: 0.05em;
-}
-#backBtn:hover {
-  color: #ffffff;
-}
-
-.panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
-.panel-label h2 {
-  font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2.2rem);
-  font-weight: 700; color: #fff; line-height: 1.1; text-shadow: 0 2px 20px rgba(0,0,0,0.7);
-}
-
-#journey-dots {
-  position: absolute; bottom: 1.5rem; left: 50%;
-  transform: translateX(-50%); display: flex; gap: 0.75rem; z-index: 10;
-}
-.jdot {
-  width: 8px; height: 8px; border-radius: 50%;
-  border: 1px solid var(--muted); background: transparent;
-  cursor: pointer; padding: 0;
-  transition: background 0.3s, border-color 0.3s, transform 0.3s;
-}
-.jdot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
-
-#scroll-nudge {
-  position: absolute; bottom: 1.4rem; right: 2rem;
-  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--muted); opacity: 1; transition: opacity 0.6s;
-  pointer-events: none; z-index: 10;
-}
-#scroll-nudge.hide { opacity: 0; }
-
-@media (max-width: 700px) {
-  #journey { height: auto; }
-  #journey-sticky { position: relative; height: auto; overflow: visible; }
-  #journey-track { flex-direction: column; transform: none !important; }
-  .panel { height: 100vh; }
-  #journey-dots, #scroll-nudge { display: none; }
-}
-  </style>
-</head>
-<body>
-
-  <section id="hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Cradle to Grave</p>
-      <h1>The Life of Our Shoes</h1>
-      <div class="hero-img-stack">
-        <canvas id="shoeCanvas" aria-label="Interactive shoe diagram — click each part to learn more"></canvas>
-        <img src="grasstest.png" alt="" class="hero-grass" />
-      </div>
-      <p class="shoe-hint">click the shoe to find out more</p>
-      <p class="hero-sub">From raw material to landfill and everything inbetween</p>
-    </div>
-  </section>
-
-  <div id="modalBackdrop" class="modal-backdrop"></div>
-  <div id="partModal" class="part-modal" tabindex="-1">
-    <button id="modalClose" class="modal-close" aria-label="Close">&#x2715;</button>
-    <div class="card-stack-wrap" id="cardStackWrap"></div>
-  </div>
-
-  <div id="aralPolaroid">
-    <img src="aral.jpg" alt="Aral Sea then and now" />
-    <a href="https://en.wikipedia.org/wiki/Aral_Sea" target="_blank" rel="noopener">wikipedia.org/wiki/Aral_Sea</a>
-  </div>
-
-  <div id="rubberPolaroid">
-    <img src="rubbertreefarm.jpg" alt="Rubber tree farm" />
-  </div>
-
-  <button id="backBtn">← Back</button>
-
-  <div id="journey">
-    <div id="journey-sticky">
-      <div id="journey-track">
-
-        <div class="panel" id="panel-0">
-          <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
-               style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
-          <img id="makeshipImg" src="makeship.png" alt="Making and shipping"
-               style="position:absolute;bottom:37%;right:-5%;height:92%;width:63%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
-          <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
-               style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
-          <div class="panel-info-box" id="making-info" style="left:52vw;right:auto;transform:translateY(-50%) translateX(20px);">
-            <h3>Making</h3>
-            <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
-            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue →</p>
-            <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">or skip this step</p>
-            <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber →</p>
-          </div>
-        </div>
-
-        <div class="panel" id="panel-1"><div class="panel-label"><h2>Shipping</h2></div></div>
-        <div class="panel" id="panel-2"><div class="panel-label"><h2>Use</h2></div></div>
-        <div class="panel" id="panel-3"><div class="panel-label"><h2>Afterlife</h2></div></div>
-
-      </div>
-
-      <nav id="journey-dots">
-        <button class="jdot active" data-index="0"></button>
-        <button class="jdot" data-index="1"></button>
-        <button class="jdot" data-index="2"></button>
-        <button class="jdot" data-index="3"></button>
-      </nav>
-      <p id="scroll-nudge">scroll to continue →</p>
-    </div>
-  </div>
-
-  <script>
-var partData = {
-  sole: {
-    cards: [
-      { heading: 'Natural Rubber',   body: 'Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.' },
-      { heading: 'Vulcanization',    body: 'These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.' },
-      { heading: 'Synthetic Rubber', body: 'Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans.' }
-    ]
-  },
-  canvas: {
-    cards: [
-      { heading: 'Materials',                  body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
-      { heading: 'Water Use',                  body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
-      { heading: 'Pesticides & Worker Health', body: 'Cotton accounts for <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">6% of the world\'s pesticide use</span> and <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.' }
-    ]
-  },
-  laces: {
-    cards: [
-      { heading: 'Laces & Eyelets', body: 'More words and research and links to alternatives.' }
-    ]
-  }
-};
-
-var DEPTH = ['fc-front','fc-behind-1','fc-behind-2','fc-behind-3','fc-hidden'];
-
-var modal          = document.getElementById('partModal');
-var backdrop       = document.getElementById('modalBackdrop');
-var closeBtn       = document.getElementById('modalClose');
-var stackWrap      = document.getElementById('cardStackWrap');
-var polaroid       = document.getElementById('aralPolaroid');
-var rubberPolaroid = document.getElementById('rubberPolaroid');
-
-var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = '';
-
-var POLAROID_PART  = 'canvas', POLAROID_INDEX = 1;
-var RUBBER_POLAROID_PART = 'sole', RUBBER_POLAROID_INDEX = 0;
-
-function depthClass(pos) { return DEPTH[Math.min(pos, DEPTH.length - 1)]; }
-
-function showPolaroid(el) {
-  el.style.display = 'block';
-  el.style.animation = 'none';
-  el.offsetHeight;
-  el.style.animation = '';
-}
-
-function updatePolaroid() {
-  if (currentPartKey === POLAROID_PART && dismissed === POLAROID_INDEX) showPolaroid(polaroid);
-  else polaroid.style.display = 'none';
-  if (currentPartKey === RUBBER_POLAROID_PART && dismissed === RUBBER_POLAROID_INDEX) showPolaroid(rubberPolaroid);
-  else rubberPolaroid.style.display = 'none';
-}
-
-function buildStack(data, partKey) {
-  allCards = []; dismissed = 0; busy = false;
-  currentPartKey = partKey || '';
-  totalCards = data.cards.length;
-  stackWrap.innerHTML = '';
-  stackWrap.style.height = '';
-
-  data.cards.forEach(function(card, i) {
-    var el = document.createElement('div');
-    el.className = 'flashcard ' + depthClass(i);
-    el.style.cssText = 'position:absolute;top:0;left:0;width:100%;visibility:hidden;';
-    el.innerHTML = '<div class="card-heading">' + card.heading + '</div><div class="card-body">' + card.body + '</div>';
-    el.addEventListener('click', advance);
-    stackWrap.appendChild(el);
-    allCards.push(el);
-  });
-
-  var tallest = 0;
-  allCards.forEach(function(el) { var h = el.offsetHeight; if (h > tallest) tallest = h; });
-  stackWrap.style.height = tallest + 'px';
-  allCards.forEach(function(el) { el.style.cssText = 'position:absolute;top:0;left:0;width:100%;'; });
-  updatePolaroid();
-}
-
-function advance() {
-  if (busy) return;
-  if (dismissed === totalCards - 1) {
-    busy = true;
-    var front = allCards[dismissed];
-    front.classList.remove('fc-front');
-    front.classList.add('flying-out');
-    setTimeout(function() {
-      dismissed = 0;
-      allCards.forEach(function(el, i) {
-        el.classList.remove('flying-out');
-        DEPTH.forEach(function(c) { el.classList.remove(c); });
-        el.classList.add(depthClass(i));
-      });
-      busy = false; updatePolaroid();
-    }, 400);
-    return;
-  }
-  busy = true;
-  var front = allCards[dismissed];
-  front.classList.remove('fc-front');
-  front.classList.add('flying-out');
-  var pos = 0;
-  for (var i = dismissed + 1; i < totalCards; i++) {
-    DEPTH.forEach(function(c) { allCards[i].classList.remove(c); });
-    allCards[i].classList.add(depthClass(pos++));
-  }
-  setTimeout(function() {
-    front.classList.remove('flying-out');
-    DEPTH.forEach(function(c) { front.classList.remove(c); });
-    front.classList.add('fc-hidden');
-    dismissed++; busy = false; updatePolaroid();
-  }, 390);
-}
-
-function openModal(data, partKey) {
-  buildStack(data, partKey);
-  modal.style.display = 'block';
-  backdrop.style.display = 'block';
-  modal.focus();
-}
-function closeModal() {
-  modal.style.display = 'none';
-  backdrop.style.display = 'none';
-  polaroid.style.display = 'none';
-  rubberPolaroid.style.display = 'none';
-}
-
-closeBtn.addEventListener('click', closeModal);
-backdrop.addEventListener('click', closeModal);
-document.addEventListener('keydown', function(e) {
-  if (modal.style.display !== 'block') return;
-  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advance(); }
-  if (e.key === 'Escape') closeModal();
-});
-
-/* ── canvas shoe — fixed layer rendering ── */
-var shoeCanvas = document.getElementById('shoeCanvas');
-if (shoeCanvas) {
-  var ctx = shoeCanvas.getContext('2d');
-  var W = 0, H = 0, loadCount = 0;
-  var layers = [
-    { src: 'shoesole.png',   part: 'sole'   },
-    { src: 'shoecanvas.png', part: 'canvas' },
-    { src: 'shoelaces.png',  part: 'laces'  }
-  ];
-
-  function redraw() {
-    ctx.clearRect(0, 0, W, H);
-    layers.forEach(function(l) { if (l.img) ctx.drawImage(l.img, 0, 0, W, H); });
-  }
-
-  layers.forEach(function(layer) {
-    var img = new Image();
-    img.onload = function() {
-      layer.img = img;
-      /* Set canvas size from the first image that loads successfully */
-      if (W === 0 && img.naturalWidth > 0) {
-        W = img.naturalWidth;
-        H = img.naturalHeight;
-        shoeCanvas.width  = W;
-        shoeCanvas.height = H;
-      }
-      /* Build offscreen canvas using the now-known W/H */
-      var off = document.createElement('canvas');
-      off.width  = W;
-      off.height = H;
-      var oc = off.getContext('2d');
-      oc.drawImage(img, 0, 0, W, H);
-      layer.offCtx = oc;
-      loadCount++;
-      /* Redraw every time a layer finishes — all loaded layers appear immediately */
-      redraw();
-    };
-    img.onerror = function() {
-      loadCount++;
-      /* Still redraw so other layers aren't blocked */
-      redraw();
-    };
-    img.src = layer.src;
-  });
-
-  function getHit(e) {
-    if (W === 0) return null;
-    var rect = shoeCanvas.getBoundingClientRect();
-    var x = Math.round((e.clientX - rect.left) * (W / rect.width));
-    var y = Math.round((e.clientY - rect.top)  * (H / rect.height));
-    for (var i = layers.length - 1; i >= 0; i--) {
-      if (!layers[i].offCtx) continue;
-      if (layers[i].offCtx.getImageData(x, y, 1, 1).data[3] > 20) return layers[i].part;
-    }
-    return null;
-  }
-
-  shoeCanvas.addEventListener('click', function(e) {
-    var hit = getHit(e);
-    if (hit && partData[hit]) openModal(partData[hit], hit);
-  });
-  shoeCanvas.addEventListener('mousemove', function(e) {
-    shoeCanvas.style.cursor = getHit(e) ? 'pointer' : 'default';
-  });
-}
-
-/* ── making info box & scene images ── */
-var makingInfo     = document.getElementById('making-info');
-var makeshipImg    = document.getElementById('makeshipImg');
-var boatImg        = document.getElementById('boatImg');
-var backBtn        = document.getElementById('backBtn');
-var makingChoice   = null;
-
-function resetMakingScene() {
-  makingChoice = null;
-  if (makeshipImg) makeshipImg.style.opacity = '0';
-  if (boatImg)     boatImg.style.opacity     = '0';
-  if (backBtn)     backBtn.style.display     = 'none';
-}
-
-function showMakingScene(choice) {
-  makingChoice = choice;
-  if (makingInfo) makingInfo.classList.remove('visible');
-  if (backBtn)    backBtn.style.display = 'block';
-  if (choice === 'continue') {
-    if (makeshipImg) makeshipImg.style.opacity = '1';
-    if (boatImg)     boatImg.style.opacity     = '0';
-  } else if (choice === 'reclaimed') {
-    if (boatImg)     boatImg.style.opacity     = '1';
-    if (makeshipImg) makeshipImg.style.opacity  = '0';
-  }
-}
-
-if (backBtn) {
-  backBtn.addEventListener('click', function() {
-    resetMakingScene();
-  });
-}
-
-var RESET_THRESHOLD = 0.01;
-
-function updateInfoBox(p) {
-  if (makingChoice === null && makingInfo) {
-    makingInfo.classList.toggle('visible', p >= 0.01 && p <= 0.28);
-  } else if (makingChoice !== null && makingInfo) {
-    makingInfo.classList.remove('visible');
-  }
-}
-
-/* ── horizontal scroll ── */
-var journey = document.getElementById('journey');
-var track   = document.getElementById('journey-track');
-var nudge   = document.getElementById('scroll-nudge');
-var jdots   = document.querySelectorAll('.jdot');
-var PANEL_COUNT = 4, LERP = 0.08;
-var currentX = 0, targetX = 0, nudgeHidden = false;
-
-function lerp(a, b, t) { return a + (b - a) * t; }
-function getProgress() {
-  if (!journey) return 0;
-  var rect  = journey.getBoundingClientRect();
-  var total = journey.offsetHeight - window.innerHeight;
-  return total > 0 ? Math.max(0, Math.min(total, -rect.top)) / total : 0;
-}
-
-var LOCK_P = 0.28;
-
-function getLockedScrollTop() {
-  var top   = journey.getBoundingClientRect().top + window.scrollY;
-  var total = journey.offsetHeight - window.innerHeight;
-  return top + LOCK_P * total;
-}
-
-function isInsideJourney() {
-  var rect = journey.getBoundingClientRect();
-  return rect.top <= 0 && rect.bottom >= window.innerHeight;
-}
-
-function enforceScrollLock() {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  if (window.scrollY > limit) window.scrollTo({ top: limit, behavior: 'instant' });
-}
-
-window.addEventListener('wheel', function(e) {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  if (e.deltaY > 0 && window.scrollY >= limit - 2) {
-    e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
-  }
-}, { passive: false });
-
-var touchStartY = 0;
-window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
-window.addEventListener('touchmove', function(e) {
-  if (makingChoice !== null) return;
-  if (!isInsideJourney()) return;
-  var limit = getLockedScrollTop();
-  var dy = touchStartY - e.touches[0].clientY;
-  if (dy > 0 && window.scrollY >= limit - 2) {
-    e.preventDefault();
-    window.scrollTo({ top: limit, behavior: 'instant' });
-  }
-}, { passive: false });
-
-function tick() {
-  var rawP = getProgress();
-  if (makingChoice === null) enforceScrollLock();
-  if (rawP < RESET_THRESHOLD && makingChoice !== null) resetMakingScene();
-  var p = (makingChoice === null) ? Math.min(rawP, LOCK_P) : rawP;
-  targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
-  currentX = lerp(currentX, targetX, LERP);
-  if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
-  if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
-  var ai = Math.round(p * (PANEL_COUNT - 1));
-  jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
-  if (!nudgeHidden && p > 0.01) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
-  updateInfoBox(rawP);
-  requestAnimationFrame(tick);
-}
-if (journey && track) requestAnimationFrame(tick);
-
-jdots.forEach(function(dot, idx) {
-  dot.addEventListener('click', function() {
-    if (!journey) return;
-    if (makingChoice === null && idx > 0) return;
-    var total = journey.offsetHeight - window.innerHeight;
-    var top   = journey.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
-  });
-});
-
-/* ── trigger buttons (no mind-map webs) ── */
 var reclaimedTrigger = document.getElementById('reclaimedTrigger');
 var continueTrigger  = document.getElementById('continueTrigger');
 var makingInfoBox    = document.getElementById('making-info');
