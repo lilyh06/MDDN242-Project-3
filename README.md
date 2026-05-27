@@ -38,5 +38,10 @@ I made this as the information surrounding shoes, how they come to be and where 
 
 The choices add agency to the information the user is reading, adding weight and showing how many steps it takes just to get to the 'use' portion.
 
+____
+DSDN221 Sustainability Project 1:
 [Research](HagenLily_dsdn221_p1_research.pdf)
+
 [Poster](HagenLily_dsdn221_p1_poster.pdf)
+(probably not relevant but it got a B, it was just fun to research and it was all so seperate so putting this together would've been helpful to me)
+_________
