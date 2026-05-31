@@ -301,12 +301,118 @@ body {
   color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2;
 }
 .panel-info-box p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
-#continueTrigger, #reclaimedTrigger {
+#reclaimedTrigger {
   transition: color 0.2s ease;
 }
-#continueTrigger:hover, #reclaimedTrigger:hover {
+#reclaimedTrigger:hover {
   color: #ffffff !important;
 }
+
+/* Manufacturing info box */
+#shipping-info {
+  position: absolute;
+  top: 35%;
+  right: 1vw;
+  transform: translateY(-50%) translateX(20px);
+  width: min(380px, 36vw);
+  background: transparent;
+  border: none;
+  padding: 2rem 1.75rem;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+#shipping-info.visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+  pointer-events: auto;
+}
+#shipping-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #eebc1c;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+#shipping-info p {
+  color: #fcf1ca;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+#shippingContinueBtn {
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eebc1c;
+  line-height: 1.3;
+  cursor: pointer;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+#shippingContinueBtn:hover { color: #ffffff; }
+
+/* Shipping text box — overlaid where the red shipping.png box sits (top-centre-right) */
+#shippingText-info {
+  position: absolute;
+  top: 5%;
+  left: 67%;
+  transform: translateX(20px);
+  width: min(620px, 45vw);
+  background: transparent;
+  border: none;
+  padding: 2rem 1.75rem;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+#shippingText-info.visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+#shippingText-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #eebc1c;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+#shippingText-info p {
+  color: #fcf1ca;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+#shippingTextContinueBtn {
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eebc1c;
+  line-height: 1.3;
+  cursor: pointer;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+#shippingTextContinueBtn:hover { color: #ffffff; }
 
 #backBtn {
   display: none;
@@ -358,6 +464,10 @@ body {
   #journey-track { flex-direction: column; transform: none !important; }
   .panel { height: 100vh; }
   #journey-dots, #scroll-nudge { display: none; }
+  #shipping-info { right: auto; left: 5%; width: 90%; top: auto; bottom: 10%; transform: none; }
+  #shipping-info.visible { transform: none; }
+  #shippingText-info { left: 5%; width: 90%; top: 5%; transform: none; }
+  #shippingText-info.visible { transform: none; }
 }
   </style>
 </head>
@@ -400,20 +510,36 @@ body {
         <div class="panel" id="panel-0">
           <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
                style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
-          <img id="makeshipImg" src="makeship.png" alt="Making and shipping"
-               style="position:absolute;bottom:37%;right:-15.5%;height:99%;width:63%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+          <img id="makeshipImg" src="shoesmake.png" alt="Making and shipping"
+               style="position:absolute;bottom:7%;right:23.5%;height:70%;width:50%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
           <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
                style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+          <img id="shippingImg" src="shipping.png" alt="Shipping"
+               style="position:absolute;bottom:14%;right:-25%;height:35%;width:auto;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+
           <div class="panel-info-box" id="making-info" style="left:52vw;right:auto;transform:translateY(-50%) translateX(20px);">
             <h3>Making</h3>
             <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
-            <p id="continueTrigger" style="margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Continue</p>
             <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">skip this step</p>
             <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber</p>
           </div>
+
+          <!-- Manufacturing text box -->
+          <div id="shipping-info">
+            <h3>Manufacturing</h3>
+            <p>Many companies use developing countries to manufacture their products, like Nike, Adidas, and Skechers. Most shoe companies state publically that they commit to paying a living wage, though none do. A quarter of companies reported not knowing where any of their inputs came from. 56% of companies didnt know where any of their raw materials came from, creating a disconnect. Relying on forced labour and mass sweat shops.</p>
+            <button id="shippingContinueBtn">Continue</button>
+          </div>
+
+          <!-- Shipping text box — appears where the red shipping.png graphic sits -->
+          <div id="shippingText-info">
+            <h3>Shipping</h3>
+            <p>The entirety of the manufacturing process, which includes material sourcing, production, transportation, and packaging, pumps millions of tons of CO2 into the atmosphere every year. Most shoe companies use cheap labour, shipping from warehouses based primarily in China, Indonesia, and India and then often sent to the U.S. for global distribution. According to Airportwatch and a DEFRA report, two tonnes of freight carried 1,000km by container ship produces 30kg of CO2, 42kg by diesel train, and a staggering 4,138kg by air.</p>
+            <button id="shippingTextContinueBtn">Continue</button>
+          </div>
         </div>
 
-        <div class="panel" id="panel-1"><div class="panel-label"><h2>Shipping</h2></div></div>
+        <div class="panel" id="panel-1"><div class="panel-label"><h2>Manufacturing</h2></div></div>
         <div class="panel" id="panel-2"><div class="panel-label"><h2>Use</h2></div></div>
         <div class="panel" id="panel-3"><div class="panel-label"><h2>Afterlife</h2></div></div>
 
@@ -612,31 +738,100 @@ if (shoeCanvas) {
   });
 }
 
-/* ── making info box & scene images ── */
-var makingInfo   = document.getElementById('making-info');
-var makeshipImg  = document.getElementById('makeshipImg');
-var boatImg      = document.getElementById('boatImg');
-var backBtn      = document.getElementById('backBtn');
-var makingChoice = null;
+/* ── scene element refs ── */
+var makingInfo          = document.getElementById('making-info');
+var makeshipImg         = document.getElementById('makeshipImg');
+var boatImg             = document.getElementById('boatImg');
+var shippingImg         = document.getElementById('shippingImg');
+var backBtn             = document.getElementById('backBtn');
+var shippingInfo        = document.getElementById('shipping-info');
+var shippingContinueBtn = document.getElementById('shippingContinueBtn');
+var shippingTextInfo    = document.getElementById('shippingText-info');
+var shippingTextContinueBtn = document.getElementById('shippingTextContinueBtn');
+var makingChoice        = null;
+var manufacturingStep   = false;
+
+/* ── smooth auto-scroll nudge ── */
+function scrollNudge(fraction) {
+  var journey = document.getElementById('journey');
+  if (!journey) return;
+  var journeyTop   = journey.getBoundingClientRect().top + window.scrollY;
+  var journeyTotal = journey.offsetHeight - window.innerHeight;
+  var nudgePx      = (fraction / (PANEL_COUNT - 1)) * journeyTotal;
+  var currentOffset = Math.max(0, -journey.getBoundingClientRect().top);
+  window.scrollTo({ top: journeyTop + currentOffset + nudgePx, behavior: 'smooth' });
+}
 
 function resetMakingScene() {
-  makingChoice = null;
-  if (makeshipImg) makeshipImg.style.opacity = '0';
-  if (boatImg)     boatImg.style.opacity     = '0';
-  if (backBtn)     backBtn.style.display     = 'none';
+  makingChoice      = null;
+  manufacturingStep = false;
+  if (makeshipImg)      makeshipImg.style.opacity      = '0';
+  if (boatImg)          boatImg.style.opacity          = '0';
+  if (shippingImg)      shippingImg.style.opacity      = '0';
+  if (backBtn)          backBtn.style.display          = 'none';
+  if (shippingInfo)     shippingInfo.classList.remove('visible');
+  if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+  if (makeshipImg)      makeshipImg.style.right        = '33%';
+}
+
+/* Manufacturing Continue → show shipping image + shipping text box */
+function showShippingStep() {
+  if (shippingInfo)     shippingInfo.classList.remove('visible');
+  if (makeshipImg)      makeshipImg.style.opacity  = '1';
+  if (shippingImg)      shippingImg.style.opacity  = '1';
+  if (shippingTextInfo) shippingTextInfo.classList.add('visible');
+  manufacturingStep = false;
+  // Nudge scroll so the shipping text box (top-centre area) is visible
+  scrollNudge(0.12);
+}
+
+/* Shipping Continue → advance to next panel (panel-1) */
+function showNextPanel() {
+  if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+  var journey = document.getElementById('journey');
+  if (!journey) return;
+  var journeyTop   = journey.getBoundingClientRect().top + window.scrollY;
+  var journeyTotal = journey.offsetHeight - window.innerHeight;
+  // Scroll to panel-1 (1/3 of total journey)
+  var panel1Target = journeyTop + (1 / (PANEL_COUNT - 1)) * journeyTotal;
+  window.scrollTo({ top: panel1Target, behavior: 'smooth' });
 }
 
 function showMakingScene(choice) {
   makingChoice = choice;
   if (makingInfo) makingInfo.classList.remove('visible');
   if (backBtn)    backBtn.style.display = 'block';
+
   if (choice === 'continue') {
-    if (makeshipImg) makeshipImg.style.opacity = '1';
-    if (boatImg)     boatImg.style.opacity     = '0';
+    manufacturingStep = true;
+    if (makeshipImg)      makeshipImg.style.opacity  = '1';
+    if (boatImg)          boatImg.style.opacity      = '0';
+    if (shippingImg)      shippingImg.style.opacity  = '0';
+    if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+    if (shippingInfo)     shippingInfo.classList.add('visible');
+    scrollNudge(0.18);
   } else if (choice === 'reclaimed') {
-    if (boatImg)     boatImg.style.opacity     = '1';
-    if (makeshipImg) makeshipImg.style.opacity  = '0';
+    manufacturingStep = false;
+    if (boatImg)          boatImg.style.opacity      = '1';
+    if (makeshipImg)      makeshipImg.style.opacity  = '0';
+    if (shippingImg)      shippingImg.style.opacity  = '0';
+    if (shippingInfo)     shippingInfo.classList.remove('visible');
+    if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
   }
+}
+
+if (shippingContinueBtn) {
+  shippingContinueBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    showShippingStep();
+  });
+}
+
+if (shippingTextContinueBtn) {
+  shippingTextContinueBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    showNextPanel();
+  });
 }
 
 if (backBtn) {
@@ -651,14 +846,6 @@ var jdots      = document.querySelectorAll('.jdot');
 var PANEL_COUNT = 4, LERP = 0.08;
 var currentX = 0, targetX = 0, nudgeHidden = false;
 
-/*
-  LOCK_P = 0:
-  The lock snaps to the very start of the journey scroll (scrollY = journeyTop).
-  This keeps panel-0 fully in view — rubber trees on the left, making box on the right —
-  and holds there until the user makes a choice.
-*/
-var LOCK_P = 0;
-
 function lerp(a, b, t) { return a + (b - a) * t; }
 
 function getProgress() {
@@ -669,7 +856,6 @@ function getProgress() {
 }
 
 function getLockedScrollTop() {
-  /* LOCK_P = 0 means the very top of the journey section */
   return journey.getBoundingClientRect().top + window.scrollY;
 }
 
@@ -682,13 +868,11 @@ function enforceScrollLock() {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
   var limit = getLockedScrollTop();
-  /* Snap to lock point — prevents any forward scrolling */
   if (window.scrollY > limit) {
     window.scrollTo({ top: limit, behavior: 'instant' });
   }
 }
 
-/* Block forward wheel scroll while inside journey and no choice made */
 window.addEventListener('wheel', function(e) {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
@@ -698,7 +882,6 @@ window.addEventListener('wheel', function(e) {
   }
 }, { passive: false });
 
-/* Block forward touch scroll while inside journey and no choice made */
 var touchStartY = 0;
 window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
 window.addEventListener('touchmove', function(e) {
@@ -711,23 +894,19 @@ window.addEventListener('touchmove', function(e) {
   }
 }, { passive: false });
 
-function updateInfoBox(p) {
+function updateInfoBox() {
   if (makingChoice === null && makingInfo) {
-    /* Show the box as soon as the journey section is sticky */
     makingInfo.classList.toggle('visible', isInsideJourney());
   } else if (makingChoice !== null && makingInfo) {
     makingInfo.classList.remove('visible');
   }
 }
 
-var RESET_THRESHOLD = 0.001;
-
 function tick() {
   var rawP = getProgress();
   if (makingChoice === null) enforceScrollLock();
   if (!isInsideJourney() && makingChoice !== null) resetMakingScene();
 
-  /* While locked, keep horizontal track at 0 (panel-0 fully visible) */
   var p = (makingChoice === null) ? 0 : rawP;
   targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
   currentX = lerp(currentX, targetX, LERP);
@@ -737,7 +916,7 @@ function tick() {
   var ai = Math.round(p * (PANEL_COUNT - 1));
   jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
   if (!nudgeHidden && rawP > 0.001) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
-  updateInfoBox(rawP);
+  updateInfoBox();
   requestAnimationFrame(tick);
 }
 if (journey && track) requestAnimationFrame(tick);
@@ -753,19 +932,25 @@ jdots.forEach(function(dot, idx) {
 });
 
 var reclaimedTrigger = document.getElementById('reclaimedTrigger');
-var continueTrigger  = document.getElementById('continueTrigger');
 var makingInfoBox    = document.getElementById('making-info');
+
+var makingContinueTrigger = document.createElement('p');
+makingContinueTrigger.id = 'continueTrigger';
+makingContinueTrigger.style.cssText = 'margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;transition:color 0.2s ease;';
+makingContinueTrigger.textContent = 'Continue';
+makingContinueTrigger.addEventListener('mouseover', function() { this.style.color = '#ffffff'; });
+makingContinueTrigger.addEventListener('mouseout',  function() { this.style.color = '#eebc1c'; });
+makingContinueTrigger.addEventListener('click', function(e) {
+  e.stopPropagation();
+  showMakingScene('continue');
+});
+var skipLabel = makingInfoBox ? makingInfoBox.querySelector('p[style*="0.7rem"]') : null;
+if (skipLabel) makingInfoBox.insertBefore(makingContinueTrigger, skipLabel);
 
 if (reclaimedTrigger) {
   reclaimedTrigger.addEventListener('click', function(e) {
     e.stopPropagation();
     showMakingScene('reclaimed');
-  });
-}
-if (continueTrigger) {
-  continueTrigger.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showMakingScene('continue');
   });
 }
 if (makingInfoBox) {
