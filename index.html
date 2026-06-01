@@ -361,7 +361,7 @@ body {
 }
 #shippingContinueBtn:hover { color: #ffffff; }
 
-/* Shipping text box — overlaid where the red shipping.png box sits (top-centre-right) */
+/* Shipping text box */
 #shippingText-info {
   position: absolute;
   top: 5%;
@@ -413,6 +413,59 @@ body {
   transition: color 0.2s ease;
 }
 #shippingTextContinueBtn:hover { color: #ffffff; }
+
+/* Shared style for Use and Afterlife panel info boxes */
+.panel-step-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% + 20px));
+  width: min(480px, 60vw);
+  background: transparent;
+  border: none;
+  padding: 2rem 1.75rem;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: center;
+}
+.panel-step-info.visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+.panel-step-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #eebc1c;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+.panel-step-info p {
+  color: #fcf1ca;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.panel-step-info button {
+  margin-top: 1.2rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #eebc1c;
+  line-height: 1.3;
+  cursor: pointer;
+  pointer-events: auto;
+  background: none;
+  border: none;
+  padding: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+.panel-step-info button:hover { color: #ffffff; }
 
 #backBtn {
   display: none;
@@ -468,6 +521,7 @@ body {
   #shipping-info.visible { transform: none; }
   #shippingText-info { left: 5%; width: 90%; top: 5%; transform: none; }
   #shippingText-info.visible { transform: none; }
+  .panel-step-info { width: 90%; }
 }
   </style>
 </head>
@@ -507,6 +561,7 @@ body {
     <div id="journey-sticky">
       <div id="journey-track">
 
+        <!-- Panel 0: Making / Manufacturing / Shipping -->
         <div class="panel" id="panel-0">
           <img id="rubberTreesImg" src="rubbertrees.png" alt="Rubber trees"
                style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
@@ -524,14 +579,12 @@ body {
             <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber</p>
           </div>
 
-          <!-- Manufacturing text box -->
           <div id="shipping-info">
             <h3>Manufacturing</h3>
             <p>Many companies use developing countries to manufacture their products, like Nike, Adidas, and Skechers. Most shoe companies state publically that they commit to paying a living wage, though none do. A quarter of companies reported not knowing where any of their inputs came from. 56% of companies didnt know where any of their raw materials came from, creating a disconnect. Relying on forced labour and mass sweat shops.</p>
             <button id="shippingContinueBtn">Continue</button>
           </div>
 
-          <!-- Shipping text box — appears where the red shipping.png graphic sits -->
           <div id="shippingText-info">
             <h3>Shipping</h3>
             <p>The entirety of the manufacturing process, which includes material sourcing, production, transportation, and packaging, pumps millions of tons of CO2 into the atmosphere every year. Most shoe companies use cheap labour, shipping from warehouses based primarily in China, Indonesia, and India and then often sent to the U.S. for global distribution. According to Airportwatch and a DEFRA report, two tonnes of freight carried 1,000km by container ship produces 30kg of CO2, 42kg by diesel train, and a staggering 4,138kg by air.</p>
@@ -539,8 +592,27 @@ body {
           </div>
         </div>
 
-        <div class="panel" id="panel-1"><div class="panel-label"><h2>Manufacturing</h2></div></div>
-        <div class="panel" id="panel-2"><div class="panel-label"><h2>Use</h2></div></div>
+        <!-- Panel 1: Use -->
+        <div class="panel" id="panel-1">
+          <div class="panel-label"><h2>Use</h2></div>
+          <div class="panel-step-info" id="use-info">
+            <h3>Use</h3>
+            <p>Your text about the use phase goes here. Write about wear patterns, microplastics shed during use, shoe care, how long shoes last, and the environmental impact of consumers buying and discarding shoes.</p>
+            <button id="useContinueBtn">Continue</button>
+          </div>
+        </div>
+
+        <!-- Panel 2: Afterlife -->
+        <div class="panel" id="panel-2">
+          <div class="panel-label"><h2>Afterlife</h2></div>
+          <div class="panel-step-info" id="afterlife-info">
+            <h3>Afterlife</h3>
+            <p>Your text about the afterlife phase goes here. Write about landfill, recycling schemes, shoe donation, incineration, and what happens to the materials once a shoe is discarded.</p>
+            <button id="afterlifeContinueBtn">The End</button>
+          </div>
+        </div>
+
+        <!-- Panel 3: End -->
         <div class="panel" id="panel-3"><div class="panel-label"><h2>Afterlife</h2></div></div>
 
       </div>
@@ -739,25 +811,38 @@ if (shoeCanvas) {
 }
 
 /* ── scene element refs ── */
-var makingInfo          = document.getElementById('making-info');
-var makeshipImg         = document.getElementById('makeshipImg');
-var boatImg             = document.getElementById('boatImg');
-var shippingImg         = document.getElementById('shippingImg');
-var backBtn             = document.getElementById('backBtn');
-var shippingInfo        = document.getElementById('shipping-info');
-var shippingContinueBtn = document.getElementById('shippingContinueBtn');
-var shippingTextInfo    = document.getElementById('shippingText-info');
+var makingInfo              = document.getElementById('making-info');
+var makeshipImg             = document.getElementById('makeshipImg');
+var boatImg                 = document.getElementById('boatImg');
+var shippingImg             = document.getElementById('shippingImg');
+var backBtn                 = document.getElementById('backBtn');
+var shippingInfo            = document.getElementById('shipping-info');
+var shippingContinueBtn     = document.getElementById('shippingContinueBtn');
+var shippingTextInfo        = document.getElementById('shippingText-info');
 var shippingTextContinueBtn = document.getElementById('shippingTextContinueBtn');
-var makingChoice        = null;
-var manufacturingStep   = false;
+var useInfo                 = document.getElementById('use-info');
+var useContinueBtn          = document.getElementById('useContinueBtn');
+var afterlifeInfo           = document.getElementById('afterlife-info');
+var afterlifeContinueBtn    = document.getElementById('afterlifeContinueBtn');
+var makingChoice            = null;
+var manufacturingStep       = false;
 
-/* ── smooth auto-scroll nudge ── */
-function scrollNudge(fraction) {
+/* ── scroll to a specific panel index ── */
+function scrollToPanel(idx) {
   var journey = document.getElementById('journey');
   if (!journey) return;
   var journeyTop   = journey.getBoundingClientRect().top + window.scrollY;
   var journeyTotal = journey.offsetHeight - window.innerHeight;
-  var nudgePx      = (fraction / (PANEL_COUNT - 1)) * journeyTotal;
+  window.scrollTo({ top: journeyTop + (idx / (PANEL_COUNT - 1)) * journeyTotal, behavior: 'smooth' });
+}
+
+/* ── smooth auto-scroll nudge within current panel ── */
+function scrollNudge(fraction) {
+  var journey = document.getElementById('journey');
+  if (!journey) return;
+  var journeyTop    = journey.getBoundingClientRect().top + window.scrollY;
+  var journeyTotal  = journey.offsetHeight - window.innerHeight;
+  var nudgePx       = (fraction / (PANEL_COUNT - 1)) * journeyTotal;
   var currentOffset = Math.max(0, -journey.getBoundingClientRect().top);
   window.scrollTo({ top: journeyTop + currentOffset + nudgePx, behavior: 'smooth' });
 }
@@ -771,6 +856,8 @@ function resetMakingScene() {
   if (backBtn)          backBtn.style.display          = 'none';
   if (shippingInfo)     shippingInfo.classList.remove('visible');
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+  if (useInfo)          useInfo.classList.remove('visible');
+  if (afterlifeInfo)    afterlifeInfo.classList.remove('visible');
   if (makeshipImg)      makeshipImg.style.right        = '33%';
 }
 
@@ -781,20 +868,32 @@ function showShippingStep() {
   if (shippingImg)      shippingImg.style.opacity  = '1';
   if (shippingTextInfo) shippingTextInfo.classList.add('visible');
   manufacturingStep = false;
-  // Nudge scroll so the shipping text box (top-centre area) is visible
   scrollNudge(0.12);
 }
 
-/* Shipping Continue → advance to next panel (panel-1) */
-function showNextPanel() {
+/* Shipping Continue → scroll to Use panel and show Use box */
+function showUseStep() {
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-  var journey = document.getElementById('journey');
-  if (!journey) return;
-  var journeyTop   = journey.getBoundingClientRect().top + window.scrollY;
-  var journeyTotal = journey.offsetHeight - window.innerHeight;
-  // Scroll to panel-1 (1/3 of total journey)
-  var panel1Target = journeyTop + (1 / (PANEL_COUNT - 1)) * journeyTotal;
-  window.scrollTo({ top: panel1Target, behavior: 'smooth' });
+  scrollToPanel(1);
+  // Show the use info box after the scroll settles
+  setTimeout(function() {
+    if (useInfo) useInfo.classList.add('visible');
+  }, 700);
+}
+
+/* Use Continue → scroll to Afterlife panel and show Afterlife box */
+function showAfterlifeStep() {
+  if (useInfo) useInfo.classList.remove('visible');
+  scrollToPanel(2);
+  setTimeout(function() {
+    if (afterlifeInfo) afterlifeInfo.classList.add('visible');
+  }, 700);
+}
+
+/* Afterlife Continue → scroll to final panel */
+function showEnd() {
+  if (afterlifeInfo) afterlifeInfo.classList.remove('visible');
+  scrollToPanel(3);
 }
 
 function showMakingScene(choice) {
@@ -821,19 +920,17 @@ function showMakingScene(choice) {
 }
 
 if (shippingContinueBtn) {
-  shippingContinueBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showShippingStep();
-  });
+  shippingContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showShippingStep(); });
 }
-
 if (shippingTextContinueBtn) {
-  shippingTextContinueBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    showNextPanel();
-  });
+  shippingTextContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showUseStep(); });
 }
-
+if (useContinueBtn) {
+  useContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showAfterlifeStep(); });
+}
+if (afterlifeContinueBtn) {
+  afterlifeContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showEnd(); });
+}
 if (backBtn) {
   backBtn.addEventListener('click', function() { resetMakingScene(); });
 }
