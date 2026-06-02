@@ -301,187 +301,105 @@ body {
   color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2;
 }
 .panel-info-box p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
-#reclaimedTrigger {
-  transition: color 0.2s ease;
-}
-#reclaimedTrigger:hover {
-  color: #ffffff !important;
-}
+#reclaimedTrigger { transition: color 0.2s ease; }
+#reclaimedTrigger:hover { color: #ffffff !important; }
 
 /* Manufacturing info box */
 #shipping-info {
   position: absolute;
-  top: 35%;
-  right: 1vw;
+  top: 45%; right: 1vw;
   transform: translateY(-50%) translateX(20px);
   width: min(380px, 36vw);
-  background: transparent;
-  border: none;
-  padding: 2rem 1.75rem;
-  z-index: 6;
-  pointer-events: none;
-  opacity: 0;
+  background: transparent; border: none;
+  padding: 2rem 1.75rem; z-index: 6;
+  pointer-events: none; opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
   text-align: center;
 }
-#shipping-info.visible {
-  opacity: 1;
-  transform: translateY(-50%) translateX(0);
-  pointer-events: auto;
-}
-#shipping-info h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #eebc1c;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-#shipping-info p {
-  color: #fcf1ca;
-  font-size: 0.85rem;
-  line-height: 1.7;
-}
+#shipping-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+#shipping-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
+#shipping-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
 #shippingContinueBtn {
-  margin-top: 1.2rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: #eebc1c;
-  line-height: 1.3;
-  cursor: pointer;
-  pointer-events: auto;
-  background: none;
-  border: none;
-  padding: 0;
-  display: block;
-  width: 100%;
-  text-align: center;
-  transition: color 0.2s ease;
+  margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
+  background: none; border: none; padding: 0; display: block; width: 100%;
+  text-align: center; transition: color 0.2s ease;
 }
 #shippingContinueBtn:hover { color: #ffffff; }
 
 /* Shipping text box */
 #shippingText-info {
   position: absolute;
-  top: 5%;
-  left: 67%;
+  top: 5%; left: 67%;
   transform: translateX(20px);
   width: min(620px, 45vw);
-  background: transparent;
-  border: none;
-  padding: 2rem 1.75rem;
-  z-index: 6;
-  pointer-events: none;
-  opacity: 0;
+  background: transparent; border: none;
+  padding: 2rem 1.75rem; z-index: 6;
+  pointer-events: none; opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
   text-align: center;
 }
-#shippingText-info.visible {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-#shippingText-info h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #eebc1c;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
-}
-#shippingText-info p {
-  color: #fcf1ca;
-  font-size: 0.85rem;
-  line-height: 1.7;
-}
+#shippingText-info.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
+#shippingText-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
+#shippingText-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
 #shippingTextContinueBtn {
-  margin-top: 1.2rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: #eebc1c;
-  line-height: 1.3;
-  cursor: pointer;
-  pointer-events: auto;
-  background: none;
-  border: none;
-  padding: 0;
-  display: block;
-  width: 100%;
-  text-align: center;
-  transition: color 0.2s ease;
+  margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
+  background: none; border: none; padding: 0; display: block; width: 100%;
+  text-align: center; transition: color 0.2s ease;
 }
 #shippingTextContinueBtn:hover { color: #ffffff; }
 
-/* Shared style for Use and Afterlife panel info boxes */
-.panel-step-info {
+/* Use info box — left-aligned, sits to the right of useshoes.png */
+#use-info {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, calc(-50% + 20px));
-  width: min(480px, 60vw);
-  background: transparent;
-  border: none;
-  padding: 2rem 1.75rem;
-  z-index: 6;
-  pointer-events: none;
-  opacity: 0;
+  top: 50%; right: 40vw;
+  transform: translateY(-50%) translateX(20px);
+  width: min(340px, 32vw);
+  background: transparent; border: none;
+  padding: 2rem 1.75rem; z-index: 6;
+  pointer-events: none; opacity: 0;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  text-align: center;
+  text-align: left;
 }
-.panel-step-info.visible {
-  opacity: 1;
-  transform: translate(-50%, -50%);
-  pointer-events: auto;
+#use-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+#use-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
+#use-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
+#useContinueBtn {
+  margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
+  background: none; border: none; padding: 0; display: block; width: 100%;
+  text-align: left; transition: color 0.2s ease;
 }
-.panel-step-info h3 {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #eebc1c;
-  margin-bottom: 0.75rem;
-  line-height: 1.2;
+#useContinueBtn:hover { color: #ffffff; }
+
+/* Afterlife info box — left-aligned, sits to the right of afterlife.png */
+#afterlife-info {
+  position: absolute;
+  top: 30%; right: auto; left: 45vw;
+  transform: translateY(-50%) translateX(20px);
+  width: min(340px, 32vw);
+  background: transparent; border: none;
+  padding: 2rem 1.75rem; z-index: 6;
+  pointer-events: none; opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: left;
 }
-.panel-step-info p {
-  color: #fcf1ca;
-  font-size: 0.85rem;
-  line-height: 1.7;
+#afterlife-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+#afterlife-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
+#afterlife-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
+#afterlifeContinueBtn {
+  margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
+  background: none; border: none; padding: 0; display: block; width: 100%;
+  text-align: left; transition: color 0.2s ease;
 }
-.panel-step-info button {
-  margin-top: 1.2rem;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: #eebc1c;
-  line-height: 1.3;
-  cursor: pointer;
-  pointer-events: auto;
-  background: none;
-  border: none;
-  padding: 0;
-  display: block;
-  width: 100%;
-  text-align: center;
-  transition: color 0.2s ease;
-}
-.panel-step-info button:hover { color: #ffffff; }
+#afterlifeContinueBtn:hover { color: #ffffff; }
 
 #backBtn {
-  display: none;
-  position: fixed;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  z-index: 50;
-  background: none;
-  border: none;
-  color: #fcf1ca;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  padding: 0;
-  cursor: pointer;
-  transition: color 0.2s;
-  letter-spacing: 0.05em;
+  display: none; position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50;
+  background: none; border: none; color: #fcf1ca; font-family: var(--font-mono);
+  font-size: 0.85rem; padding: 0; cursor: pointer; transition: color 0.2s; letter-spacing: 0.05em;
 }
 #backBtn:hover { color: #ffffff; }
 
@@ -521,7 +439,10 @@ body {
   #shipping-info.visible { transform: none; }
   #shippingText-info { left: 5%; width: 90%; top: 5%; transform: none; }
   #shippingText-info.visible { transform: none; }
-  .panel-step-info { width: 90%; }
+  #use-info { right: auto; left: 5%; width: 90%; transform: translateY(-50%); }
+  #use-info.visible { transform: translateY(-50%); }
+  #afterlife-info { right: auto; left: 5%; width: 90%; transform: translateY(-50%); }
+  #afterlife-info.visible { transform: translateY(-50%); }
 }
   </style>
 </head>
@@ -592,28 +513,37 @@ body {
           </div>
         </div>
 
-        <!-- Panel 1: Use -->
+        <!-- Panel 1: Use + Afterlife (same panel) -->
         <div class="panel" id="panel-1">
-          <div class="panel-label"><h2>Use</h2></div>
-          <div class="panel-step-info" id="use-info">
+
+          <!-- useshoes.png: left side, fades in with the use box -->
+          <img id="useShoesImg" src="useshoes.png" alt="Use shoes"
+               style="position:absolute;bottom:5%;left:3vw;height:70%;width:50%;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+
+          <!-- afterlife.png: right side, fades in when use Continue is pressed -->
+          <img id="afterlifeImg" src="afterlife.png" alt="Afterlife"
+               style="position:absolute;bottom:7%;right:37vw;height:45%;width:22%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+
+          <!-- Use info box: right-aligned beside the useshoes image -->
+          <div id="use-info">
             <h3>Use</h3>
             <p>Your text about the use phase goes here. Write about wear patterns, microplastics shed during use, shoe care, how long shoes last, and the environmental impact of consumers buying and discarding shoes.</p>
             <button id="useContinueBtn">Continue</button>
           </div>
-        </div>
 
-        <!-- Panel 2: Afterlife -->
-        <div class="panel" id="panel-2">
-          <div class="panel-label"><h2>Afterlife</h2></div>
-          <div class="panel-step-info" id="afterlife-info">
+          <!-- Afterlife info box: beside the afterlife image -->
+          <div id="afterlife-info">
             <h3>Afterlife</h3>
             <p>Your text about the afterlife phase goes here. Write about landfill, recycling schemes, shoe donation, incineration, and what happens to the materials once a shoe is discarded.</p>
             <button id="afterlifeContinueBtn">The End</button>
           </div>
         </div>
 
+        <!-- Panel 2: empty -->
+        <div class="panel" id="panel-2"></div>
+
         <!-- Panel 3: End -->
-        <div class="panel" id="panel-3"><div class="panel-label"><h2>Afterlife</h2></div></div>
+        <div class="panel" id="panel-3"></div>
 
       </div>
 
@@ -815,6 +745,8 @@ var makingInfo              = document.getElementById('making-info');
 var makeshipImg             = document.getElementById('makeshipImg');
 var boatImg                 = document.getElementById('boatImg');
 var shippingImg             = document.getElementById('shippingImg');
+var useShoesImg             = document.getElementById('useShoesImg');
+var afterlifeImg            = document.getElementById('afterlifeImg');
 var backBtn                 = document.getElementById('backBtn');
 var shippingInfo            = document.getElementById('shipping-info');
 var shippingContinueBtn     = document.getElementById('shippingContinueBtn');
@@ -850,15 +782,17 @@ function scrollNudge(fraction) {
 function resetMakingScene() {
   makingChoice      = null;
   manufacturingStep = false;
-  if (makeshipImg)      makeshipImg.style.opacity      = '0';
-  if (boatImg)          boatImg.style.opacity          = '0';
-  if (shippingImg)      shippingImg.style.opacity      = '0';
-  if (backBtn)          backBtn.style.display          = 'none';
+  if (makeshipImg)   makeshipImg.style.opacity   = '0';
+  if (boatImg)       boatImg.style.opacity       = '0';
+  if (shippingImg)   shippingImg.style.opacity   = '0';
+  if (useShoesImg)   useShoesImg.style.opacity   = '0';
+  if (afterlifeImg)  afterlifeImg.style.opacity  = '0';
+  if (backBtn)       backBtn.style.display       = 'none';
   if (shippingInfo)     shippingInfo.classList.remove('visible');
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
   if (useInfo)          useInfo.classList.remove('visible');
   if (afterlifeInfo)    afterlifeInfo.classList.remove('visible');
-  if (makeshipImg)      makeshipImg.style.right        = '33%';
+  if (makeshipImg)      makeshipImg.style.right  = '33%';
 }
 
 /* Manufacturing Continue → show shipping image + shipping text box */
@@ -871,28 +805,27 @@ function showShippingStep() {
   scrollNudge(0.12);
 }
 
-/* Shipping Continue → scroll to Use panel and show Use box */
+/* Shipping Continue → scroll to Use panel, show useshoes.png + use info box */
 function showUseStep() {
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
   scrollToPanel(1);
-  // Show the use info box after the scroll settles
   setTimeout(function() {
-    if (useInfo) useInfo.classList.add('visible');
+    if (useShoesImg) useShoesImg.style.opacity = '1';
+    if (useInfo)     useInfo.classList.add('visible');
   }, 700);
 }
 
-/* Use Continue → scroll to Afterlife panel and show Afterlife box */
+/* Use Continue → show afterlife.png + afterlife info box in same panel, no scroll */
 function showAfterlifeStep() {
   if (useInfo) useInfo.classList.remove('visible');
-  scrollToPanel(2);
-  setTimeout(function() {
-    if (afterlifeInfo) afterlifeInfo.classList.add('visible');
-  }, 700);
+  if (afterlifeImg)  afterlifeImg.style.opacity = '1';
+  if (afterlifeInfo) afterlifeInfo.classList.add('visible');
 }
 
 /* Afterlife Continue → scroll to final panel */
 function showEnd() {
   if (afterlifeInfo) afterlifeInfo.classList.remove('visible');
+  if (afterlifeImg)  afterlifeImg.style.opacity = '0';
   scrollToPanel(3);
 }
 
