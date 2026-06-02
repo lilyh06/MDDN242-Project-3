@@ -276,6 +276,13 @@ body {
 }
 #rubberPolaroid img { display: block; width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 
+#backBtn {
+  display: none; position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50;
+  background: none; border: none; color: #fcf1ca; font-family: var(--font-mono);
+  font-size: 0.85rem; padding: 0; cursor: pointer; transition: color 0.2s; letter-spacing: 0.05em;
+}
+#backBtn:hover { color: #ffffff; }
+
 #journey { height: 500vh; position: relative; }
 #journey-sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
 #journey-track { display: flex; height: 100%; will-change: transform; }
@@ -304,12 +311,28 @@ body {
 #reclaimedTrigger { transition: color 0.2s ease; }
 #reclaimedTrigger:hover { color: #ffffff !important; }
 
+/* Reclaimed / bio rubber info box */
+#reclaimed-info {
+  position: absolute;
+  top: 45%; left: 52vw;
+  transform: translateY(-50%) translateX(20px);
+  width: min(380px, 38vw);
+  background: transparent; border: none;
+  padding: 2rem 1.75rem; z-index: 6;
+  pointer-events: none; opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: left;
+}
+#reclaimed-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
+#reclaimed-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
+#reclaimed-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
+
 /* Manufacturing info box */
 #shipping-info {
   position: absolute;
-  top: 45%; right: 1vw;
+  top: 45%; right: -5vw;
   transform: translateY(-50%) translateX(20px);
-  width: min(380px, 36vw);
+  width: min(420px, 40vw);
   background: transparent; border: none;
   padding: 2rem 1.75rem; z-index: 6;
   pointer-events: none; opacity: 0;
@@ -353,9 +376,9 @@ body {
 /* Use info box — left-aligned, sits to the right of useshoes.png */
 #use-info {
   position: absolute;
-  top: 50%; right: 40vw;
+  top: 45%; right: 26vw;
   transform: translateY(-50%) translateX(20px);
-  width: min(340px, 32vw);
+  width: min(520px, 40vw);
   background: transparent; border: none;
   padding: 2rem 1.75rem; z-index: 6;
   pointer-events: none; opacity: 0;
@@ -376,14 +399,14 @@ body {
 /* Afterlife info box — left-aligned, sits to the right of afterlife.png */
 #afterlife-info {
   position: absolute;
-  top: 30%; right: auto; left: 45vw;
+  top: 30%; right: auto; left: 35vw;
   transform: translateY(-50%) translateX(20px);
-  width: min(340px, 32vw);
+  width: min(480px, 46vw);
   background: transparent; border: none;
   padding: 2rem 1.75rem; z-index: 6;
   pointer-events: none; opacity: 0;
   transition: opacity 0.4s ease, transform 0.4s ease;
-  text-align: left;
+  text-align: center;
 }
 #afterlife-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
 #afterlife-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
@@ -392,16 +415,9 @@ body {
   margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
   color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
   background: none; border: none; padding: 0; display: block; width: 100%;
-  text-align: left; transition: color 0.2s ease;
+  text-align: center; transition: color 0.2s ease;
 }
 #afterlifeContinueBtn:hover { color: #ffffff; }
-
-#backBtn {
-  display: none; position: fixed; bottom: 2.5rem; left: 2.5rem; z-index: 50;
-  background: none; border: none; color: #fcf1ca; font-family: var(--font-mono);
-  font-size: 0.85rem; padding: 0; cursor: pointer; transition: color 0.2s; letter-spacing: 0.05em;
-}
-#backBtn:hover { color: #ffffff; }
 
 .panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
 .panel-label h2 {
@@ -409,17 +425,21 @@ body {
   font-weight: 700; color: #fff; line-height: 1.1; text-shadow: 0 2px 20px rgba(0,0,0,0.7);
 }
 
-#journey-dots {
-  position: absolute; bottom: 1.5rem; left: 50%;
-  transform: translateX(-50%); display: flex; gap: 0.75rem; z-index: 10;
+/* ── Status image progress tracker ── */
+#status-tracker {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+  transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.jdot {
-  width: 8px; height: 8px; border-radius: 50%;
-  border: 1px solid var(--muted); background: transparent;
-  cursor: pointer; padding: 0;
-  transition: background 0.3s, border-color 0.3s, transform 0.3s;
+#status-tracker img {
+  height: 20px;
+  width: auto;
+  display: block;
+  opacity: 0.85;
 }
-.jdot.active { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
 
 #scroll-nudge {
   position: absolute; bottom: 1.4rem; right: 2rem;
@@ -434,7 +454,7 @@ body {
   #journey-sticky { position: relative; height: auto; overflow: visible; }
   #journey-track { flex-direction: column; transform: none !important; }
   .panel { height: 100vh; }
-  #journey-dots, #scroll-nudge { display: none; }
+  #scroll-nudge { display: none; }
   #shipping-info { right: auto; left: 5%; width: 90%; top: auto; bottom: 10%; transform: none; }
   #shipping-info.visible { transform: none; }
   #shippingText-info { left: 5%; width: 90%; top: 5%; transform: none; }
@@ -476,6 +496,11 @@ body {
     <img src="rubbertreefarm.jpg" alt="Rubber tree farm" />
   </div>
 
+  <!-- Status image progress tracker -->
+  <div id="status-tracker">
+    <img src="status.png" alt="Progress" />
+  </div>
+
   <button id="backBtn">← Back</button>
 
   <div id="journey">
@@ -488,8 +513,8 @@ body {
                style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:1;transition:opacity 0.6s ease;" />
           <img id="makeshipImg" src="shoesmake.png" alt="Making and shipping"
                style="position:absolute;bottom:7%;right:23.5%;height:70%;width:50%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
-          <img id="boatImg" src="sustainable rubber.png" alt="Reclaimed or recycled rubber"
-               style="position:absolute;bottom:8%;right:15%;height:50%;width:49.5%;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
+          <img id="boatImg" src="sustainable rubber.png" alt="Recycled or bio rubber"
+               style="position:absolute;bottom:20%;left:5vw;height:60%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.6s ease;" />
           <img id="shippingImg" src="shipping.png" alt="Shipping"
                style="position:absolute;bottom:14%;right:-25%;height:35%;width:auto;object-fit:contain;object-position:right bottom;pointer-events:none;z-index:1;opacity:0;transition:opacity 0.6s ease;" />
 
@@ -497,7 +522,7 @@ body {
             <h3>Making</h3>
             <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
             <p style="margin-top:1.2rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#fcf1ca;opacity:0.6;">skip this step</p>
-            <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy reclaimed or recycled rubber</p>
+            <p id="reclaimedTrigger" style="margin-top:0.3rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;">Buy recycled or bio rubber</p>
           </div>
 
           <div id="shipping-info">
@@ -510,6 +535,13 @@ body {
             <h3>Shipping</h3>
             <p>The entirety of the manufacturing process, which includes material sourcing, production, transportation, and packaging, pumps millions of tons of CO2 into the atmosphere every year. Most shoe companies use cheap labour, shipping from warehouses based primarily in China, Indonesia, and India and then often sent to the U.S. for global distribution. According to Airportwatch and a DEFRA report, two tonnes of freight carried 1,000km by container ship produces 30kg of CO2, 42kg by diesel train, and a staggering 4,138kg by air.</p>
             <button id="shippingTextContinueBtn">Continue</button>
+          </div>
+
+          <div id="reclaimed-info">
+            <h3>Bio Rubber</h3>
+            <p>Bio-based synthetic rubber is eco-friendly, manufactured from renewable biomass inputs like sugarcane, corn, and forest waste, rather than fossil fuels. It produces a significantly lower carbon footprint while structurally matching petroleum-based synthetic rubbers. Synthesised rubber tend to be more common in the footwear industry than natural rubber, creating a great but underused alternative.</p>
+            <h3 style="margin-top:1.2rem;">Recycled Rubber</h3>
+            <p>Recycled rubber is a highly sustainable material created by processing scrap rubber, primarily from discarded vehicle tires. Through shredding, grinding, and bonding, it is repurposed into versatile, eco-friendly products. It helps reduce landfill waste. With companies like Ecoalf using exclusively recycled materials, including discarded rubber and ocean plastics to create their footwear.</p>
           </div>
         </div>
 
@@ -527,14 +559,16 @@ body {
           <!-- Use info box: right-aligned beside the useshoes image -->
           <div id="use-info">
             <h3>Use</h3>
-            <p>Your text about the use phase goes here. Write about wear patterns, microplastics shed during use, shoe care, how long shoes last, and the environmental impact of consumers buying and discarding shoes.</p>
+            <p>The shift toward fast fashion and synthetic materials like cheap polyurethane, EVA, and blended plastics has drastically reduced modern shoe durability compared to traditional leather and rubber construction. These unsustainable materials break down rapidly, lack resoling capabilities, and contribute to immense textile waste. Shoes 30 years ago were intended to last almost three times longer. </p>
             <button id="useContinueBtn">Continue</button>
           </div>
 
           <!-- Afterlife info box: beside the afterlife image -->
           <div id="afterlife-info">
             <h3>Afterlife</h3>
-            <p>Your text about the afterlife phase goes here. Write about landfill, recycling schemes, shoe donation, incineration, and what happens to the materials once a shoe is discarded.</p>
+            <p>An estimated 22 billion pairs of shoes are sent to landfill annually. 90% of shoes produced each year will eventually end up in landfill, many within the first 12 months of purchase. 
+
+Heavily synthetic materials like foamed rubber soles and certain plastics can take anywhere from 50 to over 1,000 years to fully degrade, leaching chemicals and microplastics into the environment. </p>
             <button id="afterlifeContinueBtn">The End</button>
           </div>
         </div>
@@ -547,12 +581,6 @@ body {
 
       </div>
 
-      <nav id="journey-dots">
-        <button class="jdot active" data-index="0"></button>
-        <button class="jdot" data-index="1"></button>
-        <button class="jdot" data-index="2"></button>
-        <button class="jdot" data-index="3"></button>
-      </nav>
       <p id="scroll-nudge">scroll to continue →</p>
     </div>
   </div>
@@ -742,6 +770,7 @@ if (shoeCanvas) {
 
 /* ── scene element refs ── */
 var makingInfo              = document.getElementById('making-info');
+var rubberTreesImg          = document.getElementById('rubberTreesImg');
 var makeshipImg             = document.getElementById('makeshipImg');
 var boatImg                 = document.getElementById('boatImg');
 var shippingImg             = document.getElementById('shippingImg');
@@ -752,12 +781,29 @@ var shippingInfo            = document.getElementById('shipping-info');
 var shippingContinueBtn     = document.getElementById('shippingContinueBtn');
 var shippingTextInfo        = document.getElementById('shippingText-info');
 var shippingTextContinueBtn = document.getElementById('shippingTextContinueBtn');
+var reclaimedInfo           = document.getElementById('reclaimed-info');
 var useInfo                 = document.getElementById('use-info');
 var useContinueBtn          = document.getElementById('useContinueBtn');
 var afterlifeInfo           = document.getElementById('afterlife-info');
 var afterlifeContinueBtn    = document.getElementById('afterlifeContinueBtn');
 var makingChoice            = null;
 var manufacturingStep       = false;
+
+/* ── Status tracker ── */
+var statusTracker = document.getElementById('status-tracker');
+var STATUS_TOTAL_STEPS = 5;
+var statusCurrentStep  = 0;
+
+function setStatusStep(step) {
+  statusCurrentStep = Math.max(0, Math.min(step, STATUS_TOTAL_STEPS));
+  var imgWidth = 48;
+  var margin   = 16;
+  var usableWidth = window.innerWidth - imgWidth - margin * 2;
+  var leftPx = margin + (statusCurrentStep / STATUS_TOTAL_STEPS) * usableWidth;
+  statusTracker.style.left = leftPx + 'px';
+}
+
+setStatusStep(0);
 
 /* ── scroll to a specific panel index ── */
 function scrollToPanel(idx) {
@@ -790,12 +836,14 @@ function resetMakingScene() {
   if (backBtn)       backBtn.style.display       = 'none';
   if (shippingInfo)     shippingInfo.classList.remove('visible');
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+  if (reclaimedInfo)    reclaimedInfo.classList.remove('visible');
   if (useInfo)          useInfo.classList.remove('visible');
   if (afterlifeInfo)    afterlifeInfo.classList.remove('visible');
+  if (rubberTreesImg)   rubberTreesImg.style.opacity = '1';
   if (makeshipImg)      makeshipImg.style.right  = '33%';
+  setStatusStep(0);
 }
 
-/* Manufacturing Continue → show shipping image + shipping text box */
 function showShippingStep() {
   if (shippingInfo)     shippingInfo.classList.remove('visible');
   if (makeshipImg)      makeshipImg.style.opacity  = '1';
@@ -803,9 +851,9 @@ function showShippingStep() {
   if (shippingTextInfo) shippingTextInfo.classList.add('visible');
   manufacturingStep = false;
   scrollNudge(0.12);
+  setStatusStep(2);
 }
 
-/* Shipping Continue → scroll to Use panel, show useshoes.png + use info box */
 function showUseStep() {
   if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
   scrollToPanel(1);
@@ -813,20 +861,21 @@ function showUseStep() {
     if (useShoesImg) useShoesImg.style.opacity = '1';
     if (useInfo)     useInfo.classList.add('visible');
   }, 700);
+  setStatusStep(3);
 }
 
-/* Use Continue → show afterlife.png + afterlife info box in same panel, no scroll */
 function showAfterlifeStep() {
   if (useInfo) useInfo.classList.remove('visible');
   if (afterlifeImg)  afterlifeImg.style.opacity = '1';
   if (afterlifeInfo) afterlifeInfo.classList.add('visible');
+  setStatusStep(4);
 }
 
-/* Afterlife Continue → scroll to final panel */
 function showEnd() {
   if (afterlifeInfo) afterlifeInfo.classList.remove('visible');
   if (afterlifeImg)  afterlifeImg.style.opacity = '0';
   scrollToPanel(3);
+  setStatusStep(5);
 }
 
 function showMakingScene(choice) {
@@ -842,13 +891,17 @@ function showMakingScene(choice) {
     if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
     if (shippingInfo)     shippingInfo.classList.add('visible');
     scrollNudge(0.18);
+    setStatusStep(1);
   } else if (choice === 'reclaimed') {
     manufacturingStep = false;
-    if (boatImg)          boatImg.style.opacity      = '1';
-    if (makeshipImg)      makeshipImg.style.opacity  = '0';
-    if (shippingImg)      shippingImg.style.opacity  = '0';
+    if (rubberTreesImg)   rubberTreesImg.style.opacity  = '0';
+    if (boatImg)          boatImg.style.opacity          = '1';
+    if (makeshipImg)      makeshipImg.style.opacity      = '0';
+    if (shippingImg)      shippingImg.style.opacity      = '0';
     if (shippingInfo)     shippingInfo.classList.remove('visible');
     if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+    if (reclaimedInfo)    reclaimedInfo.classList.add('visible');
+    setStatusStep(1);
   }
 }
 
@@ -872,7 +925,6 @@ if (backBtn) {
 var journey    = document.getElementById('journey');
 var track      = document.getElementById('journey-track');
 var nudge      = document.getElementById('scroll-nudge');
-var jdots      = document.querySelectorAll('.jdot');
 var PANEL_COUNT = 4, LERP = 0.08;
 var currentX = 0, targetX = 0, nudgeHidden = false;
 
@@ -943,23 +995,11 @@ function tick() {
   if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
   if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
 
-  var ai = Math.round(p * (PANEL_COUNT - 1));
-  jdots.forEach(function(d, i) { d.classList.toggle('active', i === ai); });
   if (!nudgeHidden && rawP > 0.001) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
   updateInfoBox();
   requestAnimationFrame(tick);
 }
 if (journey && track) requestAnimationFrame(tick);
-
-jdots.forEach(function(dot, idx) {
-  dot.addEventListener('click', function() {
-    if (!journey) return;
-    if (makingChoice === null && idx > 0) return;
-    var total = journey.offsetHeight - window.innerHeight;
-    var top   = journey.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + (idx / (PANEL_COUNT - 1)) * total, behavior: 'smooth' });
-  });
-});
 
 var reclaimedTrigger = document.getElementById('reclaimedTrigger');
 var makingInfoBox    = document.getElementById('making-info');
@@ -986,6 +1026,10 @@ if (reclaimedTrigger) {
 if (makingInfoBox) {
   makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
 }
+
+window.addEventListener('resize', function() {
+  setStatusStep(statusCurrentStep);
+});
   </script>
 
 </body>
