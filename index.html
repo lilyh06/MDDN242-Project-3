@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Life of Our Shoes</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
+<style>
 :root {
   --bg:           #000000;
   --surface:      #161612;
@@ -14,8 +14,8 @@
   --accent2:      #ffbb00;
   --text:         #8b90d9;
   --muted:        #5c6096;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-mono:    'Inter', sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-mono:    "Inter", sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,7 +41,7 @@ body {
   text-align: center;
 }
 #hero::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background:
@@ -350,12 +350,9 @@ body {
   text-align: center;
 }
 #labour-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
-/* From manufacturing: shifted right so it sits clear of other content */
-#labour-info.from-manufacturing { left: 78vw; }
-/* From reclaimed sustainable path: boatImg stays left, check sits centre, text sits right */
+#labour-info.from-manufacturing { left: 78vw; top: 62%; width: min(620px, 46vw); }
+#labour-info.from-manufacturing-reclaimed { left: 62vw; top: 60%; width: min(480px, 40vw); }
 #labour-info.from-reclaimed-sustainable { left: 45vw; top: 65%; width: min(700px, 50vw); }
-/* FIX 1: from-reclaimed now starts at 110vw (off the right edge of the screen)
-   so that scrollNudge() scrolls the panel to bring it into view             */
 #labour-info.from-reclaimed { left: 110vw; top: 40%; width: min(340px, 28vw); }
 #labour-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
 #labour-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
@@ -375,7 +372,6 @@ body {
   text-align: center;
 }
 #shipping-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
-/* When shown from the reclaimed path, push it further right */
 #shipping-info.from-reclaimed { right: -5vw; }
 #shipping-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
 #shipping-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
@@ -390,7 +386,7 @@ body {
 /* Shipping text box */
 #shippingText-info {
   position: absolute;
-  top: 5%; left: 67%;
+  top: 5%; left: 92%;
   transform: translateX(20px);
   width: min(620px, 45vw);
   background: transparent; border: none;
@@ -422,6 +418,7 @@ body {
   transition: opacity 0.4s ease, transform 0.4s ease;
   text-align: left;
 }
+#use-info.from-buy-locally { right: 2vw; }
 #use-info.visible { opacity: 1; transform: translateY(-50%) translateX(0); pointer-events: auto; }
 #use-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
 #use-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
@@ -456,7 +453,7 @@ body {
 }
 #afterlifeContinueBtn:hover { color: #ffffff; }
 
-/* Sustainable afterlife info box (shown from Use → Continue sustainably) */
+/* Sustainable afterlife info box */
 #afterlife-sustainable-info {
   position: absolute;
   top: 30%; right: auto; left: 35vw;
@@ -479,7 +476,7 @@ body {
 }
 #afterlifeSustainableEndBtn:hover { color: #ffffff; }
 
-/* Better afterlife info box (shown when any sustainable choice was made) */
+/* Better afterlife info box */
 #afterlife-better-info {
   position: absolute;
   top: 30%; right: auto; left: 35vw;
@@ -501,29 +498,6 @@ body {
   text-align: center; transition: color 0.2s ease;
 }
 #afterlifeBetterEndBtn:hover { color: #ffffff; }
-
-/* Buy locally info box (shown from reclaimed → labour → shipping → continue sustainably) */
-#buy-locally-info {
-  position: absolute;
-  top: 20%; left: 90%;
-  transform: translateX(20px);
-  width: min(520px, 28vw);
-  background: transparent; border: none;
-  padding: 2rem 1.75rem; z-index: 6;
-  pointer-events: none; opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  text-align: left;
-}
-#buy-locally-info.visible { opacity: 1; transform: translateX(0); pointer-events: auto; }
-#buy-locally-info h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #eebc1c; margin-bottom: 0.75rem; line-height: 1.2; }
-#buy-locally-info p { color: #fcf1ca; font-size: 0.85rem; line-height: 1.7; }
-#buyLocallyContinueBtn {
-  margin-top: 1.2rem; font-family: var(--font-display); font-size: 1rem; font-weight: 700;
-  color: #eebc1c; line-height: 1.3; cursor: pointer; pointer-events: auto;
-  background: none; border: none; padding: 0; display: block; width: 100%;
-  text-align: center; transition: color 0.2s ease;
-}
-#buyLocallyContinueBtn:hover { color: #ffffff; }
 
 /* Buy locally info box */
 #buy-locally-info {
@@ -547,6 +521,92 @@ body {
   text-align: center; transition: color 0.2s ease;
 }
 #buyLocallyContinueBtn:hover { color: #ffffff; }
+
+/* ── Sources button ── */
+#sources-btn {
+  position: fixed;
+  bottom: 1.2rem;
+  right: 2rem;
+  z-index: 60;
+  background: none;
+  border: none;
+  color: #fcf1ca;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, color 0.2s ease;
+}
+#sources-btn.visible { opacity: 1; pointer-events: auto; }
+#sources-btn:hover { color: #eebc1c; }
+
+/* ── Sources overlay ── */
+#sources-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000;
+  z-index: 300;
+  overflow-y: auto;
+  padding: 4rem 6vw 4rem;
+}
+#sources-overlay.open { display: block; }
+#sources-overlay h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 700;
+  color: #eebc1c;
+  margin-bottom: 2.5rem;
+}
+#sources-overlay h3 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #8b90d9;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+#sources-overlay p {
+  color: #fcf1ca;
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+#sources-overlay a {
+  color: #5c6096;
+  font-size: 0.78rem;
+  word-break: break-all;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.25rem;
+  transition: color 0.2s;
+}
+#sources-overlay a:hover { color: #eebc1c; }
+#sources-close {
+  position: fixed;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  color: #5c6096;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+  z-index: 301;
+}
+#sources-close:hover { color: #fcf1ca; }
+.sources-divider {
+  width: 100%;
+  height: 1px;
+  background: #1a1a1a;
+  margin: 1.8rem 0;
+}
 
 .panel-label { position: absolute; bottom: 3rem; left: 2.5rem; z-index: 5; pointer-events: none; }
 .panel-label h2 {
@@ -593,7 +653,8 @@ body {
   #afterlife-info { right: auto; left: 5%; width: 90%; transform: translateY(-50%); }
   #afterlife-info.visible { transform: translateY(-50%); }
 }
-  </style>
+
+</style>
 </head>
 <body>
 
@@ -632,8 +693,78 @@ body {
 
   <!-- Button group: back one step + restart -->
   <div id="btnGroup">
-    <button id="backBtn">← Back</button>
-    <button id="restartBtn">↩ Start over</button>
+    <button id="backBtn">&#x2190; Back</button>
+    <button id="restartBtn">&#x21A9; Start over</button>
+  </div>
+
+  <!-- Sources button (shown only at afterlife stage) -->
+  <button id="sources-btn">Sources</button>
+
+  <!-- Sources overlay page -->
+  <div id="sources-overlay">
+    <button id="sources-close">&#x2715; Close</button>
+    <h2>Sources</h2>
+
+    <h3>Manufacturing Box</h3>
+    <p>Workers exposed to wood dust from the rubber tree without correct protection experience increased risk of nasal symptoms, wheeze, asthma and skin symptoms and have reduced spirometric lung function.</p>
+    <a href="https://www.tearfund.org.nz/Footwear-An-Industry-Laced-With-Exploitation" target="_blank" rel="noopener">tearfund.org.nz &mdash; Footwear: An Industry Laced With Exploitation</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Shipping Box</h3>
+    <p>The entirety of the manufacturing process, which includes material sourcing, production, transportation, and packaging, pumps millions of tons of CO2 into the atmosphere every year.</p>
+    <a href="https://myfleeters.com/en-row/blogs/barefoot-world/shoe-industry-impact-planet-health" target="_blank" rel="noopener">myfleeters.com &mdash; Shoe Industry Impact on Planet Health</a>
+    <p style="margin-top:0.8rem;">Most shoe companies use cheap labour, shipping from warehouses based primarily in China, Indonesia, and India and then often sent to the U.S. for global distribution.</p>
+    <a href="https://www.nautilusshipping.com/news-and-insights/the-worlds-major-maritime-trade-routes-connecting-the-globe" target="_blank" rel="noopener">nautilusshipping.com &mdash; The World&rsquo;s Major Maritime Trade Routes</a>
+    <p style="margin-top:0.8rem;">According to Airportwatch and a DEFRA report, two tonnes of freight carried 1,000km by container ship produces just 30kg of CO2. For comparison: 42kg by diesel train, and a staggering 4,138kg by air.</p>
+    <a href="https://accelleron.com/charge-magazine/the-real-environmental-impact-of-freight-shipping" target="_blank" rel="noopener">accelleron.com &mdash; The Real Environmental Impact of Freight Shipping</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Use Box</h3>
+    <p>The shift toward fast fashion and synthetic materials like cheap polyurethane, EVA, and blended plastics has drastically reduced modern shoe durability compared to traditional leather and rubber construction.</p>
+    <a href="https://www.textiletoday.com.bd/non-leather-footwear-export-may-hit-2-billion-2030" target="_blank" rel="noopener">textiletoday.com.bd &mdash; Non-Leather Footwear Export</a>
+    <p style="margin-top:0.8rem;">Runners regularly logged 800 to 1,000 kilometres on a single pair of durable daily trainers.</p>
+    <a href="https://www.rundna.com.au/blog/running-shoe-durability" target="_blank" rel="noopener">rundna.com.au &mdash; Running Shoe Durability</a>
+    <p style="margin-top:0.8rem;">High-performance &ldquo;super shoes&rdquo; can even degrade after 350 kilometres.</p>
+    <a href="https://www.doingfootwear.com/how-long-do-shoes-last-2/" target="_blank" rel="noopener">doingfootwear.com &mdash; How Long Do Shoes Last?</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Afterlife Box</h3>
+    <p>An estimated 22 billion pairs of shoes are sent to landfill annually. 90% of shoes produced each year will eventually end up in landfill, many within the first 12 months of purchase.</p>
+    <a href="https://bootrepaircompany.co.uk/blogs/brc-blog/the-landfill-crisis-under-our-feet-the-extent-of-the-footwear-industrys-waste" target="_blank" rel="noopener">bootrepaircompany.co.uk &mdash; The Landfill Crisis Under Our Feet</a>
+    <p style="margin-top:0.8rem;">Heavily synthetic materials like foamed rubber soles and certain plastics can take anywhere from 50 to over 1,000 years to fully degrade, leaching chemicals and microplastics into the environment.</p>
+    <a href="https://refash.in/blogs/blog/decomposition-of-landfill-waste" target="_blank" rel="noopener">refash.in &mdash; Decomposition of Landfill Waste</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Reclaimed / Bio Rubber</h3>
+    <p>Bio-based synthetic rubber is eco-friendly, manufactured from renewable biomass inputs like sugarcane, corn, and forest waste, rather than fossil fuels. It produces a significantly lower carbon footprint while structurally matching petroleum-based synthetic rubbers.</p>
+    <a href="https://www.vertecbiosolvents.com/the-rise-of-biodegradable-bio-based-synthetic-rubbers" target="_blank" rel="noopener">vertecbiosolvents.com &mdash; The Rise of Biodegradable Bio-Based Synthetic Rubbers</a>
+    <p style="margin-top:0.8rem;">Recycled rubber is a highly sustainable material created by processing scrap rubber, primarily from discarded vehicle tires. With companies like Ecoalf using exclusively recycled materials, including discarded rubber and ocean plastics to create their footwear.</p>
+    <a href="https://www.thepost.co.nz/business/360952260/how-recycled-tyre-rubber-can-help-urban-flood-management" target="_blank" rel="noopener">thepost.co.nz &mdash; How Recycled Tyre Rubber Can Help</a><br>
+    <a href="https://ecoalf.com/en-int/blogs/blog/recycled-rubber" target="_blank" rel="noopener">ecoalf.com &mdash; Recycled Rubber</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Manufacturing (Alternative Path)</h3>
+    <p>Until the late 1980s, about 95 per cent of footwear in New Zealand was made locally. Today nearly 90 per cent of the world&rsquo;s shoes are made in Asia. Companies that still manufacture footwear in Aotearoa are small and specialised.</p>
+    <a href="https://www.tearfund.org.nz/Footwear-An-Industry-Laced-With-Exploitation" target="_blank" rel="noopener">tearfund.org.nz &mdash; Footwear: An Industry Laced With Exploitation</a>
+    <p style="margin-top:0.8rem;">Look up different brand&rsquo;s labour and environmental ratings on the Good on You Directory, which evaluates brands based on their impact on people, the planet, and animals.</p>
+    <a href="https://directory.goodonyou.eco/" target="_blank" rel="noopener">directory.goodonyou.eco &mdash; Good on You Directory</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Sustainable Afterlife</h3>
+    <p>A typical pair of conventional sneakers generates about 13.6 kg of greenhouse gas emissions during its lifecycle. Making any sustainable choice is a step towards more conscious consumption.</p>
+    <a href="https://www.sgs.com/en-nz/news/2024/01/cc-q4-2023-what-the-environmental-footprint-of-your-shoe" target="_blank" rel="noopener">sgs.com &mdash; What is the Environmental Footprint of Your Shoe?</a>
+
+    <div class="sources-divider"></div>
+
+    <h3>Buy Local</h3>
+    <p>Buying locally benefits the environment primarily by slashing transportation emissions, reducing excessive packaging waste, and supporting your community. This shortens the supply chain, allowing communities to lower their overall ecological footprint.</p>
+    <a href="https://www.letzbarefoot.com/en/blog/post/sustainability-in-the-footwear-industry-how-barefoot-shoes-lead-the-way_20.html" target="_blank" rel="noopener">letzbarefoot.com &mdash; Sustainability in the Footwear Industry</a>
   </div>
 
   <div id="journey">
@@ -669,15 +800,11 @@ body {
           <div id="shippingText-info">
             <h3>Shipping</h3>
             <p>The entirety of the manufacturing process, which includes material sourcing, production, transportation, and packaging, pumps millions of tons of CO2 into the atmosphere every year. Most shoe companies use cheap labour, shipping from warehouses based primarily in China, Indonesia, and India and then often sent to the U.S. for global distribution. According to Airportwatch and a DEFRA report, two tonnes of freight carried 1,000km by container ship produces 30kg of CO2, 42kg by diesel train, and a staggering 4,138kg by air.</p>
-            <button id="shippingTextContinueBtn">Continue</button>
-            <p id="shippingTextSustainableLabel" style="margin-top:1.2rem;font-size:0.75rem;color:#fcf1ca;opacity:0;transition:opacity 0.3s ease;">or</p>
-            <button id="shippingTextSustainableBtn" style="margin-top:0.4rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:none;background:none;border:none;padding:0;display:block;width:100%;text-align:center;transition:color 0.2s ease;opacity:0;">Buy locally</button>
-          </div>
-
-          <div id="buy-locally-info">
-            <h3>Buy Local</h3>
-            <p>Buying locally benefits the environment primarily by slashing transportation emissions, reducing excessive packaging waste, and supporting your community. This shortens the supply chain, allowing communities to lower their overall ecological footprint while fostering transparent production practice. Global manufacturing hubs often lack strict environmental oversight. Purchasing from local or at least domestic companies, shops and brands can ensure better compliance with higher labor rights and safer, non-toxic production standards, heavily reducing carbon emissions due to less back-and-forth transit.</p>
-            <button id="buyLocallyContinueBtn">Continue</button>
+            <p style="margin-top:1.2rem;">
+              <button id="shippingTextContinueBtn" style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;background:none;border:none;padding:0;transition:color 0.2s ease;">Continue</button>
+              <span id="shippingTextSustainableLabel" style="font-size:0.75rem;color:#fcf1ca;margin:0 0.6rem;">or</span>
+              <button id="shippingTextSustainableBtn" style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;background:none;border:none;padding:0;transition:color 0.2s ease;">Continue sustainably</button>
+            </p>
           </div>
 
           <div id="reclaimed-info">
@@ -692,19 +819,19 @@ body {
 
           <!-- Labour rights image (manufacturing path) -->
           <img id="labourImg" src="labour.png" alt="Labour rights"
-               style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.6s ease;" />
+               style="position:absolute;bottom:8%;left:5vw;height:80%;width:auto;max-width:40vw;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.6s ease;" />
 
           <!-- Check image shown when Check labour rights is pressed from manufacturing path -->
           <img id="checkImg" src="check.png" alt="Check labour rights"
-               style="position:absolute;bottom:62%;left:63vw;height:30%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.6s ease;" />
+               style="position:absolute;bottom:62%;left:62vw;height:30%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.6s ease;" />
           <img id="localshopImg" src="localshop.png" alt="Local shop"
-               style="position:absolute;bottom:8%;left:55vw;height:50%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.6s ease;" />
+               style="position:absolute;bottom:8%;left:52vw;height:45%;width:auto;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:3;opacity:0;transition:opacity 0.6s ease;" />
 
-          <!-- Middle image for reclaimed → labour path -->
+          <!-- Middle image for reclaimed &#8594; labour path -->
           <img id="labourMidImg" src="labourmid.png" alt="Labour rights middle"
                style="position:absolute;bottom:8%;left:38vw;height:65%;width:auto;object-fit:contain;object-position:center bottom;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.6s ease;" />
 
-          <!-- Manufacturing diff image for reclaimed → manufacturing path -->
+          <!-- Manufacturing diff image for reclaimed &#8594; manufacturing path -->
           <img id="manufacturingDiffImg" src="manufacturingdiff.png" alt="Manufacturing alternative"
                style="position:absolute;bottom:7%;left:49vw;height:60%;width:40%;object-fit:contain;object-position:left bottom;pointer-events:none;z-index:2;opacity:0;transition:opacity 0.6s ease;" />
 
@@ -754,7 +881,7 @@ Heavily synthetic materials like foamed rubber soles and certain plastics can ta
 
           <div id="afterlife-sustainable-info">
             <h3>Afterlife</h3>
-            <p>Donating your old shoes is more than just a sustainable choice, it's an opportunity to make a positive impact on your community, stepping closer towards a circular economy. By extending the lifespan of your footwear, you reduce landfill waste, save money on frequent replacements, and help reduce initial physical discomfort. Secondhand shoes often encourage customisation, letting colour and imagination thrive.</p>
+            <p>Donating your old shoes is more than just a sustainable choice, it is an opportunity to make a positive impact on your community, stepping closer towards a circular economy. By extending the lifespan of your footwear, you reduce landfill waste, save money on frequent replacements, and help reduce initial physical discomfort. Secondhand shoes often encourage customisation, letting colour and imagination thrive.</p>
             <button id="afterlifeSustainableEndBtn">The End</button>
           </div>
 
@@ -774,81 +901,81 @@ Heavily synthetic materials like foamed rubber soles and certain plastics can ta
 
       </div>
 
-      <p id="scroll-nudge">scroll to continue →</p>
+      <p id="scroll-nudge">scroll to continue &#8594;</p>
     </div>
   </div>
 
-  <script>
+<script>
 var partData = {
   sole: {
     cards: [
-      { heading: 'Natural Rubber',   body: 'Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process.' },
-      { heading: 'Vulcanization',    body: 'These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization.' },
-      { heading: 'Synthetic Rubber', body: 'Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans.' }
+      { heading: "Natural Rubber",   body: "Natural Rubber is also a material sold as a more eco-friendly and sustainable choice. Though once again this is not entirely true. While pure natural rubber is biodegradable, the presence of additives in the rubber can complicate the biodegradation process." },
+      { heading: "Vulcanization",    body: "These additives are essential for making shoe soles. Many commercial natural rubber products contain various chemicals added to enhance properties such as elasticity, toughness and resistance to heat and chemicals, this process is called Vulcanization." },
+      { heading: "Synthetic Rubber", body: "Synthetic Rubber is still far more detrimental, its resistance to biodegradation is a significant environmental concern, leaching harmful chemicals into the soil and waterways, posing hazards to wildlife and contributing to the growing problem of micro plastics in the oceans." }
     ]
   },
   canvas: {
     cards: [
-      { heading: 'Materials',                  body: "Cotton is common in shoes, but often sold as an 'eco-friendly' fabric choice, compared with synthetic fibers & plastics, like polyester and nylon." },
-      { heading: 'Water Use',                  body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
-      { heading: 'Pesticides & Worker Health', body: 'Cotton accounts for <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">6% of the world\'s pesticide use</span> and <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.' }
+      { heading: "Materials",                  body: "Cotton is common in shoes, but often sold as an &lsquo;eco-friendly&rsquo; fabric choice, compared with synthetic fibers &amp; plastics, like polyester and nylon." },
+      { heading: "Water Use",                  body: 'Cotton canvas requires up to <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">125 litres of water per kilogram</span> of fibre, diverting water away from local communities and ecosystems. For example, the Aral Sea <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">lost 85% of its volume</span> due to decades of intensive cotton irrigation.' },
+      { heading: "Pesticides &amp; Worker Health", body: 'Cotton accounts for <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">6% of the world\'s pesticide use</span> and <span style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#8b90d9;">16% of all insecticides</span>, more than any other crop. Long-term pesticide exposure is linked to impaired memory, headaches, insomnia, infertility, embryo malformation, and increased cancer risk which workers are often not adequately protected against.' }
     ]
   },
   laces: {
     cards: [
-      { heading: 'Laces & Eyelets', body: 'More words and research and links to alternatives.' }
+      { heading: "Laces &amp; Eyelets", body: "More words and research and links to alternatives." }
     ]
   }
 };
 
-var DEPTH = ['fc-front','fc-behind-1','fc-behind-2','fc-behind-3','fc-hidden'];
+var DEPTH = ["fc-front","fc-behind-1","fc-behind-2","fc-behind-3","fc-hidden"];
 
-var modal          = document.getElementById('partModal');
-var backdrop       = document.getElementById('modalBackdrop');
-var closeBtn       = document.getElementById('modalClose');
-var stackWrap      = document.getElementById('cardStackWrap');
-var polaroid       = document.getElementById('aralPolaroid');
-var rubberPolaroid = document.getElementById('rubberPolaroid');
+var modal          = document.getElementById("partModal");
+var backdrop       = document.getElementById("modalBackdrop");
+var closeBtn       = document.getElementById("modalClose");
+var stackWrap      = document.getElementById("cardStackWrap");
+var polaroid       = document.getElementById("aralPolaroid");
+var rubberPolaroid = document.getElementById("rubberPolaroid");
 
-var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = '';
-var POLAROID_PART = 'canvas', POLAROID_INDEX = 1;
-var RUBBER_POLAROID_PART = 'sole', RUBBER_POLAROID_INDEX = 0;
+var allCards = [], totalCards = 0, dismissed = 0, busy = false, currentPartKey = "";
+var POLAROID_PART = "canvas", POLAROID_INDEX = 1;
+var RUBBER_POLAROID_PART = "sole", RUBBER_POLAROID_INDEX = 0;
 
 function depthClass(pos) { return DEPTH[Math.min(pos, DEPTH.length - 1)]; }
 
 function showPolaroid(el) {
-  el.style.display = 'block';
-  el.style.animation = 'none';
+  el.style.display = "block";
+  el.style.animation = "none";
   el.offsetHeight;
-  el.style.animation = '';
+  el.style.animation = "";
 }
 
 function updatePolaroid() {
   if (currentPartKey === POLAROID_PART && dismissed === POLAROID_INDEX) showPolaroid(polaroid);
-  else polaroid.style.display = 'none';
+  else polaroid.style.display = "none";
   if (currentPartKey === RUBBER_POLAROID_PART && dismissed === RUBBER_POLAROID_INDEX) showPolaroid(rubberPolaroid);
-  else rubberPolaroid.style.display = 'none';
+  else rubberPolaroid.style.display = "none";
 }
 
 function buildStack(data, partKey) {
   allCards = []; dismissed = 0; busy = false;
-  currentPartKey = partKey || '';
+  currentPartKey = partKey || "";
   totalCards = data.cards.length;
-  stackWrap.innerHTML = '';
-  stackWrap.style.height = '';
+  stackWrap.innerHTML = "";
+  stackWrap.style.height = "";
   data.cards.forEach(function(card, i) {
-    var el = document.createElement('div');
-    el.className = 'flashcard ' + depthClass(i);
-    el.style.cssText = 'position:absolute;top:0;left:0;width:100%;visibility:hidden;';
+    var el = document.createElement("div");
+    el.className = "flashcard " + depthClass(i);
+    el.style.cssText = "position:absolute;top:0;left:0;width:100%;visibility:hidden;";
     el.innerHTML = '<div class="card-heading">' + card.heading + '</div><div class="card-body">' + card.body + '</div>';
-    el.addEventListener('click', advance);
+    el.addEventListener("click", advance);
     stackWrap.appendChild(el);
     allCards.push(el);
   });
   var tallest = 0;
   allCards.forEach(function(el) { var h = el.offsetHeight; if (h > tallest) tallest = h; });
-  stackWrap.style.height = tallest + 'px';
-  allCards.forEach(function(el) { el.style.cssText = 'position:absolute;top:0;left:0;width:100%;'; });
+  stackWrap.style.height = tallest + "px";
+  allCards.forEach(function(el) { el.style.cssText = "position:absolute;top:0;left:0;width:100%;"; });
   updatePolaroid();
 }
 
@@ -857,12 +984,12 @@ function advance() {
   if (dismissed === totalCards - 1) {
     busy = true;
     var front = allCards[dismissed];
-    front.classList.remove('fc-front');
-    front.classList.add('flying-out');
+    front.classList.remove("fc-front");
+    front.classList.add("flying-out");
     setTimeout(function() {
       dismissed = 0;
       allCards.forEach(function(el, i) {
-        el.classList.remove('flying-out');
+        el.classList.remove("flying-out");
         DEPTH.forEach(function(c) { el.classList.remove(c); });
         el.classList.add(depthClass(i));
       });
@@ -872,51 +999,51 @@ function advance() {
   }
   busy = true;
   var front = allCards[dismissed];
-  front.classList.remove('fc-front');
-  front.classList.add('flying-out');
+  front.classList.remove("fc-front");
+  front.classList.add("flying-out");
   var pos = 0;
   for (var i = dismissed + 1; i < totalCards; i++) {
     DEPTH.forEach(function(c) { allCards[i].classList.remove(c); });
     allCards[i].classList.add(depthClass(pos++));
   }
   setTimeout(function() {
-    front.classList.remove('flying-out');
+    front.classList.remove("flying-out");
     DEPTH.forEach(function(c) { front.classList.remove(c); });
-    front.classList.add('fc-hidden');
+    front.classList.add("fc-hidden");
     dismissed++; busy = false; updatePolaroid();
   }, 390);
 }
 
 function openModal(data, partKey) {
   buildStack(data, partKey);
-  modal.style.display = 'block';
-  backdrop.style.display = 'block';
+  modal.style.display = "block";
+  backdrop.style.display = "block";
   modal.focus();
 }
 function closeModal() {
-  modal.style.display = 'none';
-  backdrop.style.display = 'none';
-  polaroid.style.display = 'none';
-  rubberPolaroid.style.display = 'none';
+  modal.style.display = "none";
+  backdrop.style.display = "none";
+  polaroid.style.display = "none";
+  rubberPolaroid.style.display = "none";
 }
 
-closeBtn.addEventListener('click', closeModal);
-backdrop.addEventListener('click', closeModal);
-document.addEventListener('keydown', function(e) {
-  if (modal.style.display !== 'block') return;
-  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); advance(); }
-  if (e.key === 'Escape') closeModal();
+closeBtn.addEventListener("click", closeModal);
+backdrop.addEventListener("click", closeModal);
+document.addEventListener("keydown", function(e) {
+  if (modal.style.display !== "block") return;
+  if (e.key === " " || e.key === "Enter") { e.preventDefault(); advance(); }
+  if (e.key === "Escape") closeModal();
 });
 
 /* ── canvas shoe ── */
-var shoeCanvas = document.getElementById('shoeCanvas');
+var shoeCanvas = document.getElementById("shoeCanvas");
 if (shoeCanvas) {
-  var ctx = shoeCanvas.getContext('2d');
+  var ctx = shoeCanvas.getContext("2d");
   var W = 0, H = 0, loadCount = 0;
   var layers = [
-    { src: 'shoesole.png',   part: 'sole'   },
-    { src: 'shoecanvas.png', part: 'canvas' },
-    { src: 'shoelaces.png',  part: 'laces'  }
+    { src: "shoesole.png",   part: "sole"   },
+    { src: "shoecanvas.png", part: "canvas" },
+    { src: "shoelaces.png",  part: "laces"  }
   ];
   function redraw() {
     ctx.clearRect(0, 0, W, H);
@@ -930,9 +1057,9 @@ if (shoeCanvas) {
         W = img.naturalWidth; H = img.naturalHeight;
         shoeCanvas.width = W; shoeCanvas.height = H;
       }
-      var off = document.createElement('canvas');
+      var off = document.createElement("canvas");
       off.width = W; off.height = H;
-      var oc = off.getContext('2d');
+      var oc = off.getContext("2d");
       oc.drawImage(img, 0, 0, W, H);
       layer.offCtx = oc;
       loadCount++;
@@ -952,67 +1079,89 @@ if (shoeCanvas) {
     }
     return null;
   }
-  shoeCanvas.addEventListener('click', function(e) {
+  shoeCanvas.addEventListener("click", function(e) {
     var hit = getHit(e);
     if (hit && partData[hit]) openModal(partData[hit], hit);
   });
-  shoeCanvas.addEventListener('mousemove', function(e) {
-    shoeCanvas.style.cursor = getHit(e) ? 'pointer' : 'default';
+  shoeCanvas.addEventListener("mousemove", function(e) {
+    shoeCanvas.style.cursor = getHit(e) ? "pointer" : "default";
   });
 }
 
 /* ── scene element refs ── */
-var makingInfo              = document.getElementById('making-info');
-var rubberTreesImg          = document.getElementById('rubberTreesImg');
-var makeshipImg             = document.getElementById('makeshipImg');
-var boatImg                 = document.getElementById('boatImg');
-var shippingImg             = document.getElementById('shippingImg');
-var useShoesImg             = document.getElementById('useShoesImg');
-var afterlifeImg            = document.getElementById('afterlifeImg');
-var btnGroup                = document.getElementById('btnGroup');
-var backBtn                 = document.getElementById('backBtn');
-var restartBtn              = document.getElementById('restartBtn');
-var shippingInfo            = document.getElementById('shipping-info');
-var shippingContinueBtn     = document.getElementById('shippingContinueBtn');
-var shippingTextInfo        = document.getElementById('shippingText-info');
-var shippingTextContinueBtn = document.getElementById('shippingTextContinueBtn');
-var reclaimedInfo           = document.getElementById('reclaimed-info');
-var labourInfo              = document.getElementById('labour-info');
-var labourImg               = document.getElementById('labourImg');
-var checkImg                = document.getElementById('checkImg');
-var labourMidImg            = document.getElementById('labourMidImg');
-var manufacturingDiffImg    = document.getElementById('manufacturingDiffImg');
-var labourTrigger           = document.getElementById('labourTrigger');
-var useInfo                 = document.getElementById('use-info');
-var useContinueBtn          = document.getElementById('useContinueBtn');
-var afterlifeInfo                = document.getElementById('afterlife-info');
-var afterlifeContinueBtn         = document.getElementById('afterlifeContinueBtn');
-var afterlifeSustainableInfo     = document.getElementById('afterlife-sustainable-info');
-var afterlifeSustainableEndBtn   = document.getElementById('afterlifeSustainableEndBtn');
-var useSustainableBtn            = document.getElementById('useSustainableBtn');
-var opshopImg                    = document.getElementById('opshopImg');
-var buyLocallyInfo           = document.getElementById('buy-locally-info');
-var buyLocallyContinueBtn    = document.getElementById('buyLocallyContinueBtn');
-var shippingTextSustainableBtn = document.getElementById('shippingTextSustainableBtn');
-var shippingTextSustainableLabel = document.getElementById('shippingTextSustainableLabel');
-var buyLocallyInfo           = document.getElementById('buy-locally-info');
-var buyLocallyContinueBtn    = document.getElementById('buyLocallyContinueBtn');
-var labourSustainableBtn     = document.getElementById('labourSustainableBtn');
-var localshopImg             = document.getElementById('localshopImg');
-var afterlifeBetterInfo      = document.getElementById('afterlife-better-info');
-var afterlifeBetterEndBtn    = document.getElementById('afterlifeBetterEndBtn');
-var afterlifeBetterImg       = document.getElementById('afterlifeBetterImg');
+var makingInfo              = document.getElementById("making-info");
+var rubberTreesImg          = document.getElementById("rubberTreesImg");
+var makeshipImg             = document.getElementById("makeshipImg");
+var boatImg                 = document.getElementById("boatImg");
+var shippingImg             = document.getElementById("shippingImg");
+var useShoesImg             = document.getElementById("useShoesImg");
+var afterlifeImg            = document.getElementById("afterlifeImg");
+var btnGroup                = document.getElementById("btnGroup");
+var backBtn                 = document.getElementById("backBtn");
+var restartBtn              = document.getElementById("restartBtn");
+var shippingInfo            = document.getElementById("shipping-info");
+var shippingContinueBtn     = document.getElementById("shippingContinueBtn");
+var shippingTextInfo        = document.getElementById("shippingText-info");
+var shippingTextContinueBtn = document.getElementById("shippingTextContinueBtn");
+var reclaimedInfo           = document.getElementById("reclaimed-info");
+var labourInfo              = document.getElementById("labour-info");
+var labourImg               = document.getElementById("labourImg");
+var checkImg                = document.getElementById("checkImg");
+var labourMidImg            = document.getElementById("labourMidImg");
+var manufacturingDiffImg    = document.getElementById("manufacturingDiffImg");
+var labourTrigger           = document.getElementById("labourTrigger");
+var useInfo                 = document.getElementById("use-info");
+var useContinueBtn          = document.getElementById("useContinueBtn");
+var afterlifeInfo                = document.getElementById("afterlife-info");
+var afterlifeContinueBtn         = document.getElementById("afterlifeContinueBtn");
+var afterlifeSustainableInfo     = document.getElementById("afterlife-sustainable-info");
+var afterlifeSustainableEndBtn   = document.getElementById("afterlifeSustainableEndBtn");
+var useSustainableBtn            = document.getElementById("useSustainableBtn");
+var opshopImg                    = document.getElementById("opshopImg");
+var buyLocallyInfo           = document.getElementById("buy-locally-info");
+var buyLocallyContinueBtn    = document.getElementById("buyLocallyContinueBtn");
+var shippingTextSustainableBtn = document.getElementById("shippingTextSustainableBtn");
+var shippingTextSustainableLabel = document.getElementById("shippingTextSustainableLabel");
+var labourSustainableBtn        = document.getElementById("labourSustainableBtn");
+var localshopImg             = document.getElementById("localshopImg");
+var afterlifeBetterInfo      = document.getElementById("afterlife-better-info");
+var afterlifeBetterEndBtn    = document.getElementById("afterlifeBetterEndBtn");
+var afterlifeBetterImg       = document.getElementById("afterlifeBetterImg");
 var makingChoice            = null;
 var manufacturingStep       = false;
-var sustainableChoice       = false;   /* true when user has taken any non-continue path */
+var sustainableChoice       = false;
 
 var stepHistory = [];
 
-function showBtnGroup() { btnGroup.style.display = 'flex'; }
-function hideBtnGroup() { btnGroup.style.display = 'none'; }
+function showBtnGroup() { btnGroup.style.display = "flex"; }
+function hideBtnGroup() { btnGroup.style.display = "none"; }
+
+/* ── Sources button + overlay ── */
+var sourcesBtn     = document.getElementById("sources-btn");
+var sourcesOverlay = document.getElementById("sources-overlay");
+var sourcesClose   = document.getElementById("sources-close");
+
+function showSourcesBtn() { if (sourcesBtn) sourcesBtn.classList.add("visible"); }
+function hideSourcesBtn() { if (sourcesBtn) sourcesBtn.classList.remove("visible"); }
+
+if (sourcesBtn) {
+  sourcesBtn.addEventListener("click", function() {
+    if (sourcesOverlay) sourcesOverlay.classList.add("open");
+  });
+}
+if (sourcesClose) {
+  sourcesClose.addEventListener("click", function() {
+    if (sourcesOverlay) sourcesOverlay.classList.remove("open");
+  });
+}
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape" && sourcesOverlay && sourcesOverlay.classList.contains("open")) {
+    sourcesOverlay.classList.remove("open");
+  }
+});
 
 /* ── Status tracker ── */
-var statusTracker = document.getElementById('status-tracker');
+var statusTracker = document.getElementById("status-tracker");
 var STATUS_TOTAL_STEPS = 5;
 var statusCurrentStep  = 0;
 
@@ -1022,63 +1171,61 @@ function setStatusStep(step) {
   var margin   = 16;
   var usableWidth = window.innerWidth - imgWidth - margin * 2;
   var leftPx = margin + (statusCurrentStep / STATUS_TOTAL_STEPS) * usableWidth;
-  statusTracker.style.left = leftPx + 'px';
+  statusTracker.style.left = leftPx + "px";
 }
 
 setStatusStep(0);
 
 function scrollToPanel(idx) {
-  var journey = document.getElementById('journey');
+  var journey = document.getElementById("journey");
   if (!journey) return;
   var journeyTop   = journey.getBoundingClientRect().top + window.scrollY;
   var journeyTotal = journey.offsetHeight - window.innerHeight;
-  window.scrollTo({ top: journeyTop + (idx / (PANEL_COUNT - 1)) * journeyTotal, behavior: 'smooth' });
+  window.scrollTo({ top: journeyTop + (idx / (PANEL_COUNT - 1)) * journeyTotal, behavior: "smooth" });
 }
 
 function scrollNudge(fraction) {
-  var journey = document.getElementById('journey');
+  var journey = document.getElementById("journey");
   if (!journey) return;
   var journeyTop    = journey.getBoundingClientRect().top + window.scrollY;
   var journeyTotal  = journey.offsetHeight - window.innerHeight;
   var nudgePx       = (fraction / (PANEL_COUNT - 1)) * journeyTotal;
   var currentOffset = Math.max(0, -journey.getBoundingClientRect().top);
-  window.scrollTo({ top: journeyTop + currentOffset + nudgePx, behavior: 'smooth' });
+  window.scrollTo({ top: journeyTop + currentOffset + nudgePx, behavior: "smooth" });
 }
 
 function resetMakingScene() {
   makingChoice      = null;
   manufacturingStep = false;
   stepHistory       = [];
-  if (makeshipImg)      makeshipImg.style.opacity      = '0';
-  if (boatImg)          boatImg.style.opacity          = '0';
-  if (shippingImg)      shippingImg.style.opacity      = '0';
-  if (useShoesImg)      useShoesImg.style.opacity      = '0';
-  if (afterlifeImg)     afterlifeImg.style.opacity     = '0';
-  if (opshopImg)        opshopImg.style.opacity        = '0';
-  if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity  = '0';
-  if (shippingInfo)     shippingInfo.classList.remove('visible');
-  if (shippingInfo)     shippingInfo.classList.remove('from-reclaimed');
-  if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-  if (reclaimedInfo)    reclaimedInfo.classList.remove('visible');
-  if (labourInfo)       labourInfo.classList.remove('visible');
-  if (labourInfo)       labourInfo.classList.remove('from-manufacturing', 'from-reclaimed', 'from-reclaimed-sustainable');
-  if (labourImg)        labourImg.style.opacity = '0';
-  if (checkImg)         { checkImg.style.opacity = '0'; checkImg.style.left = '63vw'; }
-  if (labourMidImg)     labourMidImg.style.opacity = '0';
-  if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = '0';
-  if (useInfo)          useInfo.classList.remove('visible');
-  if (afterlifeInfo)    afterlifeInfo.classList.remove('visible');
-  if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.remove('visible');
-  if (afterlifeBetterInfo)      afterlifeBetterInfo.classList.remove('visible');
-  if (buyLocallyInfo)           buyLocallyInfo.classList.remove('visible');
-  if (localshopImg)             localshopImg.style.opacity = '0';
-  if (buyLocallyInfo)           buyLocallyInfo.classList.remove('visible');
-  if (localshopImg)             localshopImg.style.opacity = '0';
-  if (shippingTextSustainableBtn)  { shippingTextSustainableBtn.style.opacity = '0'; shippingTextSustainableBtn.style.pointerEvents = 'none'; }
-  if (shippingTextSustainableLabel) shippingTextSustainableLabel.style.opacity = '0';
+  if (makeshipImg)      makeshipImg.style.opacity      = "0";
+  if (boatImg)          boatImg.style.opacity          = "0";
+  if (shippingImg)      shippingImg.style.opacity      = "0";
+  if (useShoesImg)      useShoesImg.style.opacity      = "0";
+  if (afterlifeImg)     afterlifeImg.style.opacity     = "0";
+  if (opshopImg)        opshopImg.style.opacity        = "0";
+  if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity  = "0";
+  if (shippingInfo)     shippingInfo.classList.remove("visible");
+  if (shippingInfo)     shippingInfo.classList.remove("from-reclaimed");
+  if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+  if (reclaimedInfo)    reclaimedInfo.classList.remove("visible");
+  if (labourInfo)       labourInfo.classList.remove("visible");
+  if (labourInfo)       labourInfo.classList.remove("from-manufacturing", "from-manufacturing-reclaimed", "from-reclaimed", "from-reclaimed-sustainable");
+  if (labourImg)        labourImg.style.opacity = "0";
+  if (checkImg)         { checkImg.style.opacity = "0"; checkImg.style.left = "63vw"; }
+  if (labourMidImg)     labourMidImg.style.opacity = "0";
+  if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = "0";
+  if (useInfo)          { useInfo.classList.remove("visible"); useInfo.classList.remove("from-buy-locally"); }
+  if (useShoesImg)      useShoesImg.style.left = "3vw";
+  if (afterlifeInfo)    afterlifeInfo.classList.remove("visible");
+  if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.remove("visible");
+  if (afterlifeBetterInfo)      afterlifeBetterInfo.classList.remove("visible");
+  if (buyLocallyInfo)           buyLocallyInfo.classList.remove("visible");
+  if (localshopImg)             localshopImg.style.opacity = "0";
   sustainableChoice = false;
-  if (rubberTreesImg)   rubberTreesImg.style.opacity   = '1';
-  if (makeshipImg)      makeshipImg.style.right        = '33%';
+  hideSourcesBtn();
+  if (rubberTreesImg)   rubberTreesImg.style.opacity   = "1";
+  if (makeshipImg)      makeshipImg.style.right        = "33%";
   hideBtnGroup();
   setStatusStep(0);
   scrollToPanel(0);
@@ -1094,30 +1241,30 @@ function goBack() {
 }
 
 function showShippingStep() {
-  var fromReclaimed = (makingChoice === 'reclaimed');
+  var fromReclaimed = (makingChoice === "reclaimed");
   pushStep(function() {
-    if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-    if (shippingImg)      shippingImg.style.opacity  = '0';
+    if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+    if (shippingImg)      shippingImg.style.opacity  = "0";
     if (fromReclaimed) {
-      if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = '1';
-      if (makeshipImg)          makeshipImg.style.opacity = '0';
-      if (shippingInfo)         { shippingInfo.classList.add('from-reclaimed'); shippingInfo.classList.add('visible'); }
+      if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = "1";
+      if (makeshipImg)          makeshipImg.style.opacity = "0";
+      if (shippingInfo)         { shippingInfo.classList.add("from-reclaimed"); shippingInfo.classList.add("visible"); }
     } else {
-      if (makeshipImg)      makeshipImg.style.opacity  = '1';
-      if (shippingInfo)     shippingInfo.classList.add('visible');
+      if (makeshipImg)      makeshipImg.style.opacity  = "1";
+      if (shippingInfo)     shippingInfo.classList.add("visible");
     }
-    makingChoice = fromReclaimed ? 'reclaimed' : 'continue';
+    makingChoice = fromReclaimed ? "reclaimed" : "continue";
     setStatusStep(1);
   });
-  if (shippingInfo)     shippingInfo.classList.remove('visible');
+  if (shippingInfo)     shippingInfo.classList.remove("visible");
   if (fromReclaimed) {
-    if (makeshipImg)          makeshipImg.style.opacity  = '0';
-    if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = '1';
+    if (makeshipImg)          makeshipImg.style.opacity  = "0";
+    if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = "1";
   } else {
-    if (makeshipImg)      makeshipImg.style.opacity  = '1';
+    if (makeshipImg)      makeshipImg.style.opacity  = "1";
   }
-  if (shippingImg)      shippingImg.style.opacity  = '1';
-  if (shippingTextInfo) shippingTextInfo.classList.add('visible');
+  if (shippingImg)      shippingImg.style.opacity  = "1";
+  if (shippingTextInfo) shippingTextInfo.classList.add("visible");
   manufacturingStep = false;
   scrollNudge(0.12);
   setStatusStep(2);
@@ -1125,20 +1272,20 @@ function showShippingStep() {
 
 function showUseStep() {
   pushStep(function() {
-    if (useInfo)          useInfo.classList.remove('visible');
-    if (useShoesImg)      useShoesImg.style.opacity  = '0';
-    if (shippingTextInfo) shippingTextInfo.classList.add('visible');
-    if (makeshipImg)      makeshipImg.style.opacity  = '1';
-    if (shippingImg)      shippingImg.style.opacity  = '1';
-    makingChoice = 'continue';
+    if (useInfo)          useInfo.classList.remove("visible");
+    if (useShoesImg)      useShoesImg.style.opacity  = "0";
+    if (shippingTextInfo) shippingTextInfo.classList.add("visible");
+    if (makeshipImg)      makeshipImg.style.opacity  = "1";
+    if (shippingImg)      shippingImg.style.opacity  = "1";
+    makingChoice = "continue";
     scrollToPanel(0);
     setStatusStep(2);
   });
-  if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
+  if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
   scrollToPanel(1);
   setTimeout(function() {
-    if (useShoesImg) useShoesImg.style.opacity = '1';
-    if (useInfo)     useInfo.classList.add('visible');
+    if (useShoesImg) useShoesImg.style.opacity = "1";
+    if (useInfo)     useInfo.classList.add("visible");
   }, 700);
   setStatusStep(3);
 }
@@ -1147,23 +1294,25 @@ function showAfterlifeStep() {
   var isBetter = sustainableChoice;
   pushStep(function() {
     if (isBetter) {
-      if (afterlifeBetterInfo) afterlifeBetterInfo.classList.remove('visible');
-      if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = '0';
+      if (afterlifeBetterInfo) afterlifeBetterInfo.classList.remove("visible");
+      if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = "0";
     } else {
-      if (afterlifeInfo) afterlifeInfo.classList.remove('visible');
-      if (afterlifeImg)  afterlifeImg.style.opacity = '0';
+      if (afterlifeInfo) afterlifeInfo.classList.remove("visible");
+      if (afterlifeImg)  afterlifeImg.style.opacity = "0";
     }
-    if (useInfo) useInfo.classList.add('visible');
+    hideSourcesBtn();
+    if (useInfo) useInfo.classList.add("visible");
     setStatusStep(3);
   });
-  if (useInfo) useInfo.classList.remove('visible');
+  if (useInfo) useInfo.classList.remove("visible");
   if (isBetter) {
-    if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = '1';
-    if (afterlifeBetterInfo) afterlifeBetterInfo.classList.add('visible');
+    if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = "1";
+    if (afterlifeBetterInfo) afterlifeBetterInfo.classList.add("visible");
   } else {
-    if (afterlifeImg)  afterlifeImg.style.opacity = '1';
-    if (afterlifeInfo) afterlifeInfo.classList.add('visible');
+    if (afterlifeImg)  afterlifeImg.style.opacity = "1";
+    if (afterlifeInfo) afterlifeInfo.classList.add("visible");
   }
+  showSourcesBtn();
   setStatusStep(4);
 }
 
@@ -1173,280 +1322,301 @@ function showEnd() {
     scrollToPanel(1);
     setTimeout(function() {
       if (isBetter) {
-        if (afterlifeBetterInfo) afterlifeBetterInfo.classList.add('visible');
-        if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = '1';
+        if (afterlifeBetterInfo) afterlifeBetterInfo.classList.add("visible");
+        if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = "1";
       } else {
-        if (afterlifeInfo) afterlifeInfo.classList.add('visible');
-        if (afterlifeImg)  afterlifeImg.style.opacity = '1';
+        if (afterlifeInfo) afterlifeInfo.classList.add("visible");
+        if (afterlifeImg)  afterlifeImg.style.opacity = "1";
       }
     }, 400);
     setStatusStep(4);
   });
-  if (afterlifeInfo)      afterlifeInfo.classList.remove('visible');
-  if (afterlifeImg)       afterlifeImg.style.opacity = '0';
-  if (afterlifeBetterInfo) afterlifeBetterInfo.classList.remove('visible');
-  if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = '0';
+  if (afterlifeInfo)      afterlifeInfo.classList.remove("visible");
+  if (afterlifeImg)       afterlifeImg.style.opacity = "0";
+  if (afterlifeBetterInfo) afterlifeBetterInfo.classList.remove("visible");
+  if (afterlifeBetterImg)  afterlifeBetterImg.style.opacity = "0";
   scrollToPanel(3);
   setStatusStep(5);
 }
 
 function showMakingScene(choice) {
   makingChoice = choice;
-  if (makingInfo) makingInfo.classList.remove('visible');
+  if (makingInfo) makingInfo.classList.remove("visible");
   showBtnGroup();
 
-  if (choice === 'continue') {
+  if (choice === "continue") {
     pushStep(function() {
       makingChoice = null;
       manufacturingStep = false;
-      if (makeshipImg)      makeshipImg.style.opacity  = '0';
-      if (shippingInfo)     shippingInfo.classList.remove('visible');
-      if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-      if (makingInfo)       makingInfo.classList.add('visible');
+      if (makeshipImg)      makeshipImg.style.opacity  = "0";
+      if (shippingInfo)     shippingInfo.classList.remove("visible");
+      if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+      if (makingInfo)       makingInfo.classList.add("visible");
       hideBtnGroup();
       setStatusStep(0);
     });
     manufacturingStep = true;
-    if (makeshipImg)      makeshipImg.style.opacity  = '1';
-    if (boatImg)          boatImg.style.opacity      = '0';
-    if (shippingImg)      shippingImg.style.opacity  = '0';
-    if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-    if (shippingInfo)     shippingInfo.classList.add('visible');
+    if (makeshipImg)      makeshipImg.style.opacity  = "1";
+    if (boatImg)          boatImg.style.opacity      = "0";
+    if (shippingImg)      shippingImg.style.opacity  = "0";
+    if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+    if (shippingInfo)     shippingInfo.classList.add("visible");
     scrollNudge(0.18);
     setStatusStep(1);
-  } else if (choice === 'reclaimed') {
+  } else if (choice === "reclaimed") {
     pushStep(function() {
       makingChoice = null;
-      if (boatImg)        boatImg.style.opacity       = '0';
-      if (reclaimedInfo)  reclaimedInfo.classList.remove('visible');
-      if (rubberTreesImg) rubberTreesImg.style.opacity = '1';
-      if (makingInfo)     makingInfo.classList.add('visible');
+      if (boatImg)        boatImg.style.opacity       = "0";
+      if (reclaimedInfo)  reclaimedInfo.classList.remove("visible");
+      if (rubberTreesImg) rubberTreesImg.style.opacity = "1";
+      if (makingInfo)     makingInfo.classList.add("visible");
       hideBtnGroup();
       setStatusStep(0);
     });
     manufacturingStep = false;
-    if (rubberTreesImg)   rubberTreesImg.style.opacity  = '0';
-    if (boatImg)          boatImg.style.opacity          = '1';
-    if (makeshipImg)      makeshipImg.style.opacity      = '0';
-    if (shippingImg)      shippingImg.style.opacity      = '0';
-    if (shippingInfo)     shippingInfo.classList.remove('visible');
-    if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-    if (reclaimedInfo)    reclaimedInfo.classList.add('visible');
+    if (rubberTreesImg)   rubberTreesImg.style.opacity  = "0";
+    if (boatImg)          boatImg.style.opacity          = "1";
+    if (makeshipImg)      makeshipImg.style.opacity      = "0";
+    if (shippingImg)      shippingImg.style.opacity      = "0";
+    if (shippingInfo)     shippingInfo.classList.remove("visible");
+    if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+    if (reclaimedInfo)    reclaimedInfo.classList.add("visible");
     sustainableChoice = true;
     setStatusStep(1);
   }
 }
 
 function showLabourStep() {
+  var fromReclaimed = (makingChoice === "reclaimed");
   pushStep(function() {
-    if (labourInfo) { labourInfo.classList.remove('visible'); labourInfo.classList.remove('from-manufacturing','from-reclaimed'); }
-    if (labourImg)  labourImg.style.opacity = '0';
-    if (checkImg)   checkImg.style.opacity  = '0';
-    if (shippingInfo) shippingInfo.classList.add('visible');
+    if (labourInfo) { labourInfo.classList.remove("visible"); labourInfo.classList.remove("from-manufacturing","from-manufacturing-reclaimed","from-reclaimed"); }
+    if (labourImg)  labourImg.style.opacity = "0";
+    if (checkImg)   checkImg.style.opacity  = "0";
+    if (shippingInfo) shippingInfo.classList.add("visible");
     setStatusStep(1);
   });
-  if (shippingInfo) shippingInfo.classList.remove('visible');
-  if (labourImg)    labourImg.style.opacity = '1';
-  if (checkImg)     checkImg.style.opacity  = '1';
-  labourInfo.classList.remove('from-reclaimed');
-  labourInfo.classList.add('from-manufacturing');
-  if (labourInfo)   labourInfo.classList.add('visible');
+  if (shippingInfo) shippingInfo.classList.remove("visible");
+  if (fromReclaimed) {
+    if (checkImg)   checkImg.style.opacity = "1";
+  } else {
+    if (labourImg)  labourImg.style.opacity = "1";
+    if (checkImg)   checkImg.style.opacity  = "1";
+  }
+  labourInfo.classList.remove("from-reclaimed");
+  labourInfo.classList.remove("from-manufacturing");
+  labourInfo.classList.remove("from-manufacturing-reclaimed");
+  if (fromReclaimed) {
+    labourInfo.classList.add("from-manufacturing-reclaimed");
+    scrollNudge(0.18);
+  } else {
+    labourInfo.classList.add("from-manufacturing");
+    scrollNudge(0.18);
+  }
+  if (labourInfo)   labourInfo.classList.add("visible");
   sustainableChoice = true;
   setStatusStep(2);
 }
 
 function showLabourContinueStep() {
-  /* Branch: reclaimed path goes to Use step; manufacturing path goes to Shipping */
-  if (makingChoice === 'reclaimed') {
+  if (makingChoice === "reclaimed") {
     pushStep(function() {
-      if (labourInfo) { labourInfo.classList.remove('visible'); labourInfo.classList.remove('from-manufacturing','from-reclaimed','from-reclaimed-sustainable'); }
-      if (labourImg)  labourImg.style.opacity = '0';
-      if (checkImg)   { checkImg.style.opacity = '0'; checkImg.style.left = '63vw'; }
-      if (boatImg)    boatImg.style.opacity   = '1';
-      if (reclaimedInfo) reclaimedInfo.classList.add('visible');
-      setStatusStep(1);
+      if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+      if (shippingImg)      shippingImg.style.opacity = "0";
+      if (checkImg)   { checkImg.style.left = "53vw"; checkImg.style.opacity = "1"; }
+      if (labourImg)  labourImg.style.opacity = "0";
+      labourInfo.classList.remove("from-manufacturing");
+      labourInfo.classList.remove("from-reclaimed");
+      labourInfo.classList.add("from-reclaimed-sustainable");
+      if (labourInfo) labourInfo.classList.add("visible");
+      setStatusStep(2);
     });
-    if (labourInfo) { labourInfo.classList.remove('visible'); labourInfo.classList.remove('from-manufacturing','from-reclaimed','from-reclaimed-sustainable'); }
-    if (labourImg)  labourImg.style.opacity = '0';
-    if (checkImg)   { checkImg.style.opacity = '0'; checkImg.style.left = '63vw'; }
-    /* Show shipping text with "Buy locally" sustainable option revealed */
-    if (shippingImg)      shippingImg.style.opacity = '1';
-    if (shippingTextInfo) shippingTextInfo.classList.add('visible');
-    if (shippingTextSustainableBtn)  { shippingTextSustainableBtn.style.opacity = '1'; shippingTextSustainableBtn.style.pointerEvents = 'auto'; }
-    if (shippingTextSustainableLabel) shippingTextSustainableLabel.style.opacity = '1';
+    if (labourInfo) { labourInfo.classList.remove("visible"); labourInfo.classList.remove("from-manufacturing","from-reclaimed","from-reclaimed-sustainable"); }
+    if (labourImg)  labourImg.style.opacity = "0";
+    if (checkImg)   { checkImg.style.opacity = "0"; checkImg.style.left = "63vw"; }
+    if (shippingImg)      shippingImg.style.opacity = "1";
+    if (shippingTextInfo) shippingTextInfo.classList.add("visible");
     scrollNudge(0.12);
     setStatusStep(2);
   } else {
     pushStep(function() {
-      if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-      if (shippingImg)      shippingImg.style.opacity = '0';
-      if (labourInfo)       labourInfo.classList.add('visible');
-      if (checkImg)         checkImg.style.opacity = '1';
+      if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+      if (shippingImg)      shippingImg.style.opacity = "0";
+      if (checkImg)         checkImg.style.opacity = "1";
+      if (labourInfo)       labourInfo.classList.add("visible");
       scrollToPanel(0);
       setStatusStep(2);
     });
-    if (labourInfo)       labourInfo.classList.remove('visible');
-    if (checkImg)         checkImg.style.opacity = '0';
-    if (shippingImg)      shippingImg.style.opacity = '1';
-    if (shippingTextInfo) shippingTextInfo.classList.add('visible');
+    if (labourInfo)       labourInfo.classList.remove("visible");
+    if (checkImg)         checkImg.style.opacity = "1";
+    if (shippingImg)      shippingImg.style.opacity = "1";
+    if (shippingTextInfo) shippingTextInfo.classList.add("visible");
     scrollNudge(0.12);
     setStatusStep(2);
   }
 }
 
-/* Reclaimed Continue (plain) → show manufacturingdiff.png beside the manufacturing box */
 function showReclaimedManufacturingStep() {
   pushStep(function() {
-    if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = '0';
-    if (shippingInfo)         { shippingInfo.classList.remove('visible'); shippingInfo.classList.remove('from-reclaimed'); }
-    if (makeshipImg)          makeshipImg.style.opacity = '0';
-    if (reclaimedInfo)        reclaimedInfo.classList.add('visible');
+    if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = "0";
+    if (shippingInfo)         { shippingInfo.classList.remove("visible"); shippingInfo.classList.remove("from-reclaimed"); }
+    if (makeshipImg)          makeshipImg.style.opacity = "0";
+    if (reclaimedInfo)        reclaimedInfo.classList.add("visible");
     setStatusStep(1);
   });
-  if (reclaimedInfo)        reclaimedInfo.classList.remove('visible');
-  if (makeshipImg)          makeshipImg.style.opacity = '0';
-  if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = '1';
-  if (shippingInfo)         { shippingInfo.classList.add('from-reclaimed'); shippingInfo.classList.add('visible'); }
+  if (reclaimedInfo)        reclaimedInfo.classList.remove("visible");
+  if (makeshipImg)          makeshipImg.style.opacity = "0";
+  if (manufacturingDiffImg) manufacturingDiffImg.style.opacity = "1";
+  if (shippingInfo)         { shippingInfo.classList.add("from-reclaimed"); shippingInfo.classList.add("visible"); }
   scrollNudge(0.18);
   setStatusStep(1);
 }
 
-/* FIX 2: Reclaimed → "Continue sustainably" → labour rights
-   The labour box sits at left:110vw (off-screen right).
-   scrollNudge(0.32) drives the horizontal scroll to bring it into view. */
 function showReclaimedContinueStep() {
   pushStep(function() {
-    if (labourInfo) { labourInfo.classList.remove('visible'); labourInfo.classList.remove('from-manufacturing','from-reclaimed','from-reclaimed-sustainable'); }
-    if (checkImg)   { checkImg.style.opacity = '0'; checkImg.style.left = '63vw'; }
-    if (labourImg)  labourImg.style.opacity = '0';
-    /* restore boatImg — it was already visible, just make sure */
-    if (boatImg)    boatImg.style.opacity = '1';
-    if (reclaimedInfo) reclaimedInfo.classList.add('visible');
+    if (labourInfo) { labourInfo.classList.remove("visible"); labourInfo.classList.remove("from-manufacturing","from-reclaimed","from-reclaimed-sustainable"); }
+    if (checkImg)   { checkImg.style.opacity = "0"; checkImg.style.left = "63vw"; }
+    if (labourImg)  labourImg.style.opacity = "0";
+    if (boatImg)    boatImg.style.opacity = "1";
+    if (reclaimedInfo) reclaimedInfo.classList.add("visible");
     setStatusStep(1);
   });
-  if (reclaimedInfo) reclaimedInfo.classList.remove('visible');
-  /* Keep boatImg visible — do NOT hide it */
-  /* Reposition checkImg to sit right of boatImg (~38vw) */
-  if (checkImg)   { checkImg.style.left = '53vw'; checkImg.style.opacity = '1'; }
-  /* Do NOT show labourImg (the book) — only checkImg appears on this path */
-  if (labourImg)  labourImg.style.opacity = '0';
-  labourInfo.classList.remove('from-manufacturing');
-  labourInfo.classList.remove('from-reclaimed');
-  labourInfo.classList.add('from-reclaimed-sustainable');
-  if (labourInfo) labourInfo.classList.add('visible');
+  if (reclaimedInfo) reclaimedInfo.classList.remove("visible");
+  if (checkImg)   { checkImg.style.left = "53vw"; checkImg.style.opacity = "1"; }
+  if (labourImg)  labourImg.style.opacity = "0";
+  labourInfo.classList.remove("from-manufacturing");
+  labourInfo.classList.remove("from-reclaimed");
+  labourInfo.classList.add("from-reclaimed-sustainable");
+  if (labourInfo) labourInfo.classList.add("visible");
   setStatusStep(2);
 }
+
 function showAfterlifeSustainableStep() {
   pushStep(function() {
-    if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.remove('visible');
-  if (afterlifeBetterInfo)      afterlifeBetterInfo.classList.remove('visible');
-  if (buyLocallyInfo)           buyLocallyInfo.classList.remove('visible');
-  if (localshopImg)             localshopImg.style.opacity = '0';
-  if (buyLocallyInfo)           buyLocallyInfo.classList.remove('visible');
-  if (localshopImg)             localshopImg.style.opacity = '0';
-  if (shippingTextSustainableBtn)  { shippingTextSustainableBtn.style.opacity = '0'; shippingTextSustainableBtn.style.pointerEvents = 'none'; }
-  if (shippingTextSustainableLabel) shippingTextSustainableLabel.style.opacity = '0';
-  sustainableChoice = false;
-    if (opshopImg)                opshopImg.style.opacity = '0';
-    if (useInfo)                  useInfo.classList.add('visible');
+    if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.remove("visible");
+    if (afterlifeBetterInfo)      afterlifeBetterInfo.classList.remove("visible");
+    if (buyLocallyInfo)           buyLocallyInfo.classList.remove("visible");
+    if (localshopImg)             localshopImg.style.opacity = "0";
+    sustainableChoice = false;
+    hideSourcesBtn();
+    if (opshopImg)                opshopImg.style.opacity = "0";
+    if (useInfo)                  useInfo.classList.add("visible");
     setStatusStep(3);
   });
-  if (useInfo)                  useInfo.classList.remove('visible');
-  if (opshopImg)                opshopImg.style.opacity = '1';
-  if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.add('visible');
+  if (useInfo)                  useInfo.classList.remove("visible");
+  if (opshopImg)                opshopImg.style.opacity = "1";
+  if (afterlifeSustainableInfo) afterlifeSustainableInfo.classList.add("visible");
   sustainableChoice = true;
+  showSourcesBtn();
   setStatusStep(4);
 }
 
-function showBuyLocallyStep() {
+function showBuyLocallyFromShippingStep() {
   pushStep(function() {
-    if (buyLocallyInfo)  buyLocallyInfo.classList.remove('visible');
-    if (shippingTextInfo) shippingTextInfo.classList.add('visible');
-    /* restore the sustainable button hidden state */
-    if (shippingTextSustainableBtn)  { shippingTextSustainableBtn.style.opacity = '0'; shippingTextSustainableBtn.style.pointerEvents = 'none'; }
-    if (shippingTextSustainableLabel) shippingTextSustainableLabel.style.opacity = '0';
+    if (buyLocallyInfo)  buyLocallyInfo.classList.remove("visible");
+    if (localshopImg)    localshopImg.style.opacity = "0";
+    if (shippingImg)     shippingImg.style.opacity = "1";
+    if (shippingTextInfo) shippingTextInfo.classList.add("visible");
     setStatusStep(2);
   });
-  if (shippingTextInfo) shippingTextInfo.classList.remove('visible');
-  if (buyLocallyInfo)   buyLocallyInfo.classList.add('visible');
-  setStatusStep(3);
-}
-
-function showBuyLocallyStep() {
-  pushStep(function() {
-    if (buyLocallyInfo) buyLocallyInfo.classList.remove('visible');
-    if (localshopImg)   localshopImg.style.opacity = '0';
-    if (labourInfo)     labourInfo.classList.add('visible');
-    setStatusStep(2);
-  });
-  if (labourInfo)     labourInfo.classList.remove('visible');
-  if (localshopImg)   localshopImg.style.opacity = '1';
-  if (buyLocallyInfo) buyLocallyInfo.classList.add('visible');
+  if (shippingTextInfo) shippingTextInfo.classList.remove("visible");
+  if (shippingImg)     shippingImg.style.opacity = "0";
+  if (localshopImg)    localshopImg.style.opacity = "1";
+  if (buyLocallyInfo)  buyLocallyInfo.classList.add("visible");
   scrollNudge(0.22);
   setStatusStep(3);
 }
 
-if (labourTrigger) {
-  labourTrigger.addEventListener('click', function(e) { e.stopPropagation(); showLabourStep(); });
+function showBuyLocallyStep() {
+  pushStep(function() {
+    if (buyLocallyInfo) buyLocallyInfo.classList.remove("visible");
+    if (localshopImg)   localshopImg.style.opacity = "0";
+    if (labourInfo)     labourInfo.classList.add("visible");
+    setStatusStep(2);
+  });
+  if (labourInfo)     labourInfo.classList.remove("visible");
+  if (localshopImg)   localshopImg.style.opacity = "1";
+  if (buyLocallyInfo) buyLocallyInfo.classList.add("visible");
+  scrollNudge(0.22);
+  setStatusStep(3);
 }
 
-var labourContinueBtn        = document.getElementById('labourContinueBtn');
-var reclaimedContinueBtn     = document.getElementById('reclaimedContinueBtn');
-var reclaimedManufacturingBtn = document.getElementById('reclaimedManufacturingBtn');
+function showUseFromBuyLocallyStep() {
+  pushStep(function() {
+    if (useInfo)     { useInfo.classList.remove("visible"); useInfo.classList.remove("from-buy-locally"); }
+    if (useShoesImg) { useShoesImg.style.opacity = "0"; useShoesImg.style.left = "3vw"; }
+    if (buyLocallyInfo) buyLocallyInfo.classList.add("visible");
+    if (localshopImg)   localshopImg.style.opacity = "1";
+    setStatusStep(3);
+  });
+  if (buyLocallyInfo) buyLocallyInfo.classList.remove("visible");
+  if (localshopImg)   localshopImg.style.opacity = "0";
+  scrollToPanel(1);
+  setTimeout(function() {
+    if (useShoesImg) { useShoesImg.style.left = "3vw"; useShoesImg.style.opacity = "1"; }
+    useInfo.classList.add("from-buy-locally");
+    if (useInfo) useInfo.classList.add("visible");
+  }, 700);
+  setStatusStep(3);
+}
+
+if (labourTrigger) {
+  labourTrigger.addEventListener("click", function(e) { e.stopPropagation(); showLabourStep(); });
+}
+
+var labourContinueBtn        = document.getElementById("labourContinueBtn");
+var reclaimedContinueBtn     = document.getElementById("reclaimedContinueBtn");
+var reclaimedManufacturingBtn = document.getElementById("reclaimedManufacturingBtn");
 
 if (labourContinueBtn) {
-  labourContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showLabourContinueStep(); });
+  labourContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showLabourContinueStep(); });
 }
 if (labourSustainableBtn) {
-  labourSustainableBtn.addEventListener('click', function(e) { e.stopPropagation(); showBuyLocallyStep(); });
+  labourSustainableBtn.addEventListener("click", function(e) { e.stopPropagation(); showBuyLocallyStep(); });
 }
 if (buyLocallyContinueBtn) {
-  buyLocallyContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showLabourContinueStep(); });
+  buyLocallyContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showUseFromBuyLocallyStep(); });
 }
 if (reclaimedContinueBtn) {
-  reclaimedContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showReclaimedContinueStep(); });
+  reclaimedContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showReclaimedContinueStep(); });
 }
 if (reclaimedManufacturingBtn) {
-  reclaimedManufacturingBtn.addEventListener('click', function(e) { e.stopPropagation(); showReclaimedManufacturingStep(); });
+  reclaimedManufacturingBtn.addEventListener("click", function(e) { e.stopPropagation(); showReclaimedManufacturingStep(); });
 }
 if (shippingContinueBtn) {
-  shippingContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showShippingStep(); });
+  shippingContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showShippingStep(); });
 }
 if (shippingTextContinueBtn) {
-  shippingTextContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showUseStep(); });
+  shippingTextContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showUseStep(); });
 }
 if (shippingTextSustainableBtn) {
-  shippingTextSustainableBtn.addEventListener('click', function(e) { e.stopPropagation(); showBuyLocallyStep(); });
-}
-if (buyLocallyContinueBtn) {
-  buyLocallyContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showUseStep(); });
+  shippingTextSustainableBtn.addEventListener("click", function(e) { e.stopPropagation(); showBuyLocallyFromShippingStep(); });
 }
 if (useContinueBtn) {
-  useContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showAfterlifeStep(); });
+  useContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showAfterlifeStep(); });
 }
 if (afterlifeContinueBtn) {
-  afterlifeContinueBtn.addEventListener('click', function(e) { e.stopPropagation(); showEnd(); });
+  afterlifeContinueBtn.addEventListener("click", function(e) { e.stopPropagation(); showEnd(); });
 }
 if (useSustainableBtn) {
-  useSustainableBtn.addEventListener('click', function(e) { e.stopPropagation(); showAfterlifeSustainableStep(); });
+  useSustainableBtn.addEventListener("click", function(e) { e.stopPropagation(); showAfterlifeSustainableStep(); });
 }
 if (afterlifeSustainableEndBtn) {
-  afterlifeSustainableEndBtn.addEventListener('click', function(e) { e.stopPropagation(); showEnd(); });
+  afterlifeSustainableEndBtn.addEventListener("click", function(e) { e.stopPropagation(); showEnd(); });
 }
 if (afterlifeBetterEndBtn) {
-  afterlifeBetterEndBtn.addEventListener('click', function(e) { e.stopPropagation(); showEnd(); });
+  afterlifeBetterEndBtn.addEventListener("click", function(e) { e.stopPropagation(); showEnd(); });
 }
 if (backBtn) {
-  backBtn.addEventListener('click', function() { goBack(); });
+  backBtn.addEventListener("click", function() { goBack(); });
 }
 if (restartBtn) {
-  restartBtn.addEventListener('click', function() { resetMakingScene(); });
+  restartBtn.addEventListener("click", function() { resetMakingScene(); });
 }
 
 /* ── scroll logic ── */
-var journey    = document.getElementById('journey');
-var track      = document.getElementById('journey-track');
-var nudge      = document.getElementById('scroll-nudge');
+var journey    = document.getElementById("journey");
+var track      = document.getElementById("journey-track");
+var nudge      = document.getElementById("scroll-nudge");
 var PANEL_COUNT = 4, LERP = 0.08;
 var currentX = 0, targetX = 0, nudgeHidden = false;
 
@@ -1473,36 +1643,36 @@ function enforceScrollLock() {
   if (!isInsideJourney()) return;
   var limit = getLockedScrollTop();
   if (window.scrollY > limit) {
-    window.scrollTo({ top: limit, behavior: 'instant' });
+    window.scrollTo({ top: limit, behavior: "instant" });
   }
 }
 
-window.addEventListener('wheel', function(e) {
+window.addEventListener("wheel", function(e) {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
   if (e.deltaY > 0) {
     e.preventDefault();
-    window.scrollTo({ top: getLockedScrollTop(), behavior: 'instant' });
+    window.scrollTo({ top: getLockedScrollTop(), behavior: "instant" });
   }
 }, { passive: false });
 
 var touchStartY = 0;
-window.addEventListener('touchstart', function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
-window.addEventListener('touchmove', function(e) {
+window.addEventListener("touchstart", function(e) { touchStartY = e.touches[0].clientY; }, { passive: true });
+window.addEventListener("touchmove", function(e) {
   if (makingChoice !== null) return;
   if (!isInsideJourney()) return;
   var dy = touchStartY - e.touches[0].clientY;
   if (dy > 0) {
     e.preventDefault();
-    window.scrollTo({ top: getLockedScrollTop(), behavior: 'instant' });
+    window.scrollTo({ top: getLockedScrollTop(), behavior: "instant" });
   }
 }, { passive: false });
 
 function updateInfoBox() {
   if (makingChoice === null && makingInfo) {
-    makingInfo.classList.toggle('visible', isInsideJourney());
+    makingInfo.classList.toggle("visible", isInsideJourney());
   } else if (makingChoice !== null && makingInfo) {
-    makingInfo.classList.remove('visible');
+    makingInfo.classList.remove("visible");
   }
 }
 
@@ -1515,48 +1685,49 @@ function tick() {
   targetX  = p * (PANEL_COUNT - 1) * window.innerWidth;
   currentX = lerp(currentX, targetX, LERP);
   if (Math.abs(currentX - targetX) < 0.3) currentX = targetX;
-  if (track) track.style.transform = 'translateX(-' + currentX + 'px)';
+  if (track) track.style.transform = "translateX(-" + currentX + "px)";
 
-  if (!nudgeHidden && rawP > 0.001) { nudgeHidden = true; if (nudge) nudge.classList.add('hide'); }
+  if (!nudgeHidden && rawP > 0.001) { nudgeHidden = true; if (nudge) nudge.classList.add("hide"); }
   updateInfoBox();
   requestAnimationFrame(tick);
 }
 if (journey && track) requestAnimationFrame(tick);
 
-var reclaimedTrigger = document.getElementById('reclaimedTrigger');
-var makingInfoBox    = document.getElementById('making-info');
+var reclaimedTrigger = document.getElementById("reclaimedTrigger");
+var makingInfoBox    = document.getElementById("making-info");
 
-var makingContinueTrigger = document.createElement('p');
-makingContinueTrigger.id = 'continueTrigger';
-makingContinueTrigger.style.cssText = 'margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;transition:color 0.2s ease;';
-makingContinueTrigger.textContent = 'Continue';
-makingContinueTrigger.addEventListener('mouseover', function() { this.style.color = '#ffffff'; });
-makingContinueTrigger.addEventListener('mouseout',  function() { this.style.color = '#eebc1c'; });
-makingContinueTrigger.addEventListener('click', function(e) {
+var makingContinueTrigger = document.createElement("p");
+makingContinueTrigger.id = "continueTrigger";
+makingContinueTrigger.style.cssText = "margin-top:1.2rem;font-family:var(--font-display);font-size:1rem;font-weight:700;color:#eebc1c;line-height:1.3;cursor:pointer;pointer-events:auto;transition:color 0.2s ease;";
+makingContinueTrigger.textContent = "Continue";
+makingContinueTrigger.addEventListener("mouseover", function() { this.style.color = "#ffffff"; });
+makingContinueTrigger.addEventListener("mouseout",  function() { this.style.color = "#eebc1c"; });
+makingContinueTrigger.addEventListener("click", function(e) {
   e.stopPropagation();
-  showMakingScene('continue');
+  showMakingScene("continue");
 });
-var skipLabel = makingInfoBox ? makingInfoBox.querySelector('p[style*="0.7rem"]') : null;
+var skipLabel = makingInfoBox ? makingInfoBox.querySelector("p[style*='0.7rem']") : null;
 if (skipLabel) makingInfoBox.insertBefore(makingContinueTrigger, skipLabel);
 
 if (reclaimedTrigger) {
-  reclaimedTrigger.addEventListener('click', function(e) {
+  reclaimedTrigger.addEventListener("click", function(e) {
     e.stopPropagation();
-    showMakingScene('reclaimed');
+    showMakingScene("reclaimed");
   });
 }
 if (makingInfoBox) {
-  makingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
+  makingInfoBox.addEventListener("click", function(e) { e.stopPropagation(); });
 }
-var shippingInfoBox = document.getElementById('shipping-info');
+var shippingInfoBox = document.getElementById("shipping-info");
 if (shippingInfoBox) {
-  shippingInfoBox.addEventListener('click', function(e) { e.stopPropagation(); });
+  shippingInfoBox.addEventListener("click", function(e) { e.stopPropagation(); });
 }
 
-window.addEventListener('resize', function() {
+window.addEventListener("resize", function() {
   setStatusStep(statusCurrentStep);
 });
-  </script>
+
+</script>
 
 </body>
 </html>

@@ -49,3 +49,17 @@ ____
 _________
 
 Show map of choices in here
+____
+Back now goes back exactly one step at a time using a history stack. Each time you press Continue or make a choice, the previous state is saved.
+____
+It got a bit more difficult when keeping track and editing the paths even if theyre only miniture, I hadn't created enough separation between them and they would often lay out images and text leaving space for image and words not present in this 'choice path'.
+____
+i wanted the images to be layer out next to each other as you ake choices but not the text as that much text would be overwehleming and take away from the feeling of choice and progression. I left the images as i still want a visual reminder of each step the user goes through to get the where they are so they can better understand the impact through this as well as reading through the text boxes.
+____
+The 'sustainable choice' thing starts false then gets set to true when the user takes any of these paths:
+
+"Buy recycled or bio rubber" (reclaimed path) or
+"Check labour rights" (from manufacturing) or 
+"Continue sustainably" on the Use box (opshop path). 
+
+To give a different 'ending' that better incompases making multi sustainable choices. It also reflects better what happens if earlier on you make sustainable choices rather then right at the end (the op shop ending vs minimising waste and impact ending)
