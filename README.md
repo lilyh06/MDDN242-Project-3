@@ -9,9 +9,13 @@ ____________________________________________________
 
 [Poster](HagenLily_dsdn221_p1_poster.pdf)
 
-### Sketches
+###Sketches
 
-[Sketches](sketches.png)
+[Sketchbook Pages](sketches.png)
+
+###Choices
+
+[All Choices/Pathways](choices_map.pdf)
 
 ___________________________________________________
 ### May 14th Criteria
